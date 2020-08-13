@@ -48,11 +48,47 @@ export default defineConfig({
           authority: ['admin', 'user'],
           routes: [
             {
-              path: '/collections',
-              name: 'collections',
+              path: '/anki',
+              name: 'anki',
+              component: '/anki',
+              routes: [
+                {
+                  name: 'collections',
+                  path: '/anki/collections',
+                  component: './anki/collections',
+                  exact: true,
+                },
+                {
+                  name: 'collection',
+                  path: '/anki/:collection',
+                  component: './anki/collection',
+                  exact: true,
+                },
+                {
+                  name: 'card',
+                  path: '/anki/:collection/:card',
+                  component: './anki',
+                  exact: true,
+                },
+                {
+                  path: '/anki',
+                  redirect: '/anki/collections',
+                },
+                {
+                  component: '404',
+                },
+              ],
             },
             {
-              path: '/collection/',
+              path: '/standby',
+              name: 'standby',
+            },
+            {
+              path: '/',
+              redirect: '/anki/collections',
+            },
+            {
+              component: '404',
             },
           ],
         },
