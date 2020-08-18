@@ -26,6 +26,8 @@ export interface ConnectState {
   login: StateType;
 }
 
+export type Settings = SettingModelState;
+
 export interface Route extends MenuDataItem {
   routes?: Route[];
 }

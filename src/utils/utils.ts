@@ -23,3 +23,16 @@ export const getRouteAuthority = (path: string, routeData: Route[]) => {
   });
   return authorities;
 };
+
+export const getAuthorityFromRouter = <T extends Route>(
+  router: T[] = [],
+  pathname: string,
+): T | undefined => {
+  const authority = router.find(
+    ({ routes, path = '/' }) =>
+      (path && pathToRegexp(path).exec(pathname)) ||
+      (routes && getAuthorityFromRouter(routes, pathname)),
+  );
+  if (authority) return authority;
+  return undefined;
+};

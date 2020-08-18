@@ -2,6 +2,7 @@ import React from 'react';
 import { CURRENT } from './renderAuthorize';
 
 import PromiseRender from './PromiseRender';
+import GetAuthorityPromiseRender from './GetAuthorityPromiseRender';
 
 export type IAuthorityType =
   | undefined
@@ -84,8 +85,17 @@ function check<T, K>(
   authority: IAuthorityType,
   target: T,
   Exception: K,
-): T | K | React.ReactNode {
-  return checkPermissions<T, K>(authority, CURRENT, target, Exception);
+): React.ReactNode {
+  return (
+    <GetAuthorityPromiseRender<T, K>
+      authority={authority}
+      target={target}
+      exception={Exception}
+      current={CURRENT}
+    />
+  );
+
+  //return checkPermissions<T, K>(authority, CURRENT, target, Exception);
 }
 
 export default check;

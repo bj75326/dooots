@@ -67,7 +67,7 @@ export default defineConfig({
                 {
                   name: 'card',
                   path: '/anki/:collection/:card',
-                  component: './anki',
+                  component: './anki/card',
                   exact: true,
                 },
                 {

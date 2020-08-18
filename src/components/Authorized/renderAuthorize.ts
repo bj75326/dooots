@@ -1,11 +1,11 @@
-let CURRENT: string | string[] = 'NULL';
+let CURRENT: string | string[] | Promise<string | string[]> = 'NULL';
 
-type CurrentAuthorityType = string | string[] | (() => typeof CURRENT);
+type CurrentAuthorityType =
+  | string
+  | string[]
+  | Promise<string | string[]>
+  | (() => typeof CURRENT);
 
-/**
- * use authority or getAuthority
- * @param {string|()=>string}
- */
 const renderAuthorize = <T>(
   Authorized: T,
 ): ((currentAuthority: CurrentAuthorityType) => T) => (
@@ -20,6 +20,17 @@ const renderAuthorize = <T>(
       Array.isArray(currentAuthority)
     ) {
       CURRENT = currentAuthority as string[];
+    }
+    if (currentAuthority instanceof Promise) {
+      currentAuthority
+        .then((authority: string | string[]) => {
+          CURRENT = authority;
+        })
+        .catch(err => {
+          CURRENT = 'ERROR';
+          throw new Error(err);
+        });
+      CURRENT = currentAuthority as Promise<string | string[]>;
     }
   } else {
     CURRENT = 'NULL';
