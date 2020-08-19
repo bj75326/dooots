@@ -4,7 +4,14 @@ export default defineConfig({
   dva: {
     hmr: true,
   },
-
+  locale: {
+    default: 'zh-CN',
+    antd: true,
+    baseNavigator: true,
+  },
+  request: {
+    dataField: '',
+  },
   nodeModulesTransform: {
     type: 'none',
   },
@@ -50,7 +57,9 @@ export default defineConfig({
             {
               path: '/anki',
               name: 'anki',
-              component: '/anki',
+              component: './anki',
+              hideChildrenInMenu: true,
+              hideInBreadcrumb: true,
               routes: [
                 {
                   name: 'collections',

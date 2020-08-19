@@ -74,14 +74,10 @@ const BasicLayout: React.FC<BasicLayoutProps> = props => {
     <>
       <ProLayout
         logo={logo}
+        title="dooots"
         formatMessage={formatMessage}
         layout="topmenu"
-        menuHeaderRender={(logoDom, titleDom) => (
-          <Link to="/">
-            {logoDom}
-            {titleDom}
-          </Link>
-        )}
+        menuHeaderRender={logoDom => <Link to="/">{logoDom}</Link>}
         menuItemRender={(menuItemProps, defaultDom) => {
           if (
             menuItemProps.isUrl ||
@@ -92,6 +88,7 @@ const BasicLayout: React.FC<BasicLayoutProps> = props => {
           }
           return <Link to={menuItemProps.path}>{defaultDom}</Link>;
         }}
+        pageTitleRender={false}
         {...props}
         {...settings}
       >
