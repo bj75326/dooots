@@ -12,6 +12,7 @@ export default defineConfig({
   request: {
     dataField: '',
   },
+  theme: {},
   nodeModulesTransform: {
     type: 'none',
   },
