@@ -77,6 +77,7 @@ const BasicLayout: React.FC<BasicLayoutProps> = props => {
         title="dooots"
         formatMessage={formatMessage}
         layout="topmenu"
+        navTheme="light"
         menuHeaderRender={logoDom => <Link to="/">{logoDom}</Link>}
         menuItemRender={(menuItemProps, defaultDom) => {
           if (
@@ -91,6 +92,7 @@ const BasicLayout: React.FC<BasicLayoutProps> = props => {
         pageTitleRender={false}
         {...props}
         {...settings}
+        disableMobile={true}
       >
         <Authorized authority={authorized!.authority} noMatch={noMatch}>
           {children}

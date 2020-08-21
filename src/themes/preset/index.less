@@ -1,0 +1,69 @@
+@import '../skins/default.less';
+
+html,
+body,
+#root {
+  height: 100%;
+}
+
+.colorWeak {
+  filter: invert(80%);
+}
+
+.ant-layout {
+  min-height: 100vh;
+}
+
+body {
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+ul,
+ol {
+  list-style: none;
+}
+
+header.ant-layout-header {
+  height: 60px;
+  line-height: 60px;
+  background-color: @header-background-color;
+}
+
+div.ant-pro-top-nav-header {
+  height: 60px;
+  box-shadow: none;
+  .ant-menu-submenu.ant-menu-submenu-horizontal {
+    height: 100%;
+    line-height: 60px;
+  }
+}
+
+div.ant-pro-top-nav-header-main {
+  height: 60px;
+  padding: 0 58px;
+}
+
+div.ant-pro-top-nav-header-logo {
+  height: 60px;
+  line-height: 60px;
+  img {
+    padding-left: 20px;
+    height: 36px;
+  }
+}
+
+div.ant-pro-top-nav-header-menu {
+  .ant-menu.ant-menu-horizontal {
+    height: 60px;
+    line-height: 60px;
+  }
+}
+
+.ant-menu-horizontal {
+  & > .ant-menu-item,
+  & > .ant-menu-item-selected {
+    border-bottom: 0px;
+  }
+}
