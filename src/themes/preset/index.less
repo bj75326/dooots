@@ -61,9 +61,27 @@ div.ant-pro-top-nav-header-menu {
   }
 }
 
-.ant-menu-horizontal {
+ul.ant-menu-horizontal {
   & > .ant-menu-item,
+  & > .ant-menu-item:hover,
   & > .ant-menu-item-selected {
     border-bottom: 0px;
+    a:after {
+      content: '';
+      position: absolute;
+      bottom: 1px;
+      background-color: transparent;
+      border-radius: 1px;
+      left: -2px;
+      right: -2px;
+      height: 2px;
+      transition: background 0.3s cubic-bezier(0.645, 0.045, 0.355, 1);
+    }
+  }
+  & > .ant-menu-item:hover,
+  & > .ant-menu-item-selected {
+    a:after {
+      background-color: @primary-color;
+    }
   }
 }

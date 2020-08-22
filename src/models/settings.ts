@@ -1,6 +1,25 @@
 import { Reducer } from 'umi';
 
-export interface SettingModelState {}
+export interface SettingModelState {
+  /**
+   * main theme
+   */
+  theme: 'light' | 'dark';
+  /**
+   * primary color
+   */
+  primaryColor: string;
+  /**
+   * colorWeak
+   */
+  colorWeak: boolean;
+}
+
+export const defaultSettings: SettingModelState = {
+  theme: 'light',
+  primaryColor: '#1890ff',
+  colorWeak: false,
+};
 
 export interface SettingModelType {
   namespace: 'settings';
@@ -10,9 +29,9 @@ export interface SettingModelType {
 
 const SettingModel: SettingModelType = {
   namespace: 'settings',
-  state: {},
+  state: defaultSettings,
   reducers: {
-    changeSetting(state, { payload }) {
+    changeSetting(state = defaultSettings, { payload }) {
       //todo
 
       return {
