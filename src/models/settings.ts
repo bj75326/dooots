@@ -13,12 +13,17 @@ export interface SettingModelState {
    * colorWeak
    */
   colorWeak: boolean;
+  /**
+   * fontSize
+   */
+  fontSize: number;
 }
 
 export const defaultSettings: SettingModelState = {
   theme: 'light',
   primaryColor: '#1890ff',
   colorWeak: false,
+  fontSize: 14,
 };
 
 export interface SettingModelType {

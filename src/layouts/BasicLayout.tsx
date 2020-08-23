@@ -12,6 +12,7 @@ import { Result, Button } from 'antd';
 import Authorized from '@/utils/Authorized';
 import { getAuthorityFromRouter } from '@/utils/utils';
 import logo from '@/assets/logo.svg';
+import RightContent from '@/components/GlobalHeader/RightContent';
 
 const noMatch = (
   <Result
@@ -90,9 +91,10 @@ const BasicLayout: React.FC<BasicLayoutProps> = props => {
           return <Link to={menuItemProps.path}>{defaultDom}</Link>;
         }}
         pageTitleRender={false}
+        disableMobile={true}
+        rightContentRender={() => <RightContent />}
         {...props}
         {...settings}
-        disableMobile={true}
       >
         <Authorized authority={authorized!.authority} noMatch={noMatch}>
           {children}
