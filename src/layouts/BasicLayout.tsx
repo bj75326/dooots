@@ -78,7 +78,7 @@ const BasicLayout: React.FC<BasicLayoutProps> = props => {
         title="dooots"
         formatMessage={formatMessage}
         layout="topmenu"
-        navTheme="light"
+        navTheme={settings.theme}
         menuHeaderRender={logoDom => <Link to="/">{logoDom}</Link>}
         menuItemRender={(menuItemProps, defaultDom) => {
           if (
