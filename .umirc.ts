@@ -1,6 +1,7 @@
 import { defineConfig } from 'umi';
 
 export default defineConfig({
+  hash: true,
   antd: {},
   dva: {
     hmr: true,
@@ -14,6 +15,7 @@ export default defineConfig({
     dataField: '',
   },
   theme: {},
+  ignoreMomentLocale: true,
   nodeModulesTransform: {
     type: 'none',
   },

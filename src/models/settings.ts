@@ -29,15 +29,42 @@ export const defaultSettings: SettingModelState = {
 export interface SettingModelType {
   namespace: 'settings';
   state: SettingModelState;
-  reducers: {};
+  reducers: {
+    changeSetting: Reducer<SettingModelState>;
+  };
 }
+
+const changeTheme = (theme: 'light' | 'dark') => {
+  let styleLink = document.getElementById('theme-style');
+  let body = document.getElementsByTagName('body')[0];
+  if (styleLink) {
+    if (theme === 'dark') {
+      styleLink.href = '/theme/dark.css';
+    } else {
+      styleLink.href = '';
+    }
+  } else {
+    styleLink = document.createElement('link');
+    styleLink.type = 'text/css';
+    styleLink.rel = 'stylesheet';
+    styleLink.id = 'theme-style';
+    if (theme === 'dark') {
+      styleLink.href = '/theme/dark.css';
+    } else {
+      styleLink.href = '';
+    }
+    document.body.append(styleLink);
+  }
+};
 
 const SettingModel: SettingModelType = {
   namespace: 'settings',
   state: defaultSettings,
   reducers: {
     changeSetting(state = defaultSettings, { payload }) {
-      //todo
+      const { theme } = payload;
+
+      changeTheme(theme);
 
       return {
         ...state,

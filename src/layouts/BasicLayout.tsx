@@ -78,7 +78,7 @@ const BasicLayout: React.FC<BasicLayoutProps> = props => {
         title="dooots"
         formatMessage={formatMessage}
         layout="topmenu"
-        navTheme={settings.theme}
+        navTheme="light"
         menuHeaderRender={logoDom => <Link to="/">{logoDom}</Link>}
         menuItemRender={(menuItemProps, defaultDom) => {
           if (
@@ -100,6 +100,23 @@ const BasicLayout: React.FC<BasicLayoutProps> = props => {
           {children}
         </Authorized>
       </ProLayout>
+      <Button
+        onClick={() => {
+          dispatch({
+            type: 'settings/changeSetting',
+            payload: {
+              theme: settings.theme === 'dark' ? 'light' : 'dark',
+            },
+          });
+        }}
+        style={{
+          position: 'fixed',
+          top: '200px',
+          left: '200px',
+        }}
+      >
+        Setting Theme
+      </Button>
     </>
   );
 };
