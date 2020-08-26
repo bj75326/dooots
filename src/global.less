@@ -1,1 +1,118 @@
-@import './themes/index.less';
+@import '~antd/es/style/themes/default.less';
+
+html,
+body,
+#root {
+  height: 100%;
+}
+
+.colorWeak {
+  filter: invert(80%);
+}
+
+.ant-layout {
+  min-height: 100vh;
+}
+
+body {
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+ul,
+ol {
+  list-style: none;
+}
+
+// theme global variables
+body {
+  --primary-color: @primary-color;
+}
+
+.body-wrap-dark {
+  --primary-color: #177ddc;
+}
+
+.body-wrap-star {
+  --primary-color: #ffad1f;
+}
+
+.body-wrap-dark-star {
+  --primary-color: #ffad1f;
+}
+
+// umi@3 下 global.less对antd组件的样式覆盖有失效bug，暂时用css优先级fix
+header.ant-layout-header {
+  height: 60px;
+  line-height: 60px;
+}
+
+div.ant-pro-top-nav-header {
+  height: 60px;
+  box-shadow: none;
+  .ant-menu-submenu.ant-menu-submenu-horizontal {
+    height: 100%;
+    line-height: 60px;
+  }
+}
+
+div.ant-pro-top-nav-header-main {
+  height: 60px;
+  padding: 0 58px;
+}
+
+div.ant-pro-top-nav-header-logo {
+  height: 60px;
+  line-height: 60px;
+  img {
+    padding-left: 20px;
+    height: 36px;
+  }
+}
+
+div.ant-pro-top-nav-header-menu {
+  .ant-menu.ant-menu-horizontal {
+    height: 60px;
+    line-height: 60px;
+  }
+}
+
+ul.ant-menu-horizontal {
+  & > .ant-menu-item,
+  & > .ant-menu-item:hover,
+  & > .ant-menu-item-selected {
+    border-bottom: 0px;
+    a:after {
+      content: '';
+      position: absolute;
+      bottom: 1px;
+      background-color: transparent;
+      border-radius: 1px;
+      left: -2px;
+      right: -2px;
+      height: 2px;
+      transition: background 0.3s cubic-bezier(0.645, 0.045, 0.355, 1);
+    }
+  }
+  & > .ant-menu-item:hover,
+  & > .ant-menu-item-selected {
+    a:after {
+      background-color: var(--primary-color);
+    }
+  }
+}
+
+ul.ant-menu.ant-menu-dark .ant-menu-item-selected {
+  background-color: transparent;
+}
+
+ul.ant-menu-dark.ant-menu-horizontal > .ant-menu-item {
+  padding: 0;
+  margin: 0 20px;
+  top: 1px;
+}
+
+ul.ant-menu.ant-menu-dark {
+  //	background-color: #1f1f1f;
+}
