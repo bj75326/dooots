@@ -111,11 +111,29 @@ const BasicLayout: React.FC<BasicLayoutProps> = props => {
         }}
         style={{
           position: 'fixed',
-          top: '200px',
-          left: '200px',
+          top: '300px',
+          left: '300px',
         }}
       >
         Setting Theme
+      </Button>
+      <Button
+        onClick={() => {
+          dispatch({
+            type: 'settings/changeSetting',
+            payload: {
+              primaryColor:
+                settings.primaryColor === 'default' ? 'star' : 'default',
+            },
+          });
+        }}
+        style={{
+          position: 'fixed',
+          top: '300px',
+          left: '500px',
+        }}
+      >
+        Setting Color
       </Button>
     </>
   );

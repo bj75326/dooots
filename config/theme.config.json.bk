@@ -1,0 +1,84 @@
+{
+  "theme": [
+    {
+      "theme": "dark",
+      "fileName": "dark.css"
+    },
+    {
+      "fileName": "star.css",
+      "modifyVars": {
+        "@primary-color": "#FFAD1F"
+      }
+    },
+    {
+      "fileName": "blossom.css",
+      "modifyVars": {
+        "@primary-color": "#E0245E"
+      }
+    },
+    {
+      "fileName": "octopus.css",
+      "modifyVars": {
+        "@primary-color": "#794BC4"
+      }
+    },
+    {
+      "fileName": "fire.css",
+      "modifyVars": {
+        "@primary-color": "#F45D22"
+      }
+    },
+    {
+      "fileName": "avocado.css",
+      "modifyVars": {
+        "@primary-color": "#17BF63"
+      }
+    },
+
+    {
+      "fileName": "dark-star.css",
+      "theme": "dark",
+      "modifyVars": {
+        "@primary-color": "#FFAD1F"
+      }
+    },
+    {
+      "fileName": "dark-blossom.css",
+      "theme": "dark",
+      "modifyVars": {
+        "@primary-color": "#E0245E"
+      }
+    },
+    {
+      "fileName": "dark-octopus.css",
+      "theme": "dark",
+      "modifyVars": {
+        "@primary-color": "#794BC4"
+      }
+    },
+    {
+      "fileName": "dark-fire.css",
+      "theme": "dark",
+      "modifyVars": {
+        "@primary-color": "#F45D22"
+      }
+    },
+    {
+      "fileName": "dark-avocado.css",
+      "theme": "dark",
+      "modifyVars": {
+        "@primary-color": "#17BF63"
+      }
+    }
+  ],
+
+  "min": true,
+
+  "isModule": true,
+
+  "ignoreAntd": false,
+
+  "ignoreProLayout": false,
+
+  "cache": true
+}

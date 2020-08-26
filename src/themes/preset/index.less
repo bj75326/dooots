@@ -26,6 +26,24 @@ ol {
   list-style: none;
 }
 
+// theme global variables
+body {
+  --primary-color: @primary-color;
+}
+
+.body-wrap-dark {
+}
+
+.body-wrap-star {
+  --primary-color: #ffad1f;
+}
+
+.body-wrap-dark-star {
+  --primary-color: #ffad1f;
+}
+
+// umi@3 下 global.less对antd组件的样式覆盖有失效bug，暂时用css优先级fix
+
 header.ant-layout-header {
   height: 60px;
   line-height: 60px;
@@ -81,7 +99,7 @@ ul.ant-menu-horizontal {
   & > .ant-menu-item:hover,
   & > .ant-menu-item-selected {
     a:after {
-      background-color: @primary-color;
+      background-color: var(--primary-color);
     }
   }
 }

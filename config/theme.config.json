@@ -5,9 +5,17 @@
       "fileName": "dark.css"
     },
     {
-      "fileName": "mingQing.css",
+      "fileName": "star.css",
       "modifyVars": {
-        "@primary-color": "#13C2C2"
+        "@primary-color": "#FFAD1F"
+      }
+    },
+
+    {
+      "fileName": "dark-star.css",
+      "theme": "dark",
+      "modifyVars": {
+        "@primary-color": "#FFAD1F"
       }
     }
   ],
