@@ -1,4 +1,4 @@
-import { Reducer } from 'umi';
+import { Effect, Reducer, useDispatch } from 'umi';
 
 export interface SettingModelState {
   /**
@@ -29,6 +29,9 @@ export const defaultSettings: SettingModelState = {
 export interface SettingModelType {
   namespace: 'settings';
   state: SettingModelState;
+  effects: {
+    changeTheme: Effect;
+  };
   reducers: {
     changeSetting: Reducer<SettingModelState>;
   };
@@ -37,13 +40,22 @@ export interface SettingModelType {
 const changeTheme = ({ theme, primaryColor }: SettingModelState) => {
   let styleLink = document.getElementById('theme-style');
   let body = document.getElementsByTagName('body')[0];
+  /*
   if (!styleLink) {
     styleLink = document.createElement('link');
     styleLink.type = 'text/css';
     styleLink.rel = 'stylesheet';
     styleLink.id = 'theme-style';
     document.body.append(styleLink);
-  }
+  }*/
+
+  if (styleLink) document.body.removeChild(styleLink);
+
+  styleLink = document.createElement('link');
+  styleLink.type = 'text/css';
+  styleLink.rel = 'stylesheet';
+  styleLink.id = 'theme-style';
+  document.body.append(styleLink);
 
   if (theme === 'light') {
     if (primaryColor === 'default') {
@@ -86,11 +98,18 @@ const changeTheme = ({ theme, primaryColor }: SettingModelState) => {
       body.className = 'body-wrap-dark-avocado';
     }
   }
+
+  styleLink.onload = () => {
+    console.log('onload test');
+  };
 };
 
 const SettingModel: SettingModelType = {
   namespace: 'settings',
   state: defaultSettings,
+  effects: {
+    *changeTheme({ payload }, { call, put }) {},
+  },
   reducers: {
     changeSetting(state = defaultSettings, { payload }) {
       changeTheme({
