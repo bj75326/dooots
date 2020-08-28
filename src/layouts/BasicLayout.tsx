@@ -8,6 +8,7 @@ import ProLayout, {
 import React, { useEffect } from 'react';
 import { Link, useIntl, connect, Dispatch } from 'umi';
 import { ConnectState, Settings } from '@/models/connect';
+import { changeTheme } from '@/models/settings';
 import { Result, Button } from 'antd';
 import Authorized from '@/utils/Authorized';
 import { getAuthorityFromRouter } from '@/utils/utils';
@@ -102,12 +103,19 @@ const BasicLayout: React.FC<BasicLayoutProps> = props => {
       </ProLayout>
       <Button
         onClick={() => {
-          dispatch({
-            type: 'settings/changeSetting',
-            payload: {
+          // dispatch({
+          //   type: 'settings/changeSetting',
+          //   payload: {
+          //     theme: settings.theme === 'dark' ? 'light' : 'dark',
+          //   },
+          // });
+          changeTheme(
+            {
+              ...settings,
               theme: settings.theme === 'dark' ? 'light' : 'dark',
             },
-          });
+            dispatch,
+          );
         }}
         style={{
           position: 'fixed',
@@ -119,13 +127,21 @@ const BasicLayout: React.FC<BasicLayoutProps> = props => {
       </Button>
       <Button
         onClick={() => {
-          dispatch({
-            type: 'settings/changeSetting',
-            payload: {
+          // dispatch({
+          //   type: 'settings/changeSetting',
+          //   payload: {
+          //     primaryColor:
+          //       settings.primaryColor === 'default' ? 'star' : 'default',
+          //   },
+          // });
+          changeTheme(
+            {
+              ...settings,
               primaryColor:
                 settings.primaryColor === 'default' ? 'star' : 'default',
             },
-          });
+            dispatch,
+          );
         }}
         style={{
           position: 'fixed',

@@ -28,5 +28,5 @@
 
   "ignoreProLayout": false,
 
-  "cache": true
+  "cache": false
 }

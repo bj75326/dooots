@@ -1,4 +1,4 @@
-import { Effect, Reducer, useDispatch } from 'umi';
+import { Reducer, Dispatch } from 'umi';
 
 export interface SettingModelState {
   /**
@@ -29,17 +29,18 @@ export const defaultSettings: SettingModelState = {
 export interface SettingModelType {
   namespace: 'settings';
   state: SettingModelState;
-  effects: {
-    changeTheme: Effect;
-  };
   reducers: {
     changeSetting: Reducer<SettingModelState>;
   };
 }
 
-const changeTheme = ({ theme, primaryColor }: SettingModelState) => {
-  let styleLink = document.getElementById('theme-style');
+export const changeTheme = (
+  { theme, primaryColor }: SettingModelState,
+  dispatch: Dispatch,
+) => {
+  let styleLink: HTMLElement | null = document.getElementById('theme-style');
   let body = document.getElementsByTagName('body')[0];
+  let preStyleLink: HTMLElement | null = null;
   /*
   if (!styleLink) {
     styleLink = document.createElement('link');
@@ -49,7 +50,10 @@ const changeTheme = ({ theme, primaryColor }: SettingModelState) => {
     document.body.append(styleLink);
   }*/
 
-  if (styleLink) document.body.removeChild(styleLink);
+  if (styleLink) {
+    styleLink.id = 'pre-theme-style';
+    preStyleLink = styleLink;
+  }
 
   styleLink = document.createElement('link');
   styleLink.type = 'text/css';
@@ -99,23 +103,40 @@ const changeTheme = ({ theme, primaryColor }: SettingModelState) => {
     }
   }
 
-  styleLink.onload = () => {
-    console.log('onload test');
-  };
+  if (theme === 'light' && primaryColor === 'default') {
+    console.log('onload run');
+    if (preStyleLink) document.body.removeChild(preStyleLink);
+    dispatch({
+      type: 'settings/changeSetting',
+      payload: {
+        theme,
+        primaryColor,
+      },
+    });
+  } else {
+    styleLink.onload = () => {
+      console.log('onload test');
+      if (preStyleLink) document.body.removeChild(preStyleLink);
+      dispatch({
+        type: 'settings/changeSetting',
+        payload: {
+          theme,
+          primaryColor,
+        },
+      });
+    };
+  }
 };
 
 const SettingModel: SettingModelType = {
   namespace: 'settings',
   state: defaultSettings,
-  effects: {
-    *changeTheme({ payload }, { call, put }) {},
-  },
   reducers: {
     changeSetting(state = defaultSettings, { payload }) {
-      changeTheme({
-        ...state,
-        ...payload,
-      });
+      // changeTheme({
+      //   ...state,
+      //   ...payload,
+      // });
 
       return {
         ...state,
