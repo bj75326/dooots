@@ -1,5 +1,7 @@
 import { Subscription, Reducer, Effect } from 'umi';
 
+import { NoticeIconData } from '@/components/NoticeIcon';
+
 export interface GlobalModelState {}
 
 export interface GlobalModelType {

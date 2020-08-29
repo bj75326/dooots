@@ -1,5 +1,4 @@
 import { Tooltip, Avatar, Spin, Divider } from 'antd';
-import {} from '@ant-design/icons';
 import React from 'react';
 import { connect, ConnectProps } from 'umi';
 import { ConnectState } from '@/models/connect';
@@ -38,6 +37,7 @@ const GlobalHeaderRight: React.SFC<GlobalHeaderRightProps> = props => {
         style={{
           top: 0,
           height: '1.28em',
+          margin: '0 9px 0 20px',
           borderLeftColor: theme === 'dark' ? 'rgb(255 255 255 / 12%)' : '#ccc',
         }}
       />

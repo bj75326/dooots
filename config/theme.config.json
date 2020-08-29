@@ -3,20 +3,6 @@
     {
       "theme": "dark",
       "fileName": "dark.css"
-    },
-    {
-      "fileName": "star.css",
-      "modifyVars": {
-        "@primary-color": "#FFAD1F"
-      }
-    },
-
-    {
-      "fileName": "dark-star.css",
-      "theme": "dark",
-      "modifyVars": {
-        "@primary-color": "#FFAD1F"
-      }
     }
   ],
 

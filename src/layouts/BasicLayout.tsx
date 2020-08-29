@@ -115,6 +115,7 @@ const BasicLayout: React.FC<BasicLayoutProps> = props => {
               theme: settings.theme === 'dark' ? 'light' : 'dark',
             },
             dispatch,
+            formatMessage,
           );
         }}
         style={{
@@ -141,6 +142,7 @@ const BasicLayout: React.FC<BasicLayoutProps> = props => {
                 settings.primaryColor === 'default' ? 'star' : 'default',
             },
             dispatch,
+            formatMessage,
           );
         }}
         style={{

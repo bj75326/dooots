@@ -1,4 +1,5 @@
 import { Reducer, Dispatch } from 'umi';
+import { message } from 'antd';
 
 export interface SettingModelState {
   /**
@@ -37,18 +38,19 @@ export interface SettingModelType {
 export const changeTheme = (
   { theme, primaryColor }: SettingModelState,
   dispatch: Dispatch,
+  formatMessage: any,
 ) => {
+  let hide: any = () => null;
+  hide = message.loading(
+    formatMessage({
+      id: 'app.setting.loading',
+      defaultMessage: '正在加载主题',
+    }),
+  );
+
   let styleLink: HTMLElement | null = document.getElementById('theme-style');
   let body = document.getElementsByTagName('body')[0];
   let preStyleLink: HTMLElement | null = null;
-  /*
-  if (!styleLink) {
-    styleLink = document.createElement('link');
-    styleLink.type = 'text/css';
-    styleLink.rel = 'stylesheet';
-    styleLink.id = 'theme-style';
-    document.body.append(styleLink);
-  }*/
 
   if (styleLink) {
     styleLink.id = 'pre-theme-style';
@@ -59,7 +61,12 @@ export const changeTheme = (
   styleLink.type = 'text/css';
   styleLink.rel = 'stylesheet';
   styleLink.id = 'theme-style';
-  document.body.append(styleLink);
+  // document.body.append(styleLink);
+  if (document.body.append) {
+    document.body.append(styleLink);
+  } else {
+    document.body.appendChild(styleLink);
+  }
 
   if (theme === 'light') {
     if (primaryColor === 'default') {
@@ -104,7 +111,6 @@ export const changeTheme = (
   }
 
   if (theme === 'light' && primaryColor === 'default') {
-    console.log('onload run');
     if (preStyleLink) document.body.removeChild(preStyleLink);
     dispatch({
       type: 'settings/changeSetting',
@@ -113,9 +119,11 @@ export const changeTheme = (
         primaryColor,
       },
     });
+    setTimeout(() => {
+      hide();
+    });
   } else {
     styleLink.onload = () => {
-      console.log('onload test');
       if (preStyleLink) document.body.removeChild(preStyleLink);
       dispatch({
         type: 'settings/changeSetting',
@@ -123,6 +131,9 @@ export const changeTheme = (
           theme,
           primaryColor,
         },
+      });
+      setTimeout(() => {
+        hide();
       });
     };
   }
@@ -133,11 +144,6 @@ const SettingModel: SettingModelType = {
   state: defaultSettings,
   reducers: {
     changeSetting(state = defaultSettings, { payload }) {
-      // changeTheme({
-      //   ...state,
-      //   ...payload,
-      // });
-
       return {
         ...state,
         ...payload,
