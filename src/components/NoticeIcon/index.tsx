@@ -1,7 +1,12 @@
-import {} from '@ant-design/icons';
+import { BellOutlined } from '@ant-design/icons';
 import { Badge, Spin, Tabs } from 'antd';
 import React from 'react';
 import NoticeList, { NoticeIconTabProps } from './NoticeList';
+import useMergeValue from 'use-merge-value';
+import classNames from 'classnames';
+import HeaderDropdown from '../HeaderDropdown';
+
+import styles from './index.less';
 
 const { TabPane } = Tabs;
 
@@ -72,10 +77,55 @@ const NoticeIcon: React.FC<NoticeIconProps> & {
           msgCount > 0 ? `${title} (${msgCount})` : title;
         panes.push(
           <TabPane tab={tabTitle} key={tabKey}>
-            <NoticeList clearText={clearText} />
+            <NoticeList
+              clearText={clearText}
+              viewMoreText={viewMoreText}
+              data={list}
+              onClear={(): void => onClear && onClear(title, tabKey)}
+              onClick={(item): void =>
+                onItemClick && onItemClick(item, child.props)
+              }
+              onViewMore={(event): void =>
+                onViewMore && onViewMore(child.props, event)
+              }
+              showClear={showClear}
+              showViewMore={showViewMore}
+              title={title}
+              {...child.props}
+            />
           </TabPane>,
         );
       },
     );
+    return (
+      <Spin spinning={loading} delay={300}>
+        <Tabs className={styles.tabs} onChange={onTabChange}>
+          {panes}
+        </Tabs>
+      </Spin>
+    );
   };
+
+  const { className, count, bell } = props;
+
+  const [visible, setVisible] = useMergeValue<boolean>(false, {
+    value: props.popupVisible,
+    onChange: props.onPopupVisibleChange,
+  });
+
+  const noticeButtonClass = classNames(className, styles.noticeButton);
+  const notificationBox = getNotificationBox();
+  const NoticeBellIcon = bell || <BellOutlined className={styles.icon} />;
+  const trigger = (
+    <span className={classNames(noticeButtonClass, { opened: visible })}>
+      <Badge count={count} style={{}} className={styles.badge}>
+        {NoticeBellIcon}
+      </Badge>
+    </span>
+  );
+  if (!notificationBox) {
+    return trigger;
+  }
+
+  return <HeaderDropdown>{trigger}</HeaderDropdown>;
 };
