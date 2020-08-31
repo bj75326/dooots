@@ -127,5 +127,24 @@ const NoticeIcon: React.FC<NoticeIconProps> & {
     return trigger;
   }
 
-  return <HeaderDropdown>{trigger}</HeaderDropdown>;
+  return (
+    <HeaderDropdown
+      placement="bottomRight"
+      overlay={notificationBox}
+      overlayClassName={styles.popover}
+      trigger={['click']}
+      visible={visible}
+      onVisibleChange={setVisible}
+    >
+      {trigger}
+    </HeaderDropdown>
+  );
 };
+
+NoticeIcon.defaultProps = {
+  emptyImage: '',
+};
+
+NoticeIcon.Tab = NoticeList;
+
+export default NoticeIcon;
