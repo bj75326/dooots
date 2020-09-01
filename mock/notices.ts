@@ -15,7 +15,7 @@ const getNotices = (req: Request, res: Response) => {
       title: '记忆节点',
       description: '记忆卡片到达记忆节点未重新复习，已经逾期',
       extra: '已逾期 2 天',
-      status: 'urgent',
+      status: 'overdue',
       type: 'event',
     },
     {
@@ -23,7 +23,7 @@ const getNotices = (req: Request, res: Response) => {
       title: '记忆节点',
       description: '记忆卡片到达记忆节点未重新复习，已经逾期',
       extra: '已逾期 7 天',
-      status: 'urgent',
+      status: 'overdue',
       type: 'event',
     },
     {
@@ -45,4 +45,6 @@ const getNotices = (req: Request, res: Response) => {
   ]);
 };
 
-export default getNotices;
+export default {
+  'GET /api/notices': getNotices,
+};

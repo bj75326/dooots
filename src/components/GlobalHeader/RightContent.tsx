@@ -3,6 +3,7 @@ import React from 'react';
 import { connect, ConnectProps } from 'umi';
 import { ConnectState } from '@/models/connect';
 import { CurrentUser } from '@/models/user';
+import NoticeIconView from './NoticeIconView';
 
 import styles from './index.less';
 
@@ -41,6 +42,7 @@ const GlobalHeaderRight: React.SFC<GlobalHeaderRightProps> = props => {
           borderLeftColor: theme === 'dark' ? 'rgb(255 255 255 / 12%)' : '#ccc',
         }}
       />
+      <NoticeIconView />
     </div>
   );
 };
