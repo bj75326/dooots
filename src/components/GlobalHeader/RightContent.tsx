@@ -15,6 +15,8 @@ export interface GlobalHeaderRightProps extends Partial<ConnectProps> {
 }
 
 const GlobalHeaderRight: React.SFC<GlobalHeaderRightProps> = props => {
+  console.log('GlobalHeaderRight render');
+
   const { theme, currentUser } = props;
 
   let className = styles.right;
@@ -39,6 +41,7 @@ const GlobalHeaderRight: React.SFC<GlobalHeaderRightProps> = props => {
           top: 0,
           height: '1.28em',
           margin: '0 9px 0 20px',
+          //antd 4.0.0 divider doesn't support dark mode
           borderLeftColor: theme === 'dark' ? 'rgb(255 255 255 / 12%)' : '#ccc',
         }}
       />

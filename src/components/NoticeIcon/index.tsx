@@ -99,7 +99,7 @@ const NoticeIcon: React.FC<NoticeIconProps> & {
     );
     return (
       <Spin spinning={loading} delay={300}>
-        <Tabs className={styles.tabs} onChange={onTabChange}>
+        <Tabs onChange={onTabChange} centered>
           {panes}
         </Tabs>
       </Spin>
@@ -107,6 +107,7 @@ const NoticeIcon: React.FC<NoticeIconProps> & {
   };
 
   const { className, count, bell } = props;
+  console.log('count: ', count);
 
   const [visible, setVisible] = useMergeValue<boolean>(false, {
     value: props.popupVisible,

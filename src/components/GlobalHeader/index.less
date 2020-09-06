@@ -1,5 +1,7 @@
 @import '~antd/es/style/themes/default.less';
 
+@header-hover-bg: rgba(0, 0, 0, 0.025);
+
 .right {
   display: flex;
   float: right;
@@ -7,6 +9,21 @@
   margin-left: auto;
   overflow: hidden;
   align-items: center;
+
+  .action {
+    display: flex;
+    align-items: center;
+    height: 100%;
+    padding: 0 10px;
+    cursor: pointer;
+    transition: all 0.3s;
+    &:hover {
+      background: @header-hover-bg;
+    }
+    &:global(.opened) {
+      background: @header-hover-bg;
+    }
+  }
 }
 
 .avatar {

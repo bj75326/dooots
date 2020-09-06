@@ -110,6 +110,7 @@ class GlobalHeaderRight extends Component<GlobalHeaderRightProps> {
   };
 
   render() {
+    console.log('NoticeIconView render');
     const { currentUser, fetchingNotices, onNoticeVisibleChange } = this.props;
     const noticeData = this.getNoticeData();
     const unreadMsg = this.getUnreadData(noticeData);

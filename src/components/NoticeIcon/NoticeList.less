@@ -1,0 +1,76 @@
+@import '~antd/es/style/themes/default.less';
+
+.list {
+  max-height: 400px;
+  overflow: auto;
+  &::-webkit-scrollbar {
+    display: none;
+  }
+  .item {
+    padding: 12px 24px;
+    overflow: hidden;
+    cursor: pointer;
+    transition: all 0.3s;
+
+    .meta {
+      width: 100%;
+    }
+    .title {
+      margin-bottom: 8px;
+    }
+
+    .extra {
+      float: right;
+      margin-top: -1.5px;
+      margin-right: 0;
+      color: @text-color-secondary;
+      font-weight: normal;
+    }
+
+    .description {
+      font-size: @font-size-base - 2px;
+      line-height: @line-height-base;
+    }
+
+    .datetime {
+      margin-top: 4px;
+      font-size: @font-size-base - 2px;
+      line-height: @line-height-base;
+    }
+
+    &.read {
+      opacity: 0.4;
+    }
+    &:last-child {
+      border-bottom: 0;
+    }
+    &:hover {
+      background: @primary-1;
+    }
+  }
+}
+
+.bottomBar {
+  height: 46px;
+  color: @text-color;
+  line-height: 46px;
+  text-align: center;
+  border-top: 1px solid @border-color-split;
+  border-radius: 0 0 @border-radius-base @border-radius-base;
+  transition: all 0.3s;
+  div {
+    display: inline-block;
+    width: 50%;
+    cursor: pointer;
+    transition: all 0.3s;
+    user-select: none;
+
+    &:only-child {
+      width: 100%;
+    }
+
+    &:not(:only-child):last-child {
+      border-left: 1px solid @border-color-split;
+    }
+  }
+}
