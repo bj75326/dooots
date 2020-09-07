@@ -9,7 +9,7 @@ import React, { useEffect } from 'react';
 import { Link, useIntl, connect, Dispatch } from 'umi';
 import { ConnectState, Settings } from '@/models/connect';
 import { changeTheme } from '@/models/settings';
-import { Result, Button } from 'antd';
+import { Result, Button, Dropdown, Menu, Popover } from 'antd';
 import Authorized from '@/utils/Authorized';
 import { getAuthorityFromRouter } from '@/utils/utils';
 import logo from '@/assets/logo.svg';
@@ -44,6 +44,29 @@ export type BasicLayoutContext = { [K in 'location']: BasicLayoutProps[K] } & {
     [path: string]: MenuDataItem;
   };
 };
+
+const menu = (
+  <Menu>
+    <Menu.Item>
+      <a
+        target="_blank"
+        rel="noopener noreferrer"
+        href="http://www.alipay.com/"
+      >
+        1st menu item
+      </a>
+    </Menu.Item>
+    <Menu.Item>
+      <a
+        target="_blank"
+        rel="noopener noreferrer"
+        href="http://www.taobao.com/"
+      >
+        2nd menu item
+      </a>
+    </Menu.Item>
+  </Menu>
+);
 
 const BasicLayout: React.FC<BasicLayoutProps> = props => {
   const {
@@ -154,6 +177,36 @@ const BasicLayout: React.FC<BasicLayoutProps> = props => {
       >
         Setting Color
       </Button>
+      <Dropdown overlay={menu} trigger={['click']}>
+        <span
+          style={{
+            position: 'fixed',
+            top: '300px',
+            left: '700px',
+          }}
+        >
+          sd
+        </span>
+      </Dropdown>
+      <Popover
+        content={
+          <div>
+            <p>Content</p>
+            <p>Content</p>
+          </div>
+        }
+        title="Title"
+      >
+        <Button
+          style={{
+            position: 'fixed',
+            top: '300px',
+            left: '900px',
+          }}
+        >
+          Click
+        </Button>
+      </Popover>
     </>
   );
 };

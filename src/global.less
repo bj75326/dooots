@@ -42,27 +42,23 @@ ol {
   --primary-color: #ffad1f;
 }
 
-// umi@3 下 global.less对antd组件的样式覆盖有失效bug，暂时用css优先级fix
-header.ant-layout-header {
+//
+.ant-layout-header {
   height: 60px;
   line-height: 60px;
 }
 
-div.ant-pro-top-nav-header {
+.ant-pro-top-nav-header {
   height: 60px;
   box-shadow: none;
-  .ant-menu-submenu.ant-menu-submenu-horizontal {
-    height: 100%;
-    line-height: 60px;
-  }
 }
 
-div.ant-pro-top-nav-header-main {
+.ant-pro-top-nav-header-main {
   height: 60px;
   padding: 0 58px;
 }
 
-div.ant-pro-top-nav-header-logo {
+.ant-pro-top-nav-header-logo {
   height: 60px;
   line-height: 60px;
   img {
@@ -71,13 +67,13 @@ div.ant-pro-top-nav-header-logo {
   }
 }
 
-div.ant-pro-top-nav-header-menu {
+.ant-pro-top-nav-header-menu {
   .ant-menu.ant-menu-horizontal {
     height: 60px;
     line-height: 60px;
   }
 }
-
+/*
 ul.ant-menu-horizontal {
   & > .ant-menu-item,
   & > .ant-menu-item:hover,
@@ -103,6 +99,7 @@ ul.ant-menu-horizontal {
   }
 }
 
+
 ul.ant-menu.ant-menu-dark .ant-menu-item-selected {
   background-color: transparent;
 }
@@ -111,4 +108,51 @@ ul.ant-menu-dark.ant-menu-horizontal > .ant-menu-item {
   padding: 0;
   margin: 0 20px;
   top: 1px;
+}
+
+*/
+.ant-menu-horizontal:not(.ant-menu-dark) {
+  & > .ant-menu-item {
+    margin-top: 0;
+    top: 0;
+  }
+
+  & > .ant-menu-item,
+  & > .ant-menu-item:hover,
+  & > .ant-menu-item-selected,
+  & > .ant-menu-item-active {
+    border-bottom: 0px;
+    a:after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      background-color: transparent;
+      border-radius: 1px;
+      left: -2px;
+      right: -2px;
+      height: 2px;
+      transition: background 0.3s cubic-bezier(0.645, 0.045, 0.355, 1);
+    }
+  }
+  & > .ant-menu-item:hover,
+  & > .ant-menu-item-selected,
+  & > .ant-menu-item-active {
+    a:after {
+      background-color: var(--primary-color);
+    }
+  }
+}
+
+.ant-menu.ant-menu-dark .ant-menu-item-selected {
+  background-color: transparent;
+}
+
+.ant-menu-dark .ant-menu-item-selected {
+  color: var(--primary-color);
+}
+
+.ant-menu-dark .ant-menu-item-selected > a,
+.ant-menu-dark .ant-menu-item-selected > a:hover,
+.ant-menu-dark .ant-menu-item-selected > span > a:hover {
+  color: #fff;
 }
