@@ -107,7 +107,6 @@ const NoticeIcon: React.FC<NoticeIconProps> & {
   };
 
   const { className, count, bell } = props;
-  console.log('count: ', count);
 
   const [visible, setVisible] = useMergeValue<boolean>(false, {
     value: props.popupVisible,

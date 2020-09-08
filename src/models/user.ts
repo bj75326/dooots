@@ -52,7 +52,6 @@ const UserModel: UserModelType = {
 
   reducers: {
     saveCurrentUser(state = { currentUser: {} }, action) {
-      console.log('saveCurrentUser');
       return {
         ...state,
         currentUser: {
@@ -63,7 +62,6 @@ const UserModel: UserModelType = {
     },
 
     changeNotifyCount(state = { currentUser: {} }, action) {
-      console.log('action.payload.unreadCount: ', action.payload.unreadCount);
       return {
         ...state,
         currentUser: {

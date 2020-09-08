@@ -42,8 +42,8 @@ ol {
   --primary-color: #ffad1f;
 }
 
-//
-.ant-layout-header {
+// global.less优先级小于更新theme的css文件，暂时用选择器规则提高优先级
+header.ant-layout-header {
   height: 60px;
   line-height: 60px;
 }
@@ -73,45 +73,8 @@ ol {
     line-height: 60px;
   }
 }
-/*
-ul.ant-menu-horizontal {
-  & > .ant-menu-item,
-  & > .ant-menu-item:hover,
-  & > .ant-menu-item-selected {
-    border-bottom: 0px;
-    a:after {
-      content: '';
-      position: absolute;
-      bottom: 1px;
-      background-color: transparent;
-      border-radius: 1px;
-      left: -2px;
-      right: -2px;
-      height: 2px;
-      transition: background 0.3s cubic-bezier(0.645, 0.045, 0.355, 1);
-    }
-  }
-  & > .ant-menu-item:hover,
-  & > .ant-menu-item-selected {
-    a:after {
-      background-color: var(--primary-color);
-    }
-  }
-}
 
-
-ul.ant-menu.ant-menu-dark .ant-menu-item-selected {
-  background-color: transparent;
-}
-
-ul.ant-menu-dark.ant-menu-horizontal > .ant-menu-item {
-  padding: 0;
-  margin: 0 20px;
-  top: 1px;
-}
-
-*/
-.ant-menu-horizontal:not(.ant-menu-dark) {
+ul.ant-menu-horizontal:not(.ant-menu-dark) {
   & > .ant-menu-item {
     margin-top: 0;
     top: 0;
@@ -143,16 +106,54 @@ ul.ant-menu-dark.ant-menu-horizontal > .ant-menu-item {
   }
 }
 
-.ant-menu.ant-menu-dark .ant-menu-item-selected {
+ul.ant-menu.ant-menu-dark .ant-menu-item-selected {
   background-color: transparent;
 }
 
-.ant-menu-dark .ant-menu-item-selected {
+ul.ant-menu-dark.ant-menu-horizontal {
+  & > .ant-menu-item {
+    padding: 0;
+    margin: 0 20px;
+
+    &:hover {
+      background-color: transparent;
+    }
+  }
+
+  & > .ant-menu-item,
+  & > .ant-menu-item:hover,
+  & > .ant-menu-item-selected,
+  & > .ant-menu-item-active {
+    a:after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      background-color: transparent;
+      border-radius: 1px;
+      left: -2px;
+      right: -2px;
+      height: 2px;
+      transition: background 0.3s cubic-bezier(0.645, 0.045, 0.355, 1);
+    }
+  }
+  & > .ant-menu-item:hover,
+  & > .ant-menu-item-selected,
+  & > .ant-menu-item-active {
+    a:after {
+      background-color: var(--primary-color);
+    }
+  }
+}
+
+ul.ant-menu-dark .ant-menu-item-selected,
+ul.ant-menu-dark .ant-menu-item-selected > a,
+ul.ant-menu-dark .ant-menu-item-selected > a:hover {
   color: var(--primary-color);
 }
 
-.ant-menu-dark .ant-menu-item-selected > a,
-.ant-menu-dark .ant-menu-item-selected > a:hover,
-.ant-menu-dark .ant-menu-item-selected > span > a:hover {
-  color: #fff;
+ul.ant-menu-dark .ant-menu-item:hover,
+ul.ant-menu-dark .ant-menu-item-active,
+ul.ant-menu-dark .ant-menu-item:hover > a,
+ul.ant-menu-dark .ant-menu-item-active > a {
+  color: var(--primary-color);
 }

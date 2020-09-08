@@ -49,7 +49,6 @@ const GlobalModel: GlobalModelType = {
         (state: ConnectState) =>
           state.global.notices.filter(item => !item.read).length,
       );
-      console.log('unreadCount: ', unreadCount);
       yield put({
         type: 'user/changeNotifyCount',
         payload: {
