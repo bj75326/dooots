@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { connect, ConnectProps } from 'umi';
+import { connect, ConnectProps, formatMessage } from 'umi';
 import { Tag, message } from 'antd';
 import { ConnectState } from '@/models/connect';
 import { CurrentUser } from '@/models/user';
@@ -122,8 +122,8 @@ class GlobalHeaderRight extends Component<GlobalHeaderRightProps> {
           this.changeReadState(item as NoticeItem);
         }}
         loading={fetchingNotices}
-        clearText="清空"
-        viewMoreText="查看更多"
+        clearText={formatMessage({ id: 'component.noticeIcon.clear' })}
+        viewMoreText={formatMessage({ id: 'component.noticeIcon.view-more' })}
         onClear={this.handleNoticeClear}
         onPopupVisibleChange={onNoticeVisibleChange}
         onViewMore={() => message.info('click on view more')}
@@ -131,16 +131,20 @@ class GlobalHeaderRight extends Component<GlobalHeaderRightProps> {
       >
         <NoticeIcon.Tab
           tabKey="event"
-          title="待办"
-          emptyText="你已经完成所有待办事项"
+          title={formatMessage({ id: 'component.globalHeader.event' })}
+          emptyText={formatMessage({
+            id: 'component.globalHeader.event.empty',
+          })}
           count={unreadMsg.event}
           list={noticeData.event}
           showViewMore
         />
         <NoticeIcon.Tab
           tabKey="message"
-          title="消息"
-          emptyText="你已经读完所有消息"
+          title={formatMessage({ id: 'component.globalHeader.message' })}
+          emptyText={formatMessage({
+            id: 'component.globalHeader.message.empty',
+          })}
           count={unreadMsg.message}
           list={noticeData.message}
           showViewMore
