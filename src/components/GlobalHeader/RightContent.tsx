@@ -45,7 +45,7 @@ const GlobalHeaderRight: React.SFC<GlobalHeaderRightProps> = props => {
         }}
       />
       <NoticeIconView />
-      <SettingIconView />
+      <SettingIconView className={styles.action} />
     </div>
   );
 };
