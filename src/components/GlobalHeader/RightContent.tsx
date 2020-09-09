@@ -5,6 +5,7 @@ import { ConnectState } from '@/models/connect';
 import { CurrentUser } from '@/models/user';
 import NoticeIconView from './NoticeIconView';
 import SettingIconView from './SettingIconView';
+import LogoutIconView from './LogoutIconView';
 
 import styles from './index.less';
 
@@ -46,6 +47,7 @@ const GlobalHeaderRight: React.SFC<GlobalHeaderRightProps> = props => {
       />
       <NoticeIconView />
       <SettingIconView className={styles.action} />
+      <LogoutIconView className={styles.action} />
     </div>
   );
 };

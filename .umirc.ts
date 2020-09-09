@@ -14,7 +14,10 @@ export default defineConfig({
   request: {
     dataField: '',
   },
-  theme: {},
+  // theme 配置里的变量并不会在theme.config.json里的其他主题上生效！
+  theme: {
+    //'@text-color': 'rgba(0, 0, 0, 0.65)'
+  },
   ignoreMomentLocale: true,
   nodeModulesTransform: {
     type: 'none',

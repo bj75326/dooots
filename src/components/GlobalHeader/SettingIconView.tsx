@@ -20,20 +20,37 @@ const SettingIconView: React.FC<SettingIconViewProps> = props => {
   const settingButtonCls = classNames(className, styles.settingButton);
   const SettingIcon = icon || <SettingOutlined className={styles.icon} />;
 
+  const toggleModalVisible = (): void => {
+    setVisible(!visible);
+  };
+
+  const content = (
+    <div className={styles.content}>
+      <div className={styles.title}>
+        {formatMessage({ id: 'app.settings.title' })}
+      </div>
+      <div className={styles.body}></div>
+    </div>
+  );
+
   return (
     <>
       <span
         className={classNames(settingButtonCls, { opened: visible })}
-        onClick={() => {
-          setVisible(!visible);
-        }}
+        onClick={toggleModalVisible}
       >
         {SettingIcon}
       </span>
       <Modal
-        title={formatMessage({ id: 'app.settings.title' })}
+        //title={formatMessage({ id: 'app.settings.title' })}
         visible={visible}
-      ></Modal>
+        onCancel={toggleModalVisible}
+        footer={null}
+        wrapClassName={styles.modal}
+        closable={false}
+      >
+        {content}
+      </Modal>
     </>
   );
 };

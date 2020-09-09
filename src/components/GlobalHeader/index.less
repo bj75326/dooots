@@ -14,7 +14,7 @@
     display: flex;
     align-items: center;
     height: 100%;
-    padding: 0 10px;
+    padding: 0 12px;
     cursor: pointer;
     transition: all 0.3s;
     &:hover {
@@ -38,5 +38,15 @@
 }
 
 .icon {
-  font-size: 22px;
+  font-size: 24px;
+}
+
+.modal {
+  min-width: 600px;
+  :global(.ant-modal-content) {
+    border-radius: 15px;
+  }
+}
+
+.content {
 }

@@ -176,36 +176,6 @@ const BasicLayout: React.FC<BasicLayoutProps> = props => {
       >
         Setting Color
       </Button>
-      <Dropdown overlay={menu} trigger={['click']}>
-        <span
-          style={{
-            position: 'fixed',
-            top: '300px',
-            left: '700px',
-          }}
-        >
-          sd
-        </span>
-      </Dropdown>
-      <Popover
-        content={
-          <div>
-            <p>Content</p>
-            <p>Content</p>
-          </div>
-        }
-        title="Title"
-      >
-        <Button
-          style={{
-            position: 'fixed',
-            top: '300px',
-            left: '900px',
-          }}
-        >
-          Click
-        </Button>
-      </Popover>
     </>
   );
 };
