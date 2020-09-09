@@ -28,10 +28,13 @@ ol {
 // theme global variables
 :root {
   --primary-color: @primary-color;
+  --text-light-color: rgba(0, 0, 0, 0.65);
 }
 
 .body-wrap-dark {
   --primary-color: #177ddc;
+  // 在所有暗色主题中都需要添加该变量
+  --text-light-color: rgba(255, 255, 255, 0.85);
 }
 
 .body-wrap-star {
@@ -40,6 +43,7 @@ ol {
 
 .body-wrap-dark-star {
   --primary-color: #ffad1f;
+  --text-light-color: rgba(255, 255, 255, 0.85);
 }
 
 // global.less优先级小于更新theme的css文件，暂时用选择器规则提高优先级

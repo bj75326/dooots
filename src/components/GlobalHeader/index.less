@@ -42,11 +42,57 @@
 }
 
 .modal {
-  min-width: 600px;
-  :global(.ant-modal-content) {
+  display: flex;
+  width: 100vw;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  position: fixed;
+  :global(.ant-modal) {
+    overflow: hidden;
+    max-height: 90vh;
+    max-width: 80vw;
+    min-width: 900px;
+    margin: 0;
+    padding: 0;
+    top: 0;
     border-radius: 15px;
   }
 }
 
-.content {
+.title {
+  text-align: center;
+}
+
+.subtitle {
+  text-align: center;
+  color: var(--text-light-color);
+  font-size: @font-size-base - 1px;
+  margin-bottom: 17px;
+}
+
+.body {
+  display: flex;
+}
+
+.sample {
+  position: relative;
+  width: 450px;
+  padding: 10px 20px 0;
+  margin: 10px 0 0;
+  border-radius: 20px;
+  box-shadow: @shadow-1-down;
+
+  h4:before {
+    content: '○  ';
+  }
+  div:last-of-type {
+    width: 100%;
+    height: 20px;
+    z-index: 50;
+    pointer-events: none;
+    position: absolute;
+    bottom: 0;
+    background: linear-gradient(hsla(0, 0%, 100%, 0), #fff);
+  }
 }
