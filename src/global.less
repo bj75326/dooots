@@ -29,12 +29,16 @@ ol {
 :root {
   --primary-color: @primary-color;
   --text-light-color: rgba(0, 0, 0, 0.65);
+  --slider-rail-background-color: #e1e1e1;
+  --slider-dot-border-color: hsv(0, 0, 84%);
 }
 
 .body-wrap-dark {
   --primary-color: #177ddc;
   // 在所有暗色主题中都需要添加该变量
   --text-light-color: rgba(255, 255, 255, 0.85);
+  --slider-rail-background-color: #262626;
+  --slider-dot-border-color: hsv(0, 0, 84%);
 }
 
 .body-wrap-star {
@@ -43,7 +47,10 @@ ol {
 
 .body-wrap-dark-star {
   --primary-color: #ffad1f;
+
   --text-light-color: rgba(255, 255, 255, 0.85);
+  --slider-rail-background-color: #262626;
+  --slider-dot-border-color: hsv(0, 0, 84%);
 }
 
 // global.less优先级小于更新theme的css文件，暂时用选择器规则提高优先级
