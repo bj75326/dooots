@@ -173,3 +173,42 @@
     }
   }
 }
+
+.picker {
+  :global {
+    .ant-radio-group {
+      display: flex;
+      justify-content: space-around;
+    }
+    .ant-radio-button-wrapper {
+      padding: 0;
+      height: 36px;
+      border: 0;
+      margin-bottom: 4px;
+      background: transparent;
+      &:first-child {
+        border: 0;
+        border-radius: 0;
+      }
+    }
+    .ant-radio-button-wrapper-checked:not(.ant-radio-button-wrapper-disabled) {
+      background: transparent;
+    }
+  }
+}
+
+.colorGroup {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.colorLabel {
+  width: 36px;
+}
+
+.colorIcon {
+  img {
+    width: 16px;
+  }
+}
