@@ -5,12 +5,15 @@ import classNames from 'classnames';
 import { Modal, Slider, Radio } from 'antd';
 import { SettingOutlined } from '@ant-design/icons';
 import { fontSizeMarks as marks, colors } from '*/config/settingsConfig';
+import { SettingModelState, changeTheme } from '@/models/settings';
+import { CheckOutlined } from '@ant-design/icons';
 
 import styles from './index.less';
 
 export interface SettingIconViewProps extends Partial<ConnectProps> {
   className?: string;
   icon?: React.ReactNode;
+  settings: SettingModelState;
 }
 
 interface ColorRadioLabelProps {
@@ -38,7 +41,9 @@ const ColorRadioLabel: React.FC<ColorRadioLabelProps> = ({
 };
 
 const SettingIconView: React.FC<SettingIconViewProps> = props => {
-  const { className, icon } = props;
+  const { className, icon, settings } = props;
+
+  const { theme, primaryColor, colorWeak, fontSize } = settings;
 
   const [visible, setVisible] = useState(false);
 
@@ -85,15 +90,22 @@ const SettingIconView: React.FC<SettingIconViewProps> = props => {
             </div>
             <label>{formatMessage({ id: 'app.settings.color' })}</label>
             <div className={classNames(styles.picker, styles.formItem)}>
-              <Radio.Group>
+              <Radio.Group value={primaryColor}>
                 {colors.map((color: Color) => (
                   <div className={styles.colorGroup}>
-                    <Radio.Button key={color.name} value={color.name}>
+                    <Radio.Button
+                      key={color.name}
+                      value={color.name}
+                      onChange={}
+                    >
                       <ColorRadioLabel
                         className={styles.colorLabel}
                         fill={`${color.color}`}
                       />
                     </Radio.Button>
+                    {primaryColor === color.name && (
+                      <CheckOutlined className={styles.colorCheckout} />
+                    )}
                     <span className={styles.colorIcon}>
                       <img alt={color.name} src={color.icon} />
                     </span>
@@ -132,4 +144,6 @@ const SettingIconView: React.FC<SettingIconViewProps> = props => {
   );
 };
 
-export default connect(({ settings }: ConnectState) => ({}))(SettingIconView);
+export default connect(({ settings }: ConnectState) => ({
+  settings: settings,
+}))(SettingIconView);
