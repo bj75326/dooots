@@ -43,7 +43,7 @@ export const changeTheme = (
   let hide: any = () => null;
   hide = message.loading(
     formatMessage({
-      id: 'app.setting.loading',
+      id: 'app.settings.loading',
       defaultMessage: '正在加载主题',
     }),
   );

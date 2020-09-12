@@ -1,12 +1,17 @@
 import React, { useState } from 'react';
-import { connect, ConnectProps, formatMessage } from 'umi';
+import { connect, ConnectProps, formatMessage, Dispatch } from 'umi';
 import { ConnectState } from '@/models/connect';
 import classNames from 'classnames';
 import { Modal, Slider, Radio } from 'antd';
 import { SettingOutlined } from '@ant-design/icons';
-import { fontSizeMarks as marks, colors } from '*/config/settingsConfig';
+import {
+  fontSizeMarks as marks,
+  colors,
+  themes,
+} from '*/config/settingsConfig';
 import { SettingModelState, changeTheme } from '@/models/settings';
 import { CheckOutlined } from '@ant-design/icons';
+import { RadioChangeEvent } from '~/antd/es/radio';
 
 import styles from './index.less';
 
@@ -27,21 +32,24 @@ interface Color {
   icon: string;
 }
 
+interface Theme {
+  name: string;
+  value: string;
+}
+
 const ColorRadioLabel: React.FC<ColorRadioLabelProps> = ({
   className,
   fill,
-}) => {
-  return (
-    <svg viewBox="0 0 24 24" className={className} fill={fill}>
-      <g>
-        <path d="M12 22.75C6.072 22.75 1.25 17.928 1.25 12S6.072 1.25 12 1.25 22.75 6.072 22.75 12 17.928 22.75 12 22.75z"></path>
-      </g>
-    </svg>
-  );
-};
+}) => (
+  <svg viewBox="0 0 24 24" className={className} fill={fill}>
+    <g>
+      <path d="M12 22.75C6.072 22.75 1.25 17.928 1.25 12S6.072 1.25 12 1.25 22.75 6.072 22.75 12 17.928 22.75 12 22.75z"></path>
+    </g>
+  </svg>
+);
 
 const SettingIconView: React.FC<SettingIconViewProps> = props => {
-  const { className, icon, settings } = props;
+  const { className, icon, settings, dispatch } = props;
 
   const { theme, primaryColor, colorWeak, fontSize } = settings;
 
@@ -52,6 +60,18 @@ const SettingIconView: React.FC<SettingIconViewProps> = props => {
 
   const toggleModalVisible = (): void => {
     setVisible(!visible);
+  };
+
+  const onColorChange = (e: RadioChangeEvent) => {
+    const primaryColor = e.target.value;
+    changeTheme(
+      {
+        ...settings,
+        primaryColor,
+      },
+      dispatch as Dispatch,
+      formatMessage,
+    );
   };
 
   const content = (
@@ -89,15 +109,11 @@ const SettingIconView: React.FC<SettingIconViewProps> = props => {
               <span>Aa</span>
             </div>
             <label>{formatMessage({ id: 'app.settings.color' })}</label>
-            <div className={classNames(styles.picker, styles.formItem)}>
-              <Radio.Group value={primaryColor}>
+            <div className={classNames(styles.colorPicker, styles.formItem)}>
+              <Radio.Group value={primaryColor} onChange={onColorChange}>
                 {colors.map((color: Color) => (
-                  <div className={styles.colorGroup}>
-                    <Radio.Button
-                      key={color.name}
-                      value={color.name}
-                      onChange={}
-                    >
+                  <div className={styles.colorGroup} key={color.name}>
+                    <Radio.Button value={color.name}>
                       <ColorRadioLabel
                         className={styles.colorLabel}
                         fill={`${color.color}`}
@@ -114,7 +130,19 @@ const SettingIconView: React.FC<SettingIconViewProps> = props => {
               </Radio.Group>
             </div>
             <label>{formatMessage({ id: 'app.settings.theme' })}</label>
-            <div className={classNames(styles.picker, styles.formItem)}></div>
+            <div className={classNames(styles.themePicker, styles.formItem)}>
+              <Radio.Group value={theme}>
+                {themes.map((theme: Theme) => (
+                  <Radio
+                    value={theme.value}
+                    className={styles.themeGroup}
+                    key={theme.value}
+                  >
+                    {theme.name}
+                  </Radio>
+                ))}
+              </Radio.Group>
+            </div>
           </div>
         </div>
       </div>

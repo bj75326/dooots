@@ -44,3 +44,14 @@ export const colors = [
       'https://images.weserv.nl/?url=https://i0.hdslb.com/bfs/article/16d8565f4c01d0338a2cf9fd563cb069367649ea.png',
   },
 ];
+
+export const themes = [
+  {
+    name: 'Light',
+    value: 'light',
+  },
+  {
+    name: 'Dark',
+    value: 'dark',
+  },
+];
