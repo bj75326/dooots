@@ -3,18 +3,23 @@ import {
   fontSizeMarks as marks,
   colors,
   themes,
+  colorWeakAvailable,
+  languages,
   Color,
   Theme,
+  Language,
 } from '*/config/settingsConfig';
 import { connect, ConnectProps, formatMessage, Dispatch } from 'umi';
 import { ConnectState } from '@/models/connect';
 import { changeTheme, SettingModelState } from '@/models/settings';
-import { Slider, Radio } from 'antd';
+import { Slider, Radio, Select, Switch } from 'antd';
 import classNames from 'classnames';
 import { CheckOutlined } from '@ant-design/icons';
-import { RadioChangeEvent } from '~/antd/es/radio';
+import { RadioChangeEvent } from 'antd/es/radio';
 
 import styles from './index.less';
+
+const Option = Select.Option;
 
 export interface SettingsFormProps extends Partial<ConnectProps> {
   settings: SettingModelState;
@@ -124,6 +129,28 @@ const SettingsForm: React.FC<SettingsFormProps> = props => {
                 </Radio>
               ))}
             </Radio.Group>
+          </div>
+        </>
+      )}
+      {(languages || colorWeakAvailable) && (
+        <>
+          <label>{formatMessage({ id: 'app.settings.others' })}</label>
+          <div className={styles.formItem}>
+            {languages && (
+              <div className={classNames(styles.language, styles.otherItem)}>
+                <label>{formatMessage({ id: 'app.settings.language' })}</label>
+                <Select size="small">
+                  {languages.map((language: Language) => (
+                    <Option value={language.value}>{language.name}</Option>
+                  ))}
+                </Select>
+              </div>
+            )}
+            {colorWeakAvailable && (
+              <div className={classNames(styles.colorWeak, styles.otherItem)}>
+                <label>{formatMessage({ id: 'app.settings.colorWeak' })}</label>
+              </div>
+            )}
           </div>
         </>
       )}

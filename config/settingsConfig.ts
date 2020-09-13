@@ -9,6 +9,11 @@ export interface Theme {
   value: 'light' | 'dark';
 }
 
+export interface Language {
+  name: string;
+  value: string;
+}
+
 export const fontSizeMarks = {
   0: 1,
   25: 2,
@@ -64,5 +69,18 @@ export const themes = [
   {
     name: 'Dark',
     value: 'dark',
+  },
+];
+
+export const colorWeakAvailable = true;
+
+export const languages = [
+  {
+    name: '简体中文',
+    value: 'zh-CN',
+  },
+  {
+    name: 'English',
+    value: 'en-US',
   },
 ];

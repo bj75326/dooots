@@ -257,3 +257,13 @@
     height: 12px;
   }
 }
+
+.otherItem {
+  &:not(:last-child) {
+    padding-bottom: 12px;
+  }
+  & > label {
+    font-size: @font-size-base - 2px;
+    color: var(--text-light-color);
+  }
+}

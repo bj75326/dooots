@@ -6,4 +6,7 @@ export default {
   'app.settings.fontSize': 'Font size',
   'app.settings.color': 'Color',
   'app.settings.theme': 'Theme',
+  'app.settings.colorWeak': 'Color weak mode',
+  'app.settings.language': 'Language',
+  'app.settings.others': 'Other settings',
 };

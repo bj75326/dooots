@@ -5,4 +5,7 @@ export default {
   'app.settings.fontSize': '字体大小',
   'app.settings.color': '颜色',
   'app.settings.theme': '主题',
+  'app.settings.colorWeak': '色弱模式',
+  'app.settings.language': '语言',
+  'app.settings.others': '其他设置',
 };

@@ -4,7 +4,6 @@ import path from 'path';
 export default defineConfig({
   alias: {
     '*': path.join(__dirname, ''),
-    '~': path.join(__dirname, 'node_modules'),
   },
   hash: true,
   antd: {},
