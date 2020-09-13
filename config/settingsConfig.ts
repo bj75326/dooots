@@ -1,3 +1,14 @@
+export interface Color {
+  name: 'default' | 'star' | 'blossom' | 'octopus' | 'fire' | 'avocado';
+  color: '#1890ff' | '#FFAD1F' | '#E0245E' | '#794BC4' | '#F45D22' | '#17BF63';
+  icon: string;
+}
+
+export interface Theme {
+  name: 'Light' | 'Dark';
+  value: 'light' | 'dark';
+}
+
 export const fontSizeMarks = {
   0: 1,
   25: 2,
