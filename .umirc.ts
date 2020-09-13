@@ -1,6 +1,4 @@
 import { defineConfig } from 'umi';
-import { pathToRegexp } from 'path-to-regexp';
-import { resolveConfig } from 'prettier';
 import path from 'path';
 
 export default defineConfig({
