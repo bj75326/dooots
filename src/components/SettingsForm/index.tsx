@@ -9,7 +9,14 @@ import {
   Theme,
   Language,
 } from '*/config/settingsConfig';
-import { connect, ConnectProps, formatMessage, Dispatch } from 'umi';
+import {
+  connect,
+  ConnectProps,
+  formatMessage,
+  Dispatch,
+  setLocale,
+  getLocale,
+} from 'umi';
 import { ConnectState } from '@/models/connect';
 import { changeTheme, SettingModelState } from '@/models/settings';
 import { Slider, Radio, Select, Switch } from 'antd';
@@ -67,6 +74,10 @@ const SettingsForm: React.FC<SettingsFormProps> = props => {
       dispatch as Dispatch,
       formatMessage,
     );
+  };
+
+  const onSelectLanguage = (value: string) => {
+    setLocale(value, false);
   };
 
   return (
@@ -139,9 +150,16 @@ const SettingsForm: React.FC<SettingsFormProps> = props => {
             {languages && (
               <div className={classNames(styles.language, styles.otherItem)}>
                 <label>{formatMessage({ id: 'app.settings.language' })}</label>
-                <Select size="small">
+                <Select
+                  size="small"
+                  className={styles.selector}
+                  value={getLocale()}
+                  onSelect={onSelectLanguage}
+                >
                   {languages.map((language: Language) => (
-                    <Option value={language.value}>{language.name}</Option>
+                    <Option value={language.value} key={language.value}>
+                      {language.name}
+                    </Option>
                   ))}
                 </Select>
               </div>
@@ -149,6 +167,7 @@ const SettingsForm: React.FC<SettingsFormProps> = props => {
             {colorWeakAvailable && (
               <div className={classNames(styles.colorWeak, styles.otherItem)}>
                 <label>{formatMessage({ id: 'app.settings.colorWeak' })}</label>
+                <Switch size="small" className={styles.switcher} />
               </div>
             )}
           </div>

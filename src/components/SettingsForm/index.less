@@ -259,6 +259,9 @@
 }
 
 .otherItem {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
   &:not(:last-child) {
     padding-bottom: 12px;
   }
@@ -266,4 +269,8 @@
     font-size: @font-size-base - 2px;
     color: var(--text-light-color);
   }
+}
+
+.selector {
+  width: 120px;
 }
