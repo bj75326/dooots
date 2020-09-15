@@ -82,6 +82,23 @@ const SettingsForm: React.FC<SettingsFormProps> = props => {
     setLocale(value, false);
   };
 
+  const onColorWeakChange = (colorWeak: boolean) => {
+    if (colorWeak) {
+      document.body.style.filter = 'invert(80%)';
+    } else {
+      document.body.style.filter = '';
+    }
+
+    if (dispatch) {
+      dispatch({
+        type: 'settings/changeSetting',
+        payload: {
+          colorWeak,
+        },
+      });
+    }
+  };
+
   return (
     <div className={styles.form}>
       {marks && (
@@ -169,7 +186,12 @@ const SettingsForm: React.FC<SettingsFormProps> = props => {
             {colorWeakAvailable && (
               <div className={classNames(styles.colorWeak, styles.otherItem)}>
                 <label>{formatMessage({ id: 'app.settings.colorWeak' })}</label>
-                <Switch size="small" className={styles.switcher} />
+                <Switch
+                  size="small"
+                  className={styles.switcher}
+                  checked={colorWeak}
+                  onChange={onColorWeakChange}
+                />
               </div>
             )}
           </div>
