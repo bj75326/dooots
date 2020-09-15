@@ -104,18 +104,21 @@
 .sample {
   position: relative;
   width: 450px;
+  height: 421px;
   padding: 10px 20px 0;
   margin: 10px 0 0;
   border-radius: 20px;
   box-shadow: @shadow-1-down;
-
+  overflow: scroll;
   h3,
   h4 {
     color: @text-color;
   }
-
-  h4:before {
-    content: '○  ';
+  h4 {
+    margin-top: 4px;
+    &:before {
+      content: '○  ';
+    }
   }
   // div:last-of-type {
   //   width: 100%;
