@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { formatMessage } from 'umi';
+import { useIntl } from 'umi';
 import classNames from 'classnames';
 import { Modal } from 'antd';
 import { SettingOutlined } from '@ant-design/icons';
@@ -29,6 +29,8 @@ const example = (
 
 const SettingIconView: React.FC<SettingIconViewProps> = props => {
   const { className, icon } = props;
+
+  const { formatMessage } = useIntl();
 
   const [visible, setVisible] = useState(false);
 

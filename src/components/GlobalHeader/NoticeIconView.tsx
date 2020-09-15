@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { connect, ConnectProps, formatMessage } from 'umi';
+import { connect, ConnectProps } from 'umi';
 import { Tag, message } from 'antd';
 import { ConnectState } from '@/models/connect';
 import { CurrentUser } from '@/models/user';
@@ -9,6 +9,7 @@ import groupBy from 'lodash/groupBy';
 import NoticeIcon from '../NoticeIcon';
 
 import styles from './index.less';
+import { MessageDescriptor } from '@ant-design/pro-layout/es/typings';
 
 export interface GlobalHeaderRightProps extends Partial<ConnectProps> {
   notices?: NoticeItem[];
@@ -16,6 +17,7 @@ export interface GlobalHeaderRightProps extends Partial<ConnectProps> {
   fetchingNotices?: boolean;
   onNoticeVisibleChange?: (visible: boolean) => void;
   onNoticeClear?: (tabName?: string) => void;
+  formatMessage: (message: MessageDescriptor) => string;
 }
 
 class GlobalHeaderRight extends Component<GlobalHeaderRightProps> {
@@ -110,7 +112,12 @@ class GlobalHeaderRight extends Component<GlobalHeaderRightProps> {
   };
 
   render() {
-    const { currentUser, fetchingNotices, onNoticeVisibleChange } = this.props;
+    const {
+      currentUser,
+      fetchingNotices,
+      onNoticeVisibleChange,
+      formatMessage,
+    } = this.props;
     const noticeData = this.getNoticeData();
     const unreadMsg = this.getUnreadData(noticeData);
 

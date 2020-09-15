@@ -1,6 +1,6 @@
 import { Tooltip, Avatar, Spin, Divider } from 'antd';
 import React from 'react';
-import { connect, ConnectProps } from 'umi';
+import { connect, ConnectProps, useIntl } from 'umi';
 import { ConnectState } from '@/models/connect';
 import { CurrentUser } from '@/models/user';
 import NoticeIconView from './NoticeIconView';
@@ -16,8 +16,9 @@ export interface GlobalHeaderRightProps extends Partial<ConnectProps> {
   currentUser?: CurrentUser;
 }
 
-const GlobalHeaderRight: React.SFC<GlobalHeaderRightProps> = props => {
+const GlobalHeaderRight: React.FC<GlobalHeaderRightProps> = props => {
   const { theme, currentUser } = props;
+  const { formatMessage } = useIntl();
 
   let className = styles.right;
 
@@ -45,7 +46,7 @@ const GlobalHeaderRight: React.SFC<GlobalHeaderRightProps> = props => {
           //borderLeftColor: theme === 'dark' ? 'rgb(255 255 255 / 12%)' : '#ccc',
         }}
       />
-      <NoticeIconView />
+      <NoticeIconView formatMessage={formatMessage} />
       <SettingIconView className={styles.action} />
       <LogoutIconView className={styles.action} />
     </div>

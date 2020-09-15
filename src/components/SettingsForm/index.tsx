@@ -12,7 +12,7 @@ import {
 import {
   connect,
   ConnectProps,
-  formatMessage,
+  useIntl,
   Dispatch,
   setLocale,
   getLocale,
@@ -51,6 +51,8 @@ const ColorRadioLabel: React.FC<ColorRadioLabelProps> = ({
 const SettingsForm: React.FC<SettingsFormProps> = props => {
   const { settings, dispatch } = props;
   const { theme: themeValue, primaryColor, colorWeak, fontSize } = settings;
+
+  const { formatMessage } = useIntl();
 
   const onColorChange = (e: RadioChangeEvent) => {
     const primaryColor = e.target.value;
