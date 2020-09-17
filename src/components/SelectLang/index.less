@@ -1,7 +1,16 @@
 @import '~antd/es/style/themes/default.less';
 
 .menu {
+  :global(.ant-dropdown-menu-item) {
+    min-width: 120px;
+  }
 }
 
 .dropdown {
+  cursor: pointer;
+  font-size: 18px;
+  padding: 12px;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
 }
