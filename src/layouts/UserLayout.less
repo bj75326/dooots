@@ -19,4 +19,40 @@
 
 .content {
   flex: 1;
+  display: flex;
+  align-items: center;
+}
+
+.left {
+  width: 400px;
+  margin-left: 120px;
+  display: flex;
+  flex-direction: column;
+}
+
+.header {
+  height: 40px;
+  > a {
+    display: flex;
+    align-items: center;
+  }
+  margin-bottom: 20px;
+}
+
+.logo {
+  height: 28px;
+  margin-right: 12px;
+}
+
+.title {
+  font-size: 22px;
+  font-weight: 600;
+  //font-family: Avenir, 'Helvetica Neue', Arial, Helvetica, sans-serif;
+  color: @text-color;
+}
+
+.welcome,
+.dooots {
+  font-size: 52px;
+  font-weight: 600;
 }

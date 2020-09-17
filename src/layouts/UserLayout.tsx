@@ -52,7 +52,7 @@ const UserLayout: React.FC<UserLayoutProps> = props => {
           <SelectLang />
         </div>
         <div className={styles.content}>
-          <div className={styles.top}>
+          <div className={styles.left}>
             <div className={styles.header}>
               <Link to="/">
                 <img alt="logo" className={styles.logo} src={logo} />
