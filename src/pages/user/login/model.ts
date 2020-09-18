@@ -1,6 +1,7 @@
-import { Effect, Reducer } from 'umi';
+import { Effect, history, Reducer } from 'umi';
 import { message } from 'antd';
 import { fakeAccountLogin } from './service';
+import { getPageQuery, setAuthority } from './utils/utils';
 
 export interface StateType {
   status?: 'ok' | 'error';
@@ -36,11 +37,33 @@ const Model: ModelType = {
       // Login successfully
       if (response.status === 'ok') {
         message.success(formatMessage({ id: 'userAndLogin.login.success' }));
+        const urlParams = new URL(window.location.href);
+        const params = getPageQuery();
+        let { redirect } = params as { redirect: string };
+        if (redirect) {
+          const redirectUrlParams = new URL(redirect);
+          if (redirectUrlParams.origin === urlParams.origin) {
+            redirect = redirect.substring(urlParams.origin.length);
+            if (redirect.match(/^\/.*#/)) {
+              redirect = redirect.substring(redirect.indexOf('#') + 1);
+            }
+          } else {
+            window.location.href = redirect;
+            return;
+          }
+        }
+        history.replace(redirect || '/');
       }
     },
   },
 
   reducers: {
-    changeLoginStatus(state, { payload }) {},
+    changeLoginStatus(state, { payload }) {
+      setAuthority();
+      return {
+        ...state,
+        status: payload.status,
+      };
+    },
   },
 };

@@ -1,6 +1,7 @@
 export default {
   'GET /api/currentUser': {
-    avatar: 'https://bj75326.github.io/ba-asset/avatar/avatar2.jpg',
+    avatar:
+      'https://images.weserv.nl/?url=https://i0.hdslb.com/bfs/article/0d56cb996999dd8dd0fa6974a0d962148d41efb2.jpg',
     name: '比尔',
     title: '前端萌新',
     group: 'user',

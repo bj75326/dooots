@@ -62,7 +62,7 @@ export default defineConfig({
         {
           path: '/',
           component: '../layouts/BasicLayout',
-          Routes: ['src/pages/Authorized'],
+          wrappers: ['./Authorized'],
           authority: ['admin', 'user'],
           routes: [
             {

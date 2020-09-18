@@ -4,5 +4,5 @@ export default {
   'userAndLogin.login.login': 'Login',
   'userAndLogin.login.forgotPassword': 'Forgot your password?',
   'userAndLogin.login.registerNewAccount': 'Sign up',
-  'userAndLogin.login.success': '',
+  'userAndLogin.login.success': 'Login success',
 };
