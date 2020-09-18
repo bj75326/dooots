@@ -60,7 +60,7 @@ const UserLayout: React.FC<UserLayoutProps> = props => {
               </Link>
             </div>
             <div className={styles.welcome}>
-              {formatMessage({ id: 'app.login.welcome' })}
+              {formatMessage({ id: 'app.userLayout.welcome' })}
             </div>
             <div className={styles.dooots}>DOOOTS</div>
           </div>
