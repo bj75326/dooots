@@ -24,6 +24,10 @@ const AuthComponent: React.FC<AuthComponentProps> = ({
 
   console.log('Authorized.tsx location.pathname: ', location.pathname);
   console.log('Authorized.tsx routes: ', routes);
+  console.log(
+    'Authorized.tsx authority required: ',
+    getRouteAuthority(location.pathname, routes),
+  );
   return (
     <Authorized
       authority={getRouteAuthority(location.pathname, routes) || ''}
