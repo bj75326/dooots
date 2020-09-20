@@ -63,7 +63,7 @@ export default defineConfig({
           path: '/',
           component: '../layouts/BasicLayout',
           wrappers: ['./Authorized'],
-          authority: ['admin', 'user'],
+
           routes: [
             {
               path: '/anki',
@@ -71,6 +71,7 @@ export default defineConfig({
               component: './anki',
               hideChildrenInMenu: true,
               hideInBreadcrumb: true,
+              authority: ['admin', 'user'],
               routes: [
                 {
                   name: 'collections',

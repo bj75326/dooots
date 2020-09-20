@@ -86,6 +86,9 @@ function check<T, K>(
   target: T,
   Exception: K,
 ): React.ReactNode {
+  console.log('[check] authority: ', authority);
+  console.log('[check] current: ', CURRENT);
+
   return (
     <GetAuthorityPromiseRender<T, K>
       authority={authority}

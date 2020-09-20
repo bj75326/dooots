@@ -45,29 +45,6 @@ export type BasicLayoutContext = { [K in 'location']: BasicLayoutProps[K] } & {
   };
 };
 
-const menu = (
-  <Menu>
-    <Menu.Item>
-      <a
-        target="_blank"
-        rel="noopener noreferrer"
-        href="http://www.alipay.com/"
-      >
-        1st menu item
-      </a>
-    </Menu.Item>
-    <Menu.Item>
-      <a
-        target="_blank"
-        rel="noopener noreferrer"
-        href="http://www.taobao.com/"
-      >
-        2nd menu item
-      </a>
-    </Menu.Item>
-  </Menu>
-);
-
 const BasicLayout: React.FC<BasicLayoutProps> = props => {
   const {
     dispatch,
@@ -85,7 +62,8 @@ const BasicLayout: React.FC<BasicLayoutProps> = props => {
       });
     }
   }, []);
-
+  console.log('BasicLayout run routes: ', props.route.routes);
+  console.log('BasicLayout run location.pathname: ', location.pathname);
   const authorized = getAuthorityFromRouter(
     props.route.routes,
     location.pathname || '/',
@@ -94,7 +72,7 @@ const BasicLayout: React.FC<BasicLayoutProps> = props => {
   };
 
   const { formatMessage } = useIntl();
-
+  console.log('BasicLayout render run');
   return (
     <>
       <ProLayout
