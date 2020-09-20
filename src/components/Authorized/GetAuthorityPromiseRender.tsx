@@ -5,11 +5,14 @@ interface GetAuthorityPromiseRenderProps<T, K> {
   authority: IAuthorityType;
   target: T;
   exception: K;
-  current: string | string[] | Promise<string | string[]>;
+  current: string | string[] | Promise<{ authority: string | string[] }>;
 }
 
 interface GetAuthorityPromiseRenderState {
-  currentAuthority: string | string[] | Promise<string | string[]>;
+  currentAuthority:
+    | string
+    | string[]
+    | Promise<{ authority: string | string[] }>;
 }
 
 export default class GetAuthorityPromiseRender<T, K> extends React.Component<
@@ -28,7 +31,7 @@ export default class GetAuthorityPromiseRender<T, K> extends React.Component<
       this.state.currentAuthority
         .then(authority => {
           this.setState({
-            currentAuthority: authority,
+            currentAuthority: authority['authority'],
           });
         })
         .catch(() => {

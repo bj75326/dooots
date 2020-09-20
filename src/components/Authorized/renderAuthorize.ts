@@ -1,9 +1,10 @@
-let CURRENT: string | string[] | Promise<string | string[]> = 'NULL';
+let CURRENT: string | string[] | Promise<{ authority: string | string[] }> =
+  'NULL';
 
 type CurrentAuthorityType =
   | string
   | string[]
-  | Promise<string | string[]>
+  | Promise<{ authority: string | string[] }>
   | (() => typeof CURRENT);
 
 const renderAuthorize = <T>(
@@ -23,14 +24,14 @@ const renderAuthorize = <T>(
     }
     if (currentAuthority instanceof Promise) {
       currentAuthority
-        .then((authority: string | string[]) => {
-          CURRENT = authority;
+        .then((authority: { authority: string | string[] }) => {
+          CURRENT = authority['authority'];
         })
         .catch(err => {
           CURRENT = 'ERROR';
           throw new Error(err);
         });
-      CURRENT = currentAuthority as Promise<string | string[]>;
+      CURRENT = currentAuthority as Promise<{ authority: string | string[] }>;
     }
   } else {
     CURRENT = 'NULL';

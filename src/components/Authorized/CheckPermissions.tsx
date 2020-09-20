@@ -25,6 +25,8 @@ const checkPermissions = <T, K>(
   target: T,
   Exception: K,
 ): T | K | React.ReactNode => {
+  console.log('checkPermissions authority: ', authority);
+  console.log('checkPermissions currentAuthority: ', currentAuthority);
   // 没有判定权限.默认查看所有
   // Retirement authority, return target;
   if (!authority) {

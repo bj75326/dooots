@@ -1,6 +1,14 @@
 export default {
-  'GET /api/authority': 'user',
-  //'GET /api/authority': 'guest',
-  //'GET /api/authority': 'admin',
-  //'GET /api/authority': ['admin', 'user'],
+  'GET /api/authority': {
+    authority: 'user',
+  },
+  // 'GET /api/authority': {
+  //   authority: 'guest',
+  // },
+  // 'GET /api/authority': {
+  //   authority: 'admin',
+  // },
+  // 'GET /api/authority': {
+  //   authority: ['user', 'admin'],
+  // },
 };

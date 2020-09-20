@@ -33,6 +33,7 @@ export const getAuthorityFromRouter = <T extends Route>(
       (path && pathToRegexp(path).exec(pathname)) ||
       (routes && getAuthorityFromRouter(routes, pathname)),
   );
+  console.log('getAuthorityFromRouter: ', authority);
   if (authority) return authority;
   return undefined;
 };

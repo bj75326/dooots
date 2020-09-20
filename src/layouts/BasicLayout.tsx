@@ -15,6 +15,9 @@ import { getAuthorityFromRouter } from '@/utils/utils';
 import logo from '@/assets/logo.svg';
 import RightContent from '@/components/GlobalHeader/RightContent';
 
+//删除
+import { pathToRegexp } from 'path-to-regexp';
+
 const noMatch = (
   <Result
     status={403}
@@ -70,6 +73,7 @@ const BasicLayout: React.FC<BasicLayoutProps> = props => {
   ) || {
     authority: undefined,
   };
+  console.log('BasicLayout run authorized: ', authorized);
 
   const { formatMessage } = useIntl();
   console.log('BasicLayout render run');
