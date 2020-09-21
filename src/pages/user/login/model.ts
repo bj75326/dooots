@@ -59,7 +59,7 @@ const Model: ModelType = {
 
   reducers: {
     changeLoginStatus(state, { payload }) {
-      setAuthority();
+      setAuthority(payload.currentAuthority);
       return {
         ...state,
         status: payload.status,
@@ -67,3 +67,5 @@ const Model: ModelType = {
     },
   },
 };
+
+export default Model;

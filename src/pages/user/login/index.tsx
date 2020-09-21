@@ -3,8 +3,11 @@ import {} from 'antd';
 import { connect, Dispatch, Link, useIntl } from 'umi';
 import { LoginParamsType } from './service';
 import { StateType } from './model';
-import { Loading } from '@/models/connect';
+import LoginForm from './components/Login';
 
+import styles from './style.less';
+
+const { UserName, Password } = LoginForm;
 interface LoginProps {
   dispatch: Dispatch;
   userAndLogin: StateType;
@@ -27,7 +30,14 @@ const Login: React.FC<LoginProps> = props => {
     });
   };
 
-  return <></>;
+  return (
+    <div className={styles.main}>
+      <LoginForm onSubmit={handleSubmit}>
+        <UserName />
+        <Password />
+      </LoginForm>
+    </div>
+  );
 };
 
 export default connect(
