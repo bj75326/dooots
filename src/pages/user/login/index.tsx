@@ -7,7 +7,7 @@ import LoginForm from './components/Login';
 
 import styles from './style.less';
 
-const { UserName, Password } = LoginForm;
+const { UserName, Password, Submit } = LoginForm;
 interface LoginProps {
   dispatch: Dispatch;
   userAndLogin: StateType;
@@ -33,8 +33,39 @@ const Login: React.FC<LoginProps> = props => {
   return (
     <div className={styles.main}>
       <LoginForm onSubmit={handleSubmit}>
-        <UserName />
-        <Password />
+        <UserName
+          name="userName"
+          rules={[
+            {
+              required: true,
+              message: formatMessage({
+                id: 'userAndLogin.login.username.required',
+              }),
+            },
+          ]}
+          label={formatMessage({ id: 'userAndLogin.login.username' })}
+        />
+        <Password
+          name="password"
+          rules={[
+            {
+              required: true,
+              message: formatMessage({
+                id: 'userAndLogin.login.password.required',
+              }),
+            },
+          ]}
+          label={formatMessage({ id: 'userAndLogin.login.password' })}
+        />
+        <Submit>{formatMessage({ id: 'userAndLogin.login.login' })}</Submit>
+        <div className={styles.others}>
+          <a href="#" className={styles.forget}>
+            {formatMessage({ id: 'userAndLogin.login.forgotPassword' })}
+          </a>
+          <Link to="/user/register" className={styles.register}>
+            {formatMessage({ id: 'userAndLogin.login.registerNewAccount' })}
+          </Link>
+        </div>
       </LoginForm>
     </div>
   );

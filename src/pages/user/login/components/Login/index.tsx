@@ -27,9 +27,15 @@ const Login: LoginType = props => {
   const { className } = props;
 
   return (
-    <LoginContext.Provider value={{}}>
+    <LoginContext.Provider
+      value={{
+        updateActive: () => {},
+      }}
+    >
       <div className={classNames(className, styles.login)}>
         <Form
+          layout="vertical"
+          requiredMark={false}
           form={props.form}
           onFinish={values => {
             if (props.onSubmit) {

@@ -28,10 +28,13 @@
   margin-left: 120px;
   display: flex;
   flex-direction: column;
+  position: relative;
+  top: -40px;
 }
 
 .header {
   height: 40px;
+  width: 120px;
   > a {
     display: flex;
     align-items: center;
@@ -47,16 +50,43 @@
 .title {
   font-size: 22px;
   font-weight: 600;
-  //font-family: Avenir, 'Helvetica Neue', Arial, Helvetica, sans-serif;
+  font-family: Avenir, 'Helvetica Neue', Arial, Helvetica, sans-serif;
   color: @text-color;
+  letter-spacing: -1px;
 }
 
 .welcome,
 .dooots {
-  font-size: 52px;
+  font-size: 56px;
   font-weight: 600;
 }
 
 .dooots {
-  margin-top: -12px;
+  margin-top: -20px;
+}
+
+.left {
+  :global {
+    .ant-form-item-label > label {
+      font-size: 12px;
+    }
+
+    .ant-form-item {
+      margin-bottom: 12px;
+    }
+
+    .ant-input {
+      border-radius: 8px;
+    }
+
+    .ant-input-lg {
+      padding: 12px 11px;
+      font-size: 16px;
+    }
+
+    .ant-btn-lg {
+      height: 51px;
+      border-radius: 8px;
+    }
+  }
 }

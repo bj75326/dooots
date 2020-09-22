@@ -2,7 +2,6 @@ import { Form, Input } from 'antd';
 import React, { useEffect } from 'react';
 import ItemMap from './map';
 import { FormItemProps } from 'antd/es/form/FormItem';
-import { useIntl } from 'umi';
 
 import LoginContext, { LoginContextProps } from './LoginContext';
 
@@ -22,6 +21,7 @@ export interface LoginItemProps extends Partial<FormItemProps> {
   updateActive?: LoginContextProps['updateActive'];
   customProps?: { [key: string]: unknown };
   onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  label?: string;
 }
 
 const FormItem = Form.Item;
@@ -57,11 +57,12 @@ const LoginItem: React.FC<LoginItemProps> = props => {
     name,
     type,
     updateActive,
+    label,
     // 保留 placeholder, style 给 restProps
     ...restProps
   } = props;
 
-  useEffect(() => {});
+  //useEffect(() => {});
 
   if (!name) return null;
 
@@ -69,7 +70,7 @@ const LoginItem: React.FC<LoginItemProps> = props => {
   const otherProps = restProps || {};
 
   return (
-    <FormItem name={name} {...options}>
+    <FormItem name={name} label={label} {...options}>
       <Input {...customProps} {...otherProps} />
     </FormItem>
   );
@@ -80,13 +81,12 @@ const LoginItems: Partial<LoginItemType> = {};
 Object.keys(ItemMap).forEach(key => {
   const item = ItemMap[key as LoginItemKeyType];
   LoginItems[key as LoginItemKeyType] = (props: LoginItemProps) => {
-    const { formatMessage } = useIntl();
     return (
       <LoginContext.Consumer>
         {context => (
           <LoginItem
             customProps={item.props}
-            rules={item.rules(formatMessage)}
+            rules={item.rules}
             {...props}
             type={key}
             {...context}

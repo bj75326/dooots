@@ -63,6 +63,7 @@ const UserLayout: React.FC<UserLayoutProps> = props => {
               {formatMessage({ id: 'app.userLayout.welcome' })}
             </div>
             <div className={styles.dooots}>DOOOTS</div>
+            {children}
           </div>
         </div>
       </div>

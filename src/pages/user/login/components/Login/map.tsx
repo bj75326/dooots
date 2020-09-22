@@ -5,10 +5,16 @@ export default {
       id: 'userName',
       placeholder: 'admin',
     },
-    rules: (formatMessage: any) => [
+    // rules: (formatMessage: any) => [
+    //   {
+    //     required: true,
+    //     message: formatMessage({ id: 'userAndLogin.login.username.required' }),
+    //   },
+    // ],
+    rules: [
       {
         required: true,
-        message: formatMessage({ id: 'userAndLogin.login.username.required' }),
+        message: '请输入用户名',
       },
     ],
   },
@@ -19,10 +25,16 @@ export default {
       type: 'password',
       placeholder: '888888',
     },
-    rules: (formatMessage: any) => [
+    // rules: (formatMessage: any) => [
+    //   {
+    //     required: true,
+    //     message: formatMessage({ id: 'userAndLogin.login.password.required' }),
+    //   },
+    // ],
+    rules: [
       {
         required: true,
-        message: formatMessage({ id: 'userAndLogin.login.password.required' }),
+        message: '请输入密码',
       },
     ],
   },
