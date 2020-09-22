@@ -2,8 +2,16 @@ import { Form, Input } from 'antd';
 import React, { useEffect } from 'react';
 import ItemMap from './map';
 import { FormItemProps } from 'antd/es/form/FormItem';
+import { useIntl } from 'umi';
 
 import LoginContext, { LoginContextProps } from './LoginContext';
+
+export type WrappedLoginItemProps = LoginItemProps;
+export type LoginItemKeyType = keyof typeof ItemMap;
+export interface LoginItemType {
+  UserName: React.FC<WrappedLoginItemProps>;
+  Password: React.FC<WrappedLoginItemProps>;
+}
 
 export interface LoginItemProps extends Partial<FormItemProps> {
   name?: string;
@@ -67,6 +75,27 @@ const LoginItem: React.FC<LoginItemProps> = props => {
   );
 };
 
-const LoginItems: Partial<LoginItemProps> = {};
+const LoginItems: Partial<LoginItemType> = {};
 
-Object.keys(ItemMap);
+Object.keys(ItemMap).forEach(key => {
+  const item = ItemMap[key as LoginItemKeyType];
+  LoginItems[key as LoginItemKeyType] = (props: LoginItemProps) => {
+    const { formatMessage } = useIntl();
+    return (
+      <LoginContext.Consumer>
+        {context => (
+          <LoginItem
+            customProps={item.props}
+            rules={item.rules(formatMessage)}
+            {...props}
+            type={key}
+            {...context}
+            updateActive={context.updateActive}
+          />
+        )}
+      </LoginContext.Consumer>
+    );
+  };
+});
+
+export default LoginItems as LoginItemType;
