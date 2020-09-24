@@ -8,6 +8,11 @@ import {
 import { Helmet, HelmetProvider } from 'react-helmet-async';
 import SelectLang from '@/components/SelectLang';
 import logo from '../assets/logo.svg';
+import {
+  MailOutlined,
+  GithubOutlined,
+  TwitterOutlined,
+} from '@ant-design/icons';
 
 import styles from './UserLayout.less';
 
@@ -50,6 +55,29 @@ const UserLayout: React.FC<UserLayoutProps> = props => {
       <div className={styles.container}>
         <div className={styles.lang}>
           <SelectLang />
+        </div>
+        <div className={styles.signature}>
+          <div>{formatMessage({ id: 'app.userLayout.signature' })}</div>
+          <ul className={styles.contact}>
+            <li>
+              <a
+                href="mailto:superice_gy@163.com?subject=[dooots]"
+                target="_blank"
+              >
+                <MailOutlined />
+              </a>
+            </li>
+            <li>
+              <a href="https://github.com/bj75326/dooots" target="_blank">
+                <GithubOutlined />
+              </a>
+            </li>
+            <li>
+              <a href="https://twitter.com/icechicken6" target="_blank">
+                <TwitterOutlined />
+              </a>
+            </li>
+          </ul>
         </div>
         <div className={styles.content}>
           <div className={styles.left}>

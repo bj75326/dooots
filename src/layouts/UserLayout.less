@@ -3,7 +3,7 @@
 .container {
   display: flex;
   flex-direction: column;
-  height: 100vh;
+  min-height: 100vh;
   overflow: auto;
   position: relative;
   background-image: url(../assets/bg2.svg);
@@ -23,15 +23,39 @@
   position: absolute;
   top: 0;
   right: 0;
+  color: #fff;
+}
+
+.signature {
+  position: absolute;
+  top: 100px;
+  right: 100px;
+  color: #fff;
+  font-size: 13px;
+  font-weight: 500;
+  width: 200px;
+}
+
+.contact {
+  display: flex;
+  font-size: 15px;
+  padding: 0;
+  margin: 10px 0 0 0;
+  li > a {
+    cursor: pointer;
+    padding: 5px;
+    margin: 0 10px;
+    color: #fff;
+  }
 }
 
 .content {
   flex: 1;
   display: flex;
   align-items: center;
-  background-image: url(../assets/bg1.svg);
-  background-repeat: no-repeat;
-  background-position: center left;
+  // background-image: url(../assets/bg1.svg);
+  // background-repeat: no-repeat;
+  // background-position: center left;
 }
 
 .left {
