@@ -5,31 +5,40 @@
   flex-direction: column;
   height: 100vh;
   overflow: auto;
+  position: relative;
+  background-image: url(../assets/bg2.svg);
+  background-repeat: no-repeat;
+  background-position: center right;
+  background-size: auto 100%;
 }
 
 .lang {
-  width: 100%;
+  width: 100px;
   height: 40px;
   line-height: 40px;
   text-align: right;
   :global(.ant-dropdown-trigger) {
     margin-right: 24px;
   }
+  position: absolute;
+  top: 0;
+  right: 0;
 }
 
 .content {
   flex: 1;
   display: flex;
   align-items: center;
+  background-image: url(../assets/bg1.svg);
+  background-repeat: no-repeat;
+  background-position: center left;
 }
 
 .left {
   width: 400px;
-  margin-left: 120px;
+  margin: 90px 0 90px 120px;
   display: flex;
   flex-direction: column;
-  position: relative;
-  top: -40px;
 }
 
 .header {
