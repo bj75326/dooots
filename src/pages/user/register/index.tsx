@@ -1,6 +1,6 @@
-import React from 'react';
-import { Form } from 'antd';
-import { FormattedMessage, Dispatch, connect } from 'umi';
+import React, { useEffect, useState } from 'react';
+import { Form, message } from 'antd';
+import { FormattedMessage, Dispatch, connect, useIntl } from 'umi';
 import { StateType } from './model';
 
 import styles from './style.less';
@@ -52,6 +52,21 @@ const Register: React.FC<RegisterProps> = ({
   dispatch,
   userAndRegister,
 }) => {
+  const [visible, setVisible]: [boolean, any] = useState(false);
+
+  const [form] = Form.useForm();
+  const { formatMessage } = useIntl();
+
+  useEffect(() => {
+    if (!userAndRegister) {
+      return;
+    }
+    const account = form.getFieldValue('userName');
+    if (userAndRegister.status === 'ok') {
+      message.success('');
+    }
+  }, [userAndRegister]);
+
   return <></>;
 };
 
