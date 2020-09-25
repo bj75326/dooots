@@ -63,7 +63,6 @@ export default defineConfig({
           path: '/',
           component: '../layouts/BasicLayout',
           wrappers: ['./Authorized'],
-
           routes: [
             {
               path: '/anki',
