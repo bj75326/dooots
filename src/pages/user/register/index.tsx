@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Form, message } from 'antd';
+import { Form, message, Progress, Input, Popover } from 'antd';
 import { FormattedMessage, Dispatch, connect, useIntl, history } from 'umi';
 import { StateType } from './model';
 
@@ -125,10 +125,73 @@ const Register: React.FC<RegisterProps> = ({
       return promise.reject('');
     }
     if (value && confirmDirty) {
+      form.validateFields(['confirm']);
     }
+    return promise.resolve();
   };
 
-  return <></>;
+  const renderPasswordProgress = () => {
+    const value = form.getFieldValue('password');
+    const passwordStatus = getPasswordStatus();
+    return value && value.length ? (
+      <div className={styles[`progress-${passwordStatus}`]}>
+        <Progress
+          status={passwordProgressMap[passwordStatus]}
+          className={styles.progress}
+          strokeWidth={6}
+          percent={value.length * 10 > 100 ? 100 : value.length * 10}
+          showInfo={false}
+        />
+      </div>
+    ) : null;
+  };
+  return (
+    <div className={styles.main}>
+      <h3>
+        <FormattedMessage id="userAndRegister.register.register" />
+      </h3>
+      <Form form={form} name="UserRegister" onFinish={onFinish}>
+        <FormItem
+          name="userName"
+          rules={[
+            {
+              required: true,
+              message: formatMessage({
+                id: 'userAndRegister.register.username.required',
+              }),
+            },
+          ]}
+        >
+          <Input
+            size="large"
+            placeholder={formatMessage({
+              id: 'userAndRegister.register.username.placeholder',
+            })}
+          />
+        </FormItem>
+        <Popover
+          getPopupContainer={}
+          content={}
+          placement="right"
+          visible={visible}
+        >
+          <FormItem
+            name="password"
+            className={
+              form.getFieldValue('password') &&
+              form.getFieldValue('password').length > 0 &&
+              styles.password
+            }
+            rules={[
+              {
+                validator: checkPassword,
+              },
+            ]}
+          ></FormItem>
+        </Popover>
+      </Form>
+    </div>
+  );
 };
 
 export default connect(
