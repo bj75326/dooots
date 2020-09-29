@@ -1,6 +1,13 @@
 import React, { useEffect, useState } from 'react';
-import { Form, message, Progress, Input, Popover } from 'antd';
-import { FormattedMessage, Dispatch, connect, useIntl, history } from 'umi';
+import { Form, message, Progress, Input, Popover, Button } from 'antd';
+import {
+  FormattedMessage,
+  Dispatch,
+  connect,
+  useIntl,
+  history,
+  Link,
+} from 'umi';
 import { StateType } from './model';
 
 import styles from './style.less';
@@ -10,17 +17,17 @@ const FormItem = Form.Item;
 const passwordStatusMap = {
   ok: (
     <div className={styles.success}>
-      <FormattedMessage id="" />
+      <FormattedMessage id="userAndRegister.strength.strong" />
     </div>
   ),
   pass: (
     <div className={styles.warning}>
-      <FormattedMessage id="" />
+      <FormattedMessage id="userAndRegister.strength.medium" />
     </div>
   ),
   poor: (
     <div className={styles.error}>
-      <FormattedMessage id="" />
+      <FormattedMessage id="userAndRegister.strength.short" />
     </div>
   ),
 };
@@ -147,12 +154,16 @@ const Register: React.FC<RegisterProps> = ({
   };
   return (
     <div className={styles.main}>
-      <h3>
-        <FormattedMessage id="userAndRegister.register.register" />
-      </h3>
-      <Form form={form} name="UserRegister" onFinish={onFinish}>
+      <Form
+        form={form}
+        name="UserRegister"
+        onFinish={onFinish}
+        layout="vertical"
+        requiredMark={false}
+      >
         <FormItem
           name="userName"
+          label={formatMessage({ id: 'userAndRegister.register.username' })}
           rules={[
             {
               required: true,
@@ -170,13 +181,30 @@ const Register: React.FC<RegisterProps> = ({
           />
         </FormItem>
         <Popover
-          getPopupContainer={}
-          content={}
+          getPopupContainer={node => {
+            if (node && node.parentNode) {
+              return node.parentNode as HTMLElement;
+            }
+            return node;
+          }}
+          content={
+            visible && (
+              <div style={{}}>
+                {passwordStatusMap[getPasswordStatus()]}
+                {renderPasswordProgress()}
+                <div style={{}}>
+                  <FormattedMessage id="userAndRegister.strength.msg" />
+                </div>
+              </div>
+            )
+          }
+          overlayStyle={{ width: 240 }}
           placement="right"
           visible={visible}
         >
           <FormItem
             name="password"
+            label={formatMessage({ id: 'userAndRegister.register.password' })}
             className={
               form.getFieldValue('password') &&
               form.getFieldValue('password').length > 0 &&
@@ -187,8 +215,55 @@ const Register: React.FC<RegisterProps> = ({
                 validator: checkPassword,
               },
             ]}
-          ></FormItem>
+          >
+            <Input
+              size="large"
+              type="password"
+              placeholder={formatMessage({
+                id: 'userAndRegister.register.password.placeholder',
+              })}
+            />
+          </FormItem>
         </Popover>
+        <FormItem
+          name="confirm"
+          label={formatMessage({ id: 'userAndRegister.register.confirm' })}
+          rules={[
+            {
+              required: true,
+              message: formatMessage({
+                id: 'userAndRegister.register.confirm.required',
+              }),
+            },
+            {
+              validator: checkConfirm,
+            },
+          ]}
+        >
+          <Input
+            size="large"
+            type="password"
+            placeholder={formatMessage({
+              id: 'userAndRegister.register.confirm.placeholder',
+            })}
+          />
+        </FormItem>
+        <FormItem>
+          <Button
+            size="large"
+            loading={submitting}
+            className={styles.submit}
+            type="primary"
+            htmlType="submit"
+          >
+            {formatMessage({ id: 'userAndRegister.register.register' })}
+          </Button>
+        </FormItem>
+        <div className={styles.others}>
+          <Link to="/user/login" className={styles.login}>
+            {formatMessage({ id: 'userAndRegister.register.login' })}
+          </Link>
+        </div>
       </Form>
     </div>
   );
