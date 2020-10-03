@@ -77,6 +77,7 @@ const BasicLayout: React.FC<BasicLayoutProps> = props => {
 
   const { formatMessage } = useIntl();
   console.log('BasicLayout render run');
+
   return (
     <>
       <ProLayout

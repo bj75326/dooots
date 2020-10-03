@@ -56,3 +56,13 @@ export const setCookie = (
     value,
   )};expires=${expires};path=${path}`;
 };
+
+export const getCookie = (name: string) => {
+  let arr,
+    reg = new RegExp('(^| )' + escape(name) + '=([^;]*)(;|$)');
+  if ((arr = document.cookie.match(reg))) {
+    return unescape(arr[2]);
+  } else {
+    return null;
+  }
+};

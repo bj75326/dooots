@@ -2,7 +2,7 @@ export default {
   'app.settings.loading': 'Loading theme',
   'app.settings.title': 'Customize your view',
   'app.settings.subtitle':
-    'Display settings affect your Dooots accounts on this browser. These settings are only visible to you.',
+    'Display settings will affect all Dooots accounts on this browser.',
   'app.settings.fontSize': 'Font size',
   'app.settings.color': 'Color',
   'app.settings.theme': 'Theme',
