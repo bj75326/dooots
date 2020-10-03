@@ -1,5 +1,6 @@
 import { Reducer, Dispatch } from 'umi';
 import { message } from 'antd';
+import { setCookie } from '@/utils/utils';
 
 export interface SettingModelState {
   /**
@@ -47,6 +48,8 @@ export const changeTheme = (
       defaultMessage: '正在加载主题',
     }),
   );
+  setCookie('_theme', theme);
+  setCookie('_color', primaryColor);
 
   let styleLink: HTMLElement | null = document.getElementById('theme-style');
   let body = document.getElementsByTagName('body')[0];

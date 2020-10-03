@@ -37,3 +37,22 @@ export const getAuthorityFromRouter = <T extends Route>(
   if (authority) return authority;
   return undefined;
 };
+
+export const setCookie = (
+  name: string,
+  value: string,
+  exp = Infinity,
+  path = '/',
+): void => {
+  const date = new Date();
+  let expires;
+  if (exp === Infinity) {
+    expires = 'Fri, 31 Dec 9999 23:59:59 GMT';
+  } else {
+    date.setTime(date.getTime() + exp * 24 * 3600 * 1000);
+    expires = date.toUTCString();
+  }
+  document.cookie = `${escape(name)}=${escape(
+    value,
+  )};expires=${expires};path=${path}`;
+};

@@ -7,8 +7,8 @@ export default {
   'userAndRegister.password.required': '请输入密码！',
   'userAndRegister.register.username': '用户名',
   'userAndRegister.register.username.required': '请输入用户名',
-  'userAndRegister.register.username.placeholder':
-    '由字母数字字符组成，必须以字母开头，可以用‘_’、‘-’或‘。’分隔',
+  'userAndRegister.register.username.placeholder': '用户名',
+  //'由字母数字字符组成，必须以字母开头，可以用‘_’、‘-’或‘。’分隔',
   'userAndRegister.strength.msg':
     '请至少输入 6 个字符。请不要使用容易被猜到的密码。',
   'userAndRegister.register.password': '密码',

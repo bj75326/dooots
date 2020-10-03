@@ -258,12 +258,10 @@ const Register: React.FC<RegisterProps> = ({
           >
             {formatMessage({ id: 'userAndRegister.register.register' })}
           </Button>
-        </FormItem>
-        <div className={styles.others}>
           <Link to="/user/login" className={styles.login}>
             {formatMessage({ id: 'userAndRegister.register.login' })}
           </Link>
-        </div>
+        </FormItem>
       </Form>
     </div>
   );
