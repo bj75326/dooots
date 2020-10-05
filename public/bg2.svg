@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="1000px" height="1000px" viewBox="0 0 1000 1000" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 49.3 (51167) - http://www.bohemiancoding.com/sketch -->
+    <title>Untitled</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <circle id="Oval" fill="#FFAD1F" cx="376" cy="874" r="125"></circle>
+        <circle id="Oval" fill-opacity="0.5" fill="#FFAD1F" cx="126" cy="624" r="125"></circle>
+        <circle id="Oval" fill-opacity="0.5" fill="#FFAD1F" cx="126" cy="874" r="125"></circle>
+        <circle id="Oval" fill="#FFAD1F" cx="376" cy="624" r="125"></circle>
+        <path d="M1001,749 L1001,999 L751,999 C612.928813,999 501,887.071187 501,749 C501,610.928813 612.928813,499 751,499 C889.071187,499 1001,610.928813 1001,749 Z" id="Combined-Shape" fill="#E0245E"></path>
+        <rect id="Rectangle-2" fill-opacity="0.5" fill="#1890FF" x="501" y="-1" width="500" height="500"></rect>
+        <path d="M501,499 C777.142375,499 1001,275.142375 1001,-1 L501,-1 L501,499 Z" id="Oval-3" fill="#1890FF"></path>
+    </g>
+</svg>

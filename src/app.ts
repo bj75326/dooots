@@ -28,6 +28,11 @@ if (theme === 'light') {
     body.className = `body-wrap-${primaryColor}`;
   }
 } else {
-  styleLink.href = '';
-  body.className = 'body-wrap-default';
+  if (primaryColor === 'default') {
+    styleLink.href = '/theme/dark.css';
+    body.className = 'body-wrap-dark';
+  } else {
+    styleLink.href = `/theme/dark-${primaryColor}.css`;
+    body.className = 'body-wrap-dark';
+  }
 }
