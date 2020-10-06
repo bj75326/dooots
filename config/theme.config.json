@@ -1,29 +1,4 @@
 {
-  "theme": [
-    {
-      "theme": "dark",
-      "fileName": "dark.css",
-      "modifyVars": {
-        "@border-radius-base": "4px"
-      }
-    },
-    {
-      "fileName": "star.css",
-      "modifyVars": {
-        "@primary-color": "#FFAD1F",
-        "@border-radius-base": "4px"
-      }
-    },
-    {
-      "fileName": "dark-star.css",
-      "theme": "dark",
-      "modifyVars": {
-        "@primary-color": "#FFAD1F",
-        "@border-radius-base": "4px"
-      }
-    }
-  ],
-
   "min": true,
 
   "isModule": true,

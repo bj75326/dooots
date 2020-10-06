@@ -20,6 +20,7 @@ const Login: React.FC<LoginProps> = props => {
   const { formatMessage } = useIntl();
 
   const handleSubmit = (values: LoginParamsType) => {
+    console.log('handleSubmit');
     const { dispatch } = props;
     dispatch({
       type: 'userAndLogin/login',
@@ -29,7 +30,7 @@ const Login: React.FC<LoginProps> = props => {
       },
     });
   };
-
+  console.log('submitting: ', submitting);
   return (
     <div className={styles.main}>
       <LoginForm onSubmit={handleSubmit}>
@@ -57,7 +58,9 @@ const Login: React.FC<LoginProps> = props => {
           ]}
           label={formatMessage({ id: 'userAndLogin.login.password' })}
         />
-        <Submit>{formatMessage({ id: 'userAndLogin.login.login' })}</Submit>
+        <Submit loading={submitting}>
+          {formatMessage({ id: 'userAndLogin.login.login' })}
+        </Submit>
         <div className={styles.others}>
           <a href="#" className={styles.forget}>
             {formatMessage({ id: 'userAndLogin.login.forgotPassword' })}
