@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link, useIntl, ConnectProps, connect } from 'umi';
+import { ConnectState, Settings } from '@/models/connect';
 import {
   MenuDataItem,
   getMenuData,
@@ -13,6 +14,7 @@ import {
   GithubOutlined,
   TwitterOutlined,
 } from '@ant-design/icons';
+import classNames from 'classnames';
 
 import styles from './UserLayout.less';
 
@@ -20,6 +22,7 @@ export interface UserLayoutProps extends Partial<ConnectProps> {
   breadcrumbNameMap: {
     [path: string]: MenuDataItem;
   };
+  settings: Settings;
 }
 
 const UserLayout: React.FC<UserLayoutProps> = props => {
@@ -27,6 +30,7 @@ const UserLayout: React.FC<UserLayoutProps> = props => {
     route = { routes: [] },
     children,
     location = { pathname: '' },
+    settings,
   } = props;
   const { routes = [] } = route;
   console.log('route: ', route);
@@ -46,13 +50,19 @@ const UserLayout: React.FC<UserLayoutProps> = props => {
   console.log('title: ', title);
   console.log('children: ', children);
 
+  const { theme } = settings;
+
   return (
     <HelmetProvider>
       <Helmet>
         <title>{title}</title>
         <meta name="description" content={title} />
       </Helmet>
-      <div className={styles.container}>
+      <div
+        className={classNames(styles.container, {
+          [styles.dark]: theme === 'dark',
+        })}
+      >
         <div className={styles.lang}>
           <SelectLang />
         </div>
@@ -99,4 +109,6 @@ const UserLayout: React.FC<UserLayoutProps> = props => {
   );
 };
 
-export default connect(() => ({}))(UserLayout);
+export default connect(({ settings }: ConnectState) => ({
+  settings,
+}))(UserLayout);

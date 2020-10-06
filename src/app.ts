@@ -1,7 +1,5 @@
-import { getCookie } from '@/utils/utils';
-
-const theme = getCookie('_theme');
-const primaryColor = getCookie('_color');
+const theme = localStorage.getItem('theme') || 'light';
+const primaryColor = localStorage.getItem('color') || 'default';
 
 let styleLink: HTMLElement | null = document.getElementById('theme-style');
 let body = document.getElementsByTagName('body')[0];
@@ -33,6 +31,6 @@ if (theme === 'light') {
     body.className = 'body-wrap-dark';
   } else {
     styleLink.href = `/theme/dark-${primaryColor}.css`;
-    body.className = 'body-wrap-dark';
+    body.className = `body-wrap-dark-${primaryColor}`;
   }
 }

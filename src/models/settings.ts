@@ -1,6 +1,5 @@
 import { Reducer, Dispatch } from 'umi';
 import { message } from 'antd';
-import { setCookie } from '@/utils/utils';
 
 export interface SettingModelState {
   /**
@@ -21,11 +20,16 @@ export interface SettingModelState {
   fontSize: number;
 }
 
+const localTheme = localStorage.getItem('theme') || 'light';
+const localColor = localStorage.getItem('color') || 'default';
+const localFontSize = localStorage.getItem('fontSize') || '14';
+const localColorWeak = localStorage.getItem('colorWeak') || '0';
+
 export const defaultSettings: SettingModelState = {
-  theme: 'light',
-  primaryColor: 'default',
-  colorWeak: false,
-  fontSize: 14,
+  theme: localTheme as SettingModelState['theme'],
+  primaryColor: localColor as SettingModelState['primaryColor'],
+  colorWeak: localColorWeak === '1' ? true : false,
+  fontSize: +localFontSize,
 };
 
 export interface SettingModelType {
@@ -48,8 +52,10 @@ export const changeTheme = (
       defaultMessage: '正在加载主题',
     }),
   );
-  setCookie('_theme', theme);
-  setCookie('_color', primaryColor);
+  //setCookie('_theme', theme);
+  //setCookie('_color', primaryColor);
+  localStorage.setItem('theme', theme);
+  localStorage.setItem('color', primaryColor);
 
   let styleLink: HTMLElement | null = document.getElementById('theme-style');
   let body = document.getElementsByTagName('body')[0];
