@@ -1,5 +1,5 @@
 import { Effect, history, Reducer } from 'umi';
-import { message } from 'antd';
+import { message, notification } from 'antd';
 import { fakeAccountLogin } from './service';
 import { getPageQuery, setAuthority } from './utils/utils';
 
@@ -53,6 +53,13 @@ const Model: ModelType = {
           }
         }
         history.replace(redirect || '/');
+      } else if (response.status === 'error') {
+        notification['error']({
+          message: formatMessage({ id: 'userAndLogin.login.error.message' }),
+          description: formatMessage({
+            id: 'userAndLogin.login.error.description',
+          }),
+        });
       }
     },
   },

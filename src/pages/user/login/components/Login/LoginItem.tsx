@@ -22,6 +22,7 @@ export interface LoginItemProps extends Partial<FormItemProps> {
   customProps?: { [key: string]: unknown };
   onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
   label?: string;
+  autocomplete?: string;
 }
 
 const FormItem = Form.Item;

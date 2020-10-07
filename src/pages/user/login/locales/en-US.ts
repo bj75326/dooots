@@ -7,4 +7,7 @@ export default {
   'userAndLogin.login.success': 'Login success!',
   'userAndLogin.login.username.required': 'Please enter username!',
   'userAndLogin.login.password.required': 'Please enter password!',
+  'userAndLogin.login.error.message': 'Login failed',
+  'userAndLogin.login.error.description':
+    'Please check the username and password again, and login later.',
 };

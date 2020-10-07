@@ -1,5 +1,6 @@
 import { Route } from '@/models/connect';
 import { pathToRegexp } from 'path-to-regexp';
+import { parse } from 'qs';
 
 export const getRouteAuthority = (path: string, routeData: Route[]) => {
   let authorities: string[] | string | undefined;
@@ -66,3 +67,5 @@ export const getCookie = (name: string) => {
     return null;
   }
 };
+
+export const getPageQuery = () => parse(window.location.href.split('?')[1]);

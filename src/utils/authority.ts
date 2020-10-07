@@ -6,3 +6,15 @@ import { queryAuthority } from '@/services/login';
 export function getAuthority(): Promise<{ authority: string | string[] }> {
   return queryAuthority();
 }
+
+export function setAuthority(authority: string | string[]) {
+  try {
+    if (window.reloadAuthorized) {
+      window.reloadAuthorized();
+    }
+  } catch (error) {
+    // nntd
+  }
+
+  return authority;
+}

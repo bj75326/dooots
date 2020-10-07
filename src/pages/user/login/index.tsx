@@ -1,5 +1,4 @@
 import React from 'react';
-import {} from 'antd';
 import { connect, Dispatch, Link, useIntl } from 'umi';
 import { LoginParamsType } from './service';
 import { StateType } from './model';
@@ -45,6 +44,7 @@ const Login: React.FC<LoginProps> = props => {
             },
           ]}
           label={formatMessage({ id: 'userAndLogin.login.username' })}
+          autocomplete="off"
         />
         <Password
           name="password"

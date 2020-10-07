@@ -3,7 +3,7 @@ export default {
     props: {
       size: 'large',
       id: 'userName',
-      placeholder: 'admin',
+      placeholder: 'admin | user',
     },
     // rules: (formatMessage: any) => [
     //   {

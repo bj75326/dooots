@@ -23,6 +23,7 @@ export interface GlobalHeaderRightProps extends Partial<ConnectProps> {
 class GlobalHeaderRight extends Component<GlobalHeaderRightProps> {
   componentDidMount() {
     const { dispatch } = this.props;
+    // global/fetchNotices执行过程中会dispatch action给user model，这会导致一次从Authorize Wrapper向下的re-render。
     if (dispatch) {
       dispatch({
         type: 'global/fetchNotices',

@@ -15,9 +15,6 @@ import { getAuthorityFromRouter } from '@/utils/utils';
 import logo from '@/assets/logo.svg';
 import RightContent from '@/components/GlobalHeader/RightContent';
 
-//删除
-import { pathToRegexp } from 'path-to-regexp';
-
 const noMatch = (
   <Result
     status={403}
@@ -59,11 +56,15 @@ const BasicLayout: React.FC<BasicLayoutProps> = props => {
   } = props;
 
   useEffect(() => {
+    console.log('run basicLayout useEffect');
+    // safari测试的时候，从mock拿回数据的速度甚至超过了redirect re-render的速度，上线后应该不存在这个问题。
+    // setTimeout(() => {
     if (dispatch) {
       dispatch({
         type: 'user/fetchCurrent',
       });
     }
+    // }, 0)
   }, []);
   console.log('BasicLayout run routes: ', props.route.routes);
   console.log('BasicLayout run location.pathname: ', location.pathname);
@@ -103,9 +104,9 @@ const BasicLayout: React.FC<BasicLayoutProps> = props => {
         {...props}
         {...settings}
       >
-        <Authorized authority={authorized!.authority} noMatch={noMatch}>
-          {children}
-        </Authorized>
+        {/* <Authorized authority={authorized!.authority} noMatch={noMatch}> */}
+        {children}
+        {/* </Authorized> */}
       </ProLayout>
       <Button
         onClick={() => {
