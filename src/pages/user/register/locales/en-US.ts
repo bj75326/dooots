@@ -18,4 +18,5 @@ export default {
   'userAndRegister.register.confirm.placeholder': 'Confirm password',
   'userAndRegister.register.register': 'Register',
   'userAndRegister.register.login': 'Already have a account?',
+  'userAndRegister.password.format.error': 'Please check username format',
 };

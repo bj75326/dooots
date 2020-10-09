@@ -36,7 +36,12 @@ const AuthComponent: React.FC<AuthComponentProps> = ({
         isLogin ? (
           <Redirect to="/exception/403" />
         ) : (
-          <Redirect to="/user/login" />
+          <Redirect
+            to={{
+              pathname: '/user/login',
+              search: `?redirect=${encodeURIComponent(window.location.href)}`,
+            }}
+          />
         )
       }
     >

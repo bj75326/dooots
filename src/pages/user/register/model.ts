@@ -1,6 +1,6 @@
 import { Effect, Reducer } from 'umi';
 
-import { fakeRegister } from './service';
+import { fakeRegister, checkNameUnique } from './service';
 
 export interface StateType {
   status?: 'ok' | 'error';
@@ -12,6 +12,7 @@ export interface ModelType {
   state: StateType;
   effects: {
     submit: Effect;
+    checkNameUnique: Effect;
   };
   reducers: {
     registerHandle: Reducer<StateType>;
@@ -26,6 +27,10 @@ const Model: ModelType = {
   },
 
   effects: {
+    *checkNameUnique({ payload }, { call, put }) {
+      const response = yield call(checkNameUnique, payload);
+    },
+
     *submit({ payload }, { call, put }) {
       const response = yield call(fakeRegister, payload);
       yield put({

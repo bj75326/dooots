@@ -42,6 +42,8 @@ const passwordProgressMap: {
   poor: 'exception',
 };
 
+const userNameRegExp = /(^(?:[\u4e00-\u9fa5]+)(?:·[\u4e00-\u9fa5]+)*$)|(^[a-zA-Z]+[\.\-\_a-zA-Z]{0,1}[a-zA-Z]+$)/;
+
 interface RegisterProps {
   dispatch: Dispatch;
   userAndRegister: StateType;
@@ -61,6 +63,7 @@ const Register: React.FC<RegisterProps> = ({
 }) => {
   const [visible, setVisible]: [boolean, any] = useState(false);
   const [popover, setPopover]: [boolean, any] = useState(false);
+  const [userNamePopover, setUserNamePopover]: [boolean, any] = useState(false);
 
   const confirmDirty = false;
 
@@ -137,6 +140,19 @@ const Register: React.FC<RegisterProps> = ({
     return promise.resolve();
   };
 
+  const checkUserNameFormat = (_: any, value: string) => {
+    const promise = Promise;
+    if (!userNameRegExp.test(value)) {
+      setUserNamePopover(true);
+      return promise.reject(
+        formatMessage({ id: 'userAndRegister.password.format.error' }),
+      );
+    }
+    return promise.resolve();
+  };
+
+  const checkUserNameUnique = (_: any, value: string) => {};
+
   const renderPasswordProgress = () => {
     const value = form.getFieldValue('password');
     const passwordStatus = getPasswordStatus();
@@ -170,6 +186,9 @@ const Register: React.FC<RegisterProps> = ({
               message: formatMessage({
                 id: 'userAndRegister.register.username.required',
               }),
+            },
+            {
+              validator: checkUserNameFormat,
             },
           ]}
         >

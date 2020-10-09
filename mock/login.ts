@@ -40,4 +40,9 @@ export default {
     status: 'ok',
     currentAuthority: 'guest',
   },
+
+  'POST /api/register': {
+    status: 'ok',
+    currentAuthority: 'user',
+  },
 };

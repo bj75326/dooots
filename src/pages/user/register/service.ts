@@ -7,3 +7,10 @@ export async function fakeRegister(params: UserRegisterParams) {
     data: params,
   });
 }
+
+export async function checkNameUnique(params: { username: string }) {
+  return request('/api/register/unique', {
+    method: 'POST',
+    data: params,
+  });
+}

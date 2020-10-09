@@ -18,4 +18,5 @@ export default {
   'userAndRegister.register.confirm.placeholder': '确认密码',
   'userAndRegister.register.register': '注册',
   'userAndRegister.register.login': '已有账号登录',
+  'userAndRegister.password.format.error': '用户名格式错误',
 };
