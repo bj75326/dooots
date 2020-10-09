@@ -44,7 +44,7 @@ const Login: React.FC<LoginProps> = props => {
             },
           ]}
           label={formatMessage({ id: 'userAndLogin.login.username' })}
-          autocomplete="off"
+          autoComplete="off"
         />
         <Password
           name="password"

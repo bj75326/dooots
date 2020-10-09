@@ -9,7 +9,7 @@ import React, { useEffect } from 'react';
 import { Link, useIntl, connect, Dispatch } from 'umi';
 import { ConnectState, Settings } from '@/models/connect';
 import { changeTheme } from '@/models/settings';
-import { Result, Button, Dropdown, Menu, Popover } from 'antd';
+import { Result, Button, Spin } from 'antd';
 import Authorized from '@/utils/Authorized';
 import { getAuthorityFromRouter } from '@/utils/utils';
 import logo from '@/assets/logo.svg';
@@ -37,6 +37,7 @@ export interface BasicLayoutProps extends ProLayoutProps {
   };
   settings: Settings;
   dispatch: Dispatch;
+  logouting: boolean;
 }
 
 export type BasicLayoutContext = { [K in 'location']: BasicLayoutProps[K] } & {
@@ -53,6 +54,7 @@ const BasicLayout: React.FC<BasicLayoutProps> = props => {
     location = {
       pathname: '/',
     },
+    logouting,
   } = props;
 
   useEffect(() => {
@@ -81,89 +83,40 @@ const BasicLayout: React.FC<BasicLayoutProps> = props => {
 
   return (
     <>
-      <ProLayout
-        logo={logo}
-        title="dooots"
-        formatMessage={formatMessage}
-        layout="topmenu"
-        navTheme={settings.theme}
-        menuHeaderRender={logoDom => <Link to="/">{logoDom}</Link>}
-        menuItemRender={(menuItemProps, defaultDom) => {
-          if (
-            menuItemProps.isUrl ||
-            menuItemProps.children ||
-            !menuItemProps.path
-          ) {
-            return defaultDom;
-          }
-          return <Link to={menuItemProps.path}>{defaultDom}</Link>;
-        }}
-        pageTitleRender={false}
-        disableMobile={true}
-        rightContentRender={() => <RightContent />}
-        {...props}
-        {...settings}
-      >
-        {/* <Authorized authority={authorized!.authority} noMatch={noMatch}> */}
-        {children}
-        {/* </Authorized> */}
-      </ProLayout>
-      <Button
-        onClick={() => {
-          // dispatch({
-          //   type: 'settings/changeSetting',
-          //   payload: {
-          //     theme: settings.theme === 'dark' ? 'light' : 'dark',
-          //   },
-          // });
-          changeTheme(
-            {
-              ...settings,
-              theme: settings.theme === 'dark' ? 'light' : 'dark',
-            },
-            dispatch,
-            formatMessage,
-          );
-        }}
-        style={{
-          position: 'fixed',
-          top: '300px',
-          left: '300px',
-        }}
-      >
-        Setting Theme
-      </Button>
-      <Button
-        onClick={() => {
-          // dispatch({
-          //   type: 'settings/changeSetting',
-          //   payload: {
-          //     primaryColor:
-          //       settings.primaryColor === 'default' ? 'star' : 'default',
-          //   },
-          // });
-          changeTheme(
-            {
-              ...settings,
-              primaryColor:
-                settings.primaryColor === 'default' ? 'star' : 'default',
-            },
-            dispatch,
-            formatMessage,
-          );
-        }}
-        style={{
-          position: 'fixed',
-          top: '300px',
-          left: '500px',
-        }}
-      >
-        Setting Color
-      </Button>
+      <Spin spinning={logouting} size="large">
+        <ProLayout
+          logo={logo}
+          title="dooots"
+          formatMessage={formatMessage}
+          layout="topmenu"
+          navTheme={settings.theme}
+          menuHeaderRender={logoDom => <Link to="/">{logoDom}</Link>}
+          menuItemRender={(menuItemProps, defaultDom) => {
+            if (
+              menuItemProps.isUrl ||
+              menuItemProps.children ||
+              !menuItemProps.path
+            ) {
+              return defaultDom;
+            }
+            return <Link to={menuItemProps.path}>{defaultDom}</Link>;
+          }}
+          pageTitleRender={false}
+          disableMobile={true}
+          rightContentRender={() => <RightContent />}
+          {...props}
+          {...settings}
+        >
+          {/* <Authorized authority={authorized!.authority} noMatch={noMatch}> */}
+          {children}
+          {/* </Authorized> */}
+        </ProLayout>
+      </Spin>
     </>
   );
 };
 
-export default connect(({ settings }: ConnectState) => ({
+export default connect(({ settings, loading }: ConnectState) => ({
   settings,
+  logouting: !!loading.effects['login/logout'],
 }))(BasicLayout);

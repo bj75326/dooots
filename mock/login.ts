@@ -35,4 +35,9 @@ export default {
       currentAuthority: 'guest',
     });
   },
+
+  'GET /api/logout/account': {
+    status: 'ok',
+    currentAuthority: 'guest',
+  },
 };

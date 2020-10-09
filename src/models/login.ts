@@ -1,5 +1,5 @@
 import { history, Reducer, Effect } from 'umi';
-import { fakeAccountLogin } from '@/services/login';
+import { fakeAccountLogin, fakeAccountLogout } from '@/services/login';
 import { setAuthority } from '@/utils/authority';
 import { getPageQuery } from '@/utils/utils';
 import { message, notification } from 'antd';
@@ -62,9 +62,18 @@ const Model: LoginModelType = {
         });
       }
     },
-    *logout() {
-      const { redirect } = getPageQuery();
-      // 临时这么写，纯演示作用
+    *logout(_, { put, call }) {
+      const response = yield call(fakeAccountLogout);
+      yield put({
+        type: 'changeLoginStatus',
+        payload: response,
+      });
+      history.push({
+        pathname: '/user/login',
+        query: {
+          redirect: window.location.href,
+        },
+      });
     },
   },
 
