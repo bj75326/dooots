@@ -15,3 +15,16 @@
   line-height: 51px;
   margin-top: 12px;
 }
+
+.popover {
+  padding-left: 10px;
+  :global(.ant-popover-arrow) {
+    top: 50%;
+    left: 6px;
+    border-color: transparent transparent #fff #fff;
+    -webkit-box-shadow: -3px 3px 7px rgba(0, 0, 0, 0.07);
+    box-shadow: -3px 3px 7px rgba(0, 0, 0, 0.07);
+    -webkit-transform: translateY(-50%) rotate(45deg);
+    transform: translateY(-50%) rotate(45deg);
+  }
+}

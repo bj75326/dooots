@@ -142,6 +142,7 @@ const Register: React.FC<RegisterProps> = ({
 
   const checkUserNameFormat = (_: any, value: string) => {
     const promise = Promise;
+    setUserNamePopover(false);
     if (!value) {
       return promise.reject(
         formatMessage({ id: 'userAndRegister.register.username.required' }),
@@ -157,18 +158,23 @@ const Register: React.FC<RegisterProps> = ({
   };
 
   const checkUserNameUnique = (_: any, value: string) => {
-    const promise = new Promise((resolve, reject) => {
-      dispatch({
-        type: 'userAndRegister/checkNameUnique',
-        payload: {
-          username: value,
-          resolve,
-          reject,
-          formatMessage,
-        },
+    if (value) {
+      const promise = new Promise((resolve, reject) => {
+        dispatch({
+          type: 'userAndRegister/checkNameUnique',
+          payload: {
+            username: value,
+            resolve,
+            reject,
+            formatMessage,
+          },
+        });
       });
-    });
-    return promise;
+      return promise as Promise<void>;
+    }
+    return Promise.reject(
+      formatMessage({ id: 'userAndRegister.register.username.required' }),
+    );
   };
 
   const renderPasswordProgress = () => {
@@ -195,27 +201,52 @@ const Register: React.FC<RegisterProps> = ({
         layout="vertical"
         requiredMark={false}
       >
-        <FormItem
-          name="userName"
-          label={formatMessage({ id: 'userAndRegister.register.username' })}
-          rules={[
-            {
-              validator: checkUserNameFormat,
-            },
-            {
-              validator: checkUserNameUnique,
-              validateTrigger: 'onBlur',
-            },
-          ]}
+        <Popover
+          getPopupContainer={node => {
+            if (node && node.parentNode) {
+              return node.parentNode as HTMLElement;
+            }
+            return node;
+          }}
+          content={
+            <div>
+              {formatMessage({
+                id: 'userAndRegister.register.username.format',
+              })}
+            </div>
+          }
+          overlayStyle={{ width: 240 }}
+          align={{
+            points: ['cl', 'tr'],
+            offset: [0, 55],
+          }}
+          visible={userNamePopover}
+          overlayClassName={styles.popover}
         >
-          <Input
-            size="large"
-            placeholder={formatMessage({
-              id: 'userAndRegister.register.username.placeholder',
-            })}
-            autoComplete="off"
-          />
-        </FormItem>
+          <FormItem
+            name="userName"
+            label={formatMessage({ id: 'userAndRegister.register.username' })}
+            validateTrigger={['onChange', 'onBlur']}
+            rules={[
+              {
+                validator: checkUserNameFormat,
+                validateTrigger: 'onChange',
+              },
+              {
+                validator: checkUserNameUnique,
+                validateTrigger: 'onBlur',
+              },
+            ]}
+          >
+            <Input
+              size="large"
+              placeholder={formatMessage({
+                id: 'userAndRegister.register.username.placeholder',
+              })}
+              autoComplete="off"
+            />
+          </FormItem>
+        </Popover>
         <Popover
           getPopupContainer={node => {
             if (node && node.parentNode) {
@@ -235,8 +266,12 @@ const Register: React.FC<RegisterProps> = ({
             )
           }
           overlayStyle={{ width: 240 }}
-          placement="right"
+          align={{
+            points: ['cl', 'tr'],
+            offset: [0, 55],
+          }}
           visible={visible}
+          overlayClassName={styles.popover}
         >
           <FormItem
             name="password"

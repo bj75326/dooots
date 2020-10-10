@@ -8,7 +8,8 @@ export default {
   'userAndRegister.register.username': 'Username',
   'userAndRegister.register.username.required': 'Please enter username!',
   'userAndRegister.register.username.placeholder': 'Username',
-  //"Alphanumeric characters, must begin with a letter, can be delimited by '_', '-', or '.'",
+  'userAndRegister.register.username.format':
+    "Alphanumeric characters, must begin with a letter, can be delimited by '_', '-', or '.'",
   'userAndRegister.strength.msg':
     "Please enter at least 6 characters and don't use passwords that are easy to guess.",
   'userAndRegister.register.password': 'Password',
