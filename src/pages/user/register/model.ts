@@ -27,8 +27,16 @@ const Model: ModelType = {
   },
 
   effects: {
-    *checkNameUnique({ payload }, { call, put }) {
-      const response = yield call(checkNameUnique, payload);
+    *checkNameUnique({ payload }, { call }) {
+      const { reject, resolve, formatMessage, ...values } = payload;
+      const response = yield call(checkNameUnique, values);
+      if (response.existed === true) {
+        reject(formatMessage({ id: 'userAndRegister.username.existed' }));
+      } else if (response.exised === false) {
+        resolve();
+      } else {
+        reject(formatMessage({ id: 'userAndRegister.username.unique.failed' }));
+      }
     },
 
     *submit({ payload }, { call, put }) {

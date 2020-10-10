@@ -142,16 +142,34 @@ const Register: React.FC<RegisterProps> = ({
 
   const checkUserNameFormat = (_: any, value: string) => {
     const promise = Promise;
+    if (!value) {
+      return promise.reject(
+        formatMessage({ id: 'userAndRegister.register.username.required' }),
+      );
+    }
     if (!userNameRegExp.test(value)) {
       setUserNamePopover(true);
       return promise.reject(
-        formatMessage({ id: 'userAndRegister.password.format.error' }),
+        formatMessage({ id: 'userAndRegister.username.format.error' }),
       );
     }
     return promise.resolve();
   };
 
-  const checkUserNameUnique = (_: any, value: string) => {};
+  const checkUserNameUnique = (_: any, value: string) => {
+    const promise = new Promise((resolve, reject) => {
+      dispatch({
+        type: 'userAndRegister/checkNameUnique',
+        payload: {
+          username: value,
+          resolve,
+          reject,
+          formatMessage,
+        },
+      });
+    });
+    return promise;
+  };
 
   const renderPasswordProgress = () => {
     const value = form.getFieldValue('password');
@@ -182,13 +200,11 @@ const Register: React.FC<RegisterProps> = ({
           label={formatMessage({ id: 'userAndRegister.register.username' })}
           rules={[
             {
-              required: true,
-              message: formatMessage({
-                id: 'userAndRegister.register.username.required',
-              }),
+              validator: checkUserNameFormat,
             },
             {
-              validator: checkUserNameFormat,
+              validator: checkUserNameUnique,
+              validateTrigger: 'onBlur',
             },
           ]}
         >
@@ -197,6 +213,7 @@ const Register: React.FC<RegisterProps> = ({
             placeholder={formatMessage({
               id: 'userAndRegister.register.username.placeholder',
             })}
+            autoComplete="off"
           />
         </FormItem>
         <Popover
