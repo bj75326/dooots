@@ -28,3 +28,12 @@
     transform: translateY(-50%) rotate(45deg);
   }
 }
+
+.userName {
+  &:global(.ant-form-item-has-success),
+  &:global(.ant-form-item-has-error) {
+    :global(.ant-form-item-children-icon) {
+      display: none;
+    }
+  }
+}

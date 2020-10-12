@@ -1,11 +1,17 @@
+import { Request, Response } from 'express';
+
 export default {
   'POST /api/register': {
     status: 'ok',
     currentAuthority: 'user',
   },
 
-  'POST /api/register/unique': {
-    username: 'test',
-    existed: true,
+  'POST /api/register/unique': (req: Request, res: Response) => {
+    setTimeout(() => {
+      res.send({
+        username: 'test',
+        existed: true,
+      });
+    }, 3000);
   },
 };

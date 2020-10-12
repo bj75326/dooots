@@ -157,24 +157,32 @@ const Register: React.FC<RegisterProps> = ({
     return promise.resolve();
   };
 
+  // const checkUserNameUnique = (_: any, value: string) => {
+  //   if (value) {
+  //     const promise = new Promise((resolve, reject) => {
+  //       dispatch({
+  //         type: 'userAndRegister/checkNameUnique',
+  //         payload: {
+  //           username: value,
+  //           resolve,
+  //           reject,
+  //           formatMessage,
+  //         },
+  //       });
+  //     });
+  //     return promise as Promise<void>;
+  //   }
+  //   return Promise.reject(
+  //     formatMessage({ id: 'userAndRegister.register.username.required' }),
+  //   );
+  // };
+
   const checkUserNameUnique = (_: any, value: string) => {
-    if (value) {
-      const promise = new Promise((resolve, reject) => {
-        dispatch({
-          type: 'userAndRegister/checkNameUnique',
-          payload: {
-            username: value,
-            resolve,
-            reject,
-            formatMessage,
-          },
-        });
-      });
-      return promise as Promise<void>;
-    }
-    return Promise.reject(
-      formatMessage({ id: 'userAndRegister.register.username.required' }),
-    );
+    return new Promise((resolve, reject) => {
+      setTimeout(() => {
+        reject('test');
+      }, 3000);
+    });
   };
 
   const renderPasswordProgress = () => {
@@ -193,12 +201,11 @@ const Register: React.FC<RegisterProps> = ({
     ) : null;
   };
 
-  const userNameValidateStatus = form.isFieldValidating('userName')
-    ? 'validating'
-    : form.getFieldError('userName').length > 0
-    ? 'error'
-    : undefined;
-  console.log(userNameValidateStatus);
+  const handleFieldsChange = (changedField, allFields) => {
+    console.log('changedField: ', changedField);
+    console.log('allFields: ', allFields);
+    console.log(form.isFieldValidating('userName'));
+  };
 
   return (
     <div className={styles.main}>
@@ -208,6 +215,7 @@ const Register: React.FC<RegisterProps> = ({
         onFinish={onFinish}
         layout="vertical"
         requiredMark={false}
+        onFieldsChange={handleFieldsChange}
       >
         <Popover
           getPopupContainer={node => {
@@ -239,14 +247,15 @@ const Register: React.FC<RegisterProps> = ({
             rules={[
               {
                 validator: checkUserNameFormat,
-                validateTrigger: 'onChange',
+                validateTrigger: ['onChange', 'onBlur'],
               },
               {
                 validator: checkUserNameUnique,
                 validateTrigger: 'onBlur',
               },
             ]}
-            validateStatus={userNameValidateStatus}
+            hasFeedback
+            className={styles.userName}
           >
             <Input
               size="large"
