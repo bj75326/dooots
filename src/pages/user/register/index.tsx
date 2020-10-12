@@ -192,6 +192,14 @@ const Register: React.FC<RegisterProps> = ({
       </div>
     ) : null;
   };
+
+  const userNameValidateStatus = form.isFieldValidating('userName')
+    ? 'validating'
+    : form.getFieldError('userName').length > 0
+    ? 'error'
+    : undefined;
+  console.log(userNameValidateStatus);
+
   return (
     <div className={styles.main}>
       <Form
@@ -226,6 +234,7 @@ const Register: React.FC<RegisterProps> = ({
           <FormItem
             name="userName"
             label={formatMessage({ id: 'userAndRegister.register.username' })}
+            validateFirst
             validateTrigger={['onChange', 'onBlur']}
             rules={[
               {
@@ -237,6 +246,7 @@ const Register: React.FC<RegisterProps> = ({
                 validateTrigger: 'onBlur',
               },
             ]}
+            validateStatus={userNameValidateStatus}
           >
             <Input
               size="large"
