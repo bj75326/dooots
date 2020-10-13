@@ -32,7 +32,7 @@ const Model: ModelType = {
       const response = yield call(checkNameUnique, values);
       if (response.existed === true) {
         reject(formatMessage({ id: 'userAndRegister.username.existed' }));
-      } else if (response.exised === false) {
+      } else if (response.existed === false) {
         resolve();
       } else {
         reject(formatMessage({ id: 'userAndRegister.username.unique.failed' }));

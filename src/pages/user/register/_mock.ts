@@ -10,7 +10,7 @@ export default {
     setTimeout(() => {
       res.send({
         username: 'test',
-        existed: true,
+        existed: false,
       });
     }, 3000);
   },

@@ -157,32 +157,24 @@ const Register: React.FC<RegisterProps> = ({
     return promise.resolve();
   };
 
-  // const checkUserNameUnique = (_: any, value: string) => {
-  //   if (value) {
-  //     const promise = new Promise((resolve, reject) => {
-  //       dispatch({
-  //         type: 'userAndRegister/checkNameUnique',
-  //         payload: {
-  //           username: value,
-  //           resolve,
-  //           reject,
-  //           formatMessage,
-  //         },
-  //       });
-  //     });
-  //     return promise as Promise<void>;
-  //   }
-  //   return Promise.reject(
-  //     formatMessage({ id: 'userAndRegister.register.username.required' }),
-  //   );
-  // };
-
   const checkUserNameUnique = (_: any, value: string) => {
-    return new Promise((resolve, reject) => {
-      setTimeout(() => {
-        reject('test');
-      }, 3000);
-    });
+    if (value) {
+      const promise = new Promise((resolve, reject) => {
+        dispatch({
+          type: 'userAndRegister/checkNameUnique',
+          payload: {
+            username: value,
+            resolve,
+            reject,
+            formatMessage,
+          },
+        });
+      });
+      return promise as Promise<void>;
+    }
+    return Promise.reject(
+      formatMessage({ id: 'userAndRegister.register.username.required' }),
+    );
   };
 
   const renderPasswordProgress = () => {
@@ -201,12 +193,6 @@ const Register: React.FC<RegisterProps> = ({
     ) : null;
   };
 
-  const handleFieldsChange = (changedField, allFields) => {
-    console.log('changedField: ', changedField);
-    console.log('allFields: ', allFields);
-    console.log(form.isFieldValidating('userName'));
-  };
-
   return (
     <div className={styles.main}>
       <Form
@@ -215,7 +201,6 @@ const Register: React.FC<RegisterProps> = ({
         onFinish={onFinish}
         layout="vertical"
         requiredMark={false}
-        onFieldsChange={handleFieldsChange}
       >
         <Popover
           getPopupContainer={node => {
