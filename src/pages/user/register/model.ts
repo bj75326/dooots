@@ -1,4 +1,5 @@
-import { Effect, Reducer } from 'umi';
+import { Effect, Reducer, history } from 'umi';
+import { message, notification } from 'antd';
 
 import { fakeRegister, checkNameUnique } from './service';
 
@@ -40,11 +41,29 @@ const Model: ModelType = {
     },
 
     *submit({ payload }, { call, put }) {
-      const response = yield call(fakeRegister, payload);
+      const { formatMessage, ...values } = payload;
+      const response = yield call(fakeRegister, values);
       yield put({
         type: 'registerHandle',
         payload: response,
       });
+      // Register successfully
+      if (response.status === 'ok') {
+        message.success(
+          formatMessage({ id: 'userAndRegister.register.success' }),
+        );
+        history.push({
+          pathname: '/user/register-result',
+          state: {
+            account: values.userName,
+          },
+        });
+      } else if (response.status === 'error') {
+        notification['error']({
+          message: response.message || formatMessage({ id: '' }),
+          description: response.description || formatMessage({ id: '' }),
+        });
+      }
     },
   },
 

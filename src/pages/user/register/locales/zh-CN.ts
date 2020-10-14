@@ -22,4 +22,7 @@ export default {
   'userAndRegister.username.format.error': '用户名格式错误',
   'userAndRegister.username.existed': '用户名已被注册',
   'userAndRegister.username.unique.failed': '用户名验证失败',
+  'userAndRegister.register.fail.message': '注册失败',
+  'userAndRegister.register.fail.description':
+    '当前服务器端注册服务暂时不可用，请稍后再试。',
 };

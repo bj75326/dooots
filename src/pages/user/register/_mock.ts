@@ -3,7 +3,12 @@ import { Request, Response } from 'express';
 export default {
   'POST /api/register': {
     status: 'ok',
-    currentAuthority: 'user',
+    currentAuthority: 'guest',
+    //error
+    //status: 'error',
+    //currentAuthority: 'guest',
+    //message: '',
+    //description: '',
   },
 
   'POST /api/register/unique': (req: Request, res: Response) => {

@@ -9,6 +9,7 @@ import {
   Link,
 } from 'umi';
 import { StateType } from './model';
+import { FieldData } from 'rc-field-form/es/interface';
 
 import styles from './style.less';
 
@@ -64,29 +65,30 @@ const Register: React.FC<RegisterProps> = ({
   const [visible, setVisible]: [boolean, any] = useState(false);
   const [popover, setPopover]: [boolean, any] = useState(false);
   const [userNamePopover, setUserNamePopover]: [boolean, any] = useState(false);
+  const [disableSubmit, setDisableSubmit] = useState(true);
 
   const confirmDirty = false;
 
   const [form] = Form.useForm();
   const { formatMessage } = useIntl();
 
-  useEffect(() => {
-    if (!userAndRegister) {
-      return;
-    }
-    const account = form.getFieldValue('userName');
-    if (userAndRegister.status === 'ok') {
-      message.success(
-        formatMessage({ id: 'userAndRegister.register.success' }),
-      );
-      history.push({
-        pathname: '/user/register-result',
-        state: {
-          account,
-        },
-      });
-    }
-  }, [userAndRegister]);
+  // useEffect(() => {
+  //   if (!userAndRegister) {
+  //     return;
+  //   }
+  //   const account = form.getFieldValue('userName');
+  //   if (userAndRegister.status === 'ok') {
+  //     message.success(
+  //       formatMessage({ id: 'userAndRegister.register.success' }),
+  //     );
+  //     history.push({
+  //       pathname: '/user/register-result',
+  //       state: {
+  //         account,
+  //       },
+  //     });
+  //   }
+  // }, [userAndRegister]);
 
   const getPasswordStatus = () => {
     const value = form.getFieldValue('password');
@@ -99,11 +101,22 @@ const Register: React.FC<RegisterProps> = ({
     return 'poor';
   };
 
-  const onFinish = (values: { [key: string]: any }) => {
+  // const onFinish = (values: { [key: string]: any }) => {
+  //   dispatch({
+  //     type: 'userAndRegister/submit',
+  //     payload: {
+  //       ...values,
+  //     },
+  //   });
+  // };
+
+  const handleSubmit = () => {
+    // 正式使用后需要对用户信息进行加密
     dispatch({
       type: 'userAndRegister/submit',
       payload: {
-        ...values,
+        ...form.getFieldsValue(),
+        formatMessage,
       },
     });
   };
@@ -193,14 +206,29 @@ const Register: React.FC<RegisterProps> = ({
     ) : null;
   };
 
+  const handleFieldsChange = (
+    changedField: FieldData[],
+    allFields: FieldData[],
+  ) => {
+    const field: FieldData | undefined = allFields.find(
+      (field: FieldData) =>
+        field.validating ||
+        (field.errors && field.errors.length > 0) ||
+        !field.value,
+    );
+
+    setDisableSubmit(!!field);
+  };
+
   return (
     <div className={styles.main}>
       <Form
         form={form}
         name="UserRegister"
-        onFinish={onFinish}
+        //onFinish={onFinish}
         layout="vertical"
         requiredMark={false}
+        onFieldsChange={handleFieldsChange}
       >
         <Popover
           getPopupContainer={node => {
@@ -329,7 +357,9 @@ const Register: React.FC<RegisterProps> = ({
             loading={submitting}
             className={styles.submit}
             type="primary"
-            htmlType="submit"
+            //htmlType="submit"
+            onClick={handleSubmit}
+            disabled={disableSubmit}
           >
             {formatMessage({ id: 'userAndRegister.register.register' })}
           </Button>
