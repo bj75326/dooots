@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import { Input, Tooltip } from 'antd';
 import { PageHeaderWrapper } from '@ant-design/pro-layout';
 import { NavLink } from 'umi';
+import { HomeOutlined, UserOutlined } from '@ant-design/icons';
+
 import styles from './style.less';
 
 interface AnkiLayoutProps {
@@ -26,14 +28,14 @@ const AnkiMenu: React.FC<AnkiMenuProps> = () => {
       <Tooltip placement="right" title="开始记录">
         <li>
           <NavLink to="/anki/collections" activeClassName={styles.selected}>
-            Test
+            <HomeOutlined className={styles.ankiMenuIcon} />
           </NavLink>
         </li>
       </Tooltip>
       <Tooltip placement="right" title="个人中心">
         <li>
           <NavLink to="/anki/person" activeClassName={styles.selected}>
-            Test
+            <UserOutlined className={styles.ankiMenuIcon} />
           </NavLink>
         </li>
       </Tooltip>
@@ -65,7 +67,9 @@ class AnkiLayout extends Component<AnkiLayoutProps> {
     return (
       <div className={styles.wrapper}>
         <AnkiMenu location={this.props.location} />
-        <PageHeaderWrapper content={mainSearch}>{children}</PageHeaderWrapper>
+        <PageHeaderWrapper className={styles.content} content={mainSearch}>
+          {children}
+        </PageHeaderWrapper>
       </div>
     );
   }

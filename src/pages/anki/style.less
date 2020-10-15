@@ -1,0 +1,54 @@
+@import '~antd/es/style/themes/default.less';
+
+.wrapper {
+  display: flex;
+  position: relative;
+  min-height: calc(100vh - 60px);
+}
+
+.ankiMenu {
+  position: fixed;
+  z-index: 200;
+  margin: 20px;
+  padding: 0;
+  flex-shrink: 0;
+  display: block;
+  li {
+    margin: 20px;
+    width: 50px;
+    height: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: @box-shadow-base;
+    transition: box-shadow 0.3s;
+    border-radius: 50%;
+    background-color: @body-background;
+    a {
+      color: @text-color;
+    }
+    a.selected {
+      color: @primary-color;
+    }
+  }
+}
+
+.ankiMenuIcon {
+  font-size: 28px;
+}
+
+.content {
+  flex-grow: 1;
+  position: relative;
+  &:global(.ant-pro-page-header-wrap) {
+    margin: 0 200px;
+  }
+}
+
+@media (max-width: 1600px) and (min-width: 1200px) {
+  .content {
+    &:global(.ant-pro-page-header-wrap) {
+      margin: 0 100px;
+    }
+  }
+}

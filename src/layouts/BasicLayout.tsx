@@ -93,7 +93,7 @@ const BasicLayout: React.FC<BasicLayoutProps> = props => {
     menu: { locale: true },
     ...props,
   });
-
+  console.log('title: ', title);
   console.log('BasicLayout render run');
 
   return (
