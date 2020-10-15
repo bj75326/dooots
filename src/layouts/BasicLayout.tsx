@@ -84,10 +84,14 @@ const BasicLayout: React.FC<BasicLayoutProps> = props => {
   const { formatMessage } = useIntl();
 
   const { breadcrumb } = getMenuData(props.route.routes || []);
+  console.log('breadcrumb: ', breadcrumb);
   const title = getPageTitle({
     pathname: location.pathname,
     formatMessage,
     breadcrumb,
+    title: 'DOOOTS',
+    menu: { locale: true },
+    ...props,
   });
 
   console.log('BasicLayout render run');
