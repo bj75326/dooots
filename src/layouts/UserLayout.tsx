@@ -44,6 +44,8 @@ const UserLayout: React.FC<UserLayoutProps> = props => {
     pathname: location.pathname,
     formatMessage,
     breadcrumb,
+    title: 'DOOOTS',
+    menu: { locale: true },
     ...props,
   });
   console.log('location: ', location);

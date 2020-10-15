@@ -3,6 +3,8 @@
  */
 import ProLayout, {
   MenuDataItem,
+  getMenuData,
+  getPageTitle,
   BasicLayoutProps as ProLayoutProps,
 } from '@ant-design/pro-layout';
 import React, { useEffect } from 'react';
@@ -14,6 +16,7 @@ import Authorized from '@/utils/Authorized';
 import { getAuthorityFromRouter } from '@/utils/utils';
 import logo from '@/assets/logo.svg';
 import RightContent from '@/components/GlobalHeader/RightContent';
+import { Helmet, HelmetProvider } from 'react-helmet-async';
 
 const noMatch = (
   <Result
@@ -79,14 +82,25 @@ const BasicLayout: React.FC<BasicLayoutProps> = props => {
   console.log('BasicLayout run authorized: ', authorized);
 
   const { formatMessage } = useIntl();
+
+  const { breadcrumb } = getMenuData(props.route.routes || []);
+  const title = getPageTitle({
+    pathname: location.pathname,
+    formatMessage,
+    breadcrumb,
+  });
+
   console.log('BasicLayout render run');
 
   return (
-    <>
+    <HelmetProvider>
+      <Helmet>
+        <title>{title}</title>
+        <meta name="description" content={title} />
+      </Helmet>
       <Spin spinning={logouting} size="large">
         <ProLayout
           logo={logo}
-          title="dooots"
           formatMessage={formatMessage}
           layout="topmenu"
           navTheme={settings.theme}
@@ -112,7 +126,7 @@ const BasicLayout: React.FC<BasicLayoutProps> = props => {
           {/* </Authorized> */}
         </ProLayout>
       </Spin>
-    </>
+    </HelmetProvider>
   );
 };
 

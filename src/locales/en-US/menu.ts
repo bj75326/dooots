@@ -5,4 +5,7 @@ export default {
   'menu.anki.collection': 'Collection',
   'menu.anki.card': 'Card',
   'menu.standby': 'Standby',
+  'menu.login': 'login',
+  'menu.register': 'register',
+  'menu.register-result': 'register-result',
 };
