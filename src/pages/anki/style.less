@@ -15,16 +15,16 @@
   display: block;
   li {
     margin: 20px;
-    width: 50px;
-    height: 50px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    box-shadow: @box-shadow-base;
-    transition: box-shadow 0.3s;
-    border-radius: 50%;
-    background-color: @body-background;
     a {
+      width: 50px;
+      height: 50px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      box-shadow: @box-shadow-base;
+      transition: box-shadow 0.3s;
+      border-radius: 50%;
+      background-color: @body-background;
       color: @text-color;
     }
     a.selected {
@@ -51,4 +51,13 @@
       margin: 0 100px;
     }
   }
+}
+
+.searchWrapper {
+  margin: 0 40px;
+}
+
+.search {
+  border: 0;
+  border-radius: 15px;
 }

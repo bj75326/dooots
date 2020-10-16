@@ -120,4 +120,5 @@ export default defineConfig({
   manifest: {
     basePath: '/',
   },
+  title: false,
 });
