@@ -1,12 +1,7 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { Input, Tooltip } from 'antd';
-import { PageHeaderWrapper } from '@ant-design/pro-layout';
 import { NavLink, useIntl } from 'umi';
-import {
-  HomeOutlined,
-  UserOutlined,
-  HighlightOutlined,
-} from '@ant-design/icons';
+import { UserOutlined, HighlightOutlined } from '@ant-design/icons';
 
 import styles from './style.less';
 
@@ -54,6 +49,10 @@ const AnkiMenu: React.FC<AnkiMenuProps> = () => {
 const AnkiLayout: React.FC<AnkiLayoutProps> = props => {
   const { formatMessage } = useIntl();
 
+  console.log('route: ', props.route);
+  console.log('match: ', props.match);
+  console.log('location: ', props.location);
+
   const handleFormSubmit = (value: string) => {
     // eslint-disable-next-line no-console
     console.log(value);
@@ -62,7 +61,7 @@ const AnkiLayout: React.FC<AnkiLayoutProps> = props => {
   const mainSearch = (
     <div className={styles.searchWrapper}>
       <Input.Search
-        placeholder={formatMessage({ id: 'anki.search.placeholder' })}
+        //placeholder={formatMessage({ id: 'anki.search.placeholder' })}
         onSearch={handleFormSubmit}
         className={styles.search}
       />
@@ -72,11 +71,9 @@ const AnkiLayout: React.FC<AnkiLayoutProps> = props => {
   const { children } = props;
 
   return (
-    <div className={styles.wrapper}>
+    <div className={styles.anki}>
       <AnkiMenu />
-      <PageHeaderWrapper className={styles.content} content={mainSearch}>
-        {children}
-      </PageHeaderWrapper>
+      <div className={styles.wrapper}>{children}</div>
     </div>
   );
 };

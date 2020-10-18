@@ -1,6 +1,6 @@
 @import '~antd/es/style/themes/default.less';
 
-.wrapper {
+.anki {
   display: flex;
   position: relative;
   min-height: calc(100vh - 60px);
@@ -37,27 +37,14 @@
   font-size: 28px;
 }
 
-.content {
+.wrapper {
   flex-grow: 1;
   position: relative;
-  &:global(.ant-pro-page-header-wrap) {
-    margin: 0 200px;
-  }
+  margin: 0 200px;
 }
 
 @media (max-width: 1600px) and (min-width: 1200px) {
-  .content {
-    &:global(.ant-pro-page-header-wrap) {
-      margin: 0 100px;
-    }
+  .wrapper {
+    margin: 0 100px;
   }
-}
-
-.searchWrapper {
-  margin: 0 40px;
-}
-
-.search {
-  border: 0;
-  border-radius: 15px;
 }
