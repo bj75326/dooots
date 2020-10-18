@@ -9,7 +9,9 @@ interface AnkiCollectionsProps {}
 const AnkiCollections: React.FC<AnkiCollectionsProps> = () => {
   const { formatMessage } = useIntl();
 
-  const handleSearch = () => {};
+  const handleSearch = (value: string) => {
+    console.log(value);
+  };
 
   return (
     <div className={styles.wrapper}>
@@ -19,6 +21,7 @@ const AnkiCollections: React.FC<AnkiCollectionsProps> = () => {
         })}
         onSearch={handleSearch}
       />
+      <div></div>
     </div>
   );
 };

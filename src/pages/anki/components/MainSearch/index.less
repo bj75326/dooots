@@ -7,9 +7,12 @@
 .search {
   :global {
     .ant-input {
-      padding: 6px 11px;
+      padding: 6px 14px;
       border: 0;
       border-radius: 17px;
+      &:focus {
+        box-shadow: none;
+      }
     }
 
     .ant-input-group-addon {
@@ -22,8 +25,11 @@
       border-bottom-right-radius: 17px;
     }
 
-    .ant-input-group:focus-within {
-      box-shadow: ;
+    .ant-input-group {
+      border-radius: 17px;
+      &:focus-within {
+        box-shadow: 0 0 0 2px fade(@primary-color, @outline-fade);
+      }
     }
   }
 }

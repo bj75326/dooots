@@ -1,7 +1,11 @@
 import React from 'react';
-import { Input, Tooltip } from 'antd';
+import { Tooltip } from 'antd';
 import { NavLink, useIntl } from 'umi';
-import { UserOutlined, HighlightOutlined } from '@ant-design/icons';
+import {
+  UserOutlined,
+  HighlightOutlined,
+  HomeOutlined,
+} from '@ant-design/icons';
 
 import styles from './style.less';
 
@@ -28,7 +32,7 @@ const AnkiMenu: React.FC<AnkiMenuProps> = () => {
       >
         <li>
           <NavLink to="/anki/collections" activeClassName={styles.selected}>
-            <HighlightOutlined className={styles.ankiMenuIcon} />
+            <HomeOutlined className={styles.ankiMenuIcon} />
           </NavLink>
         </li>
       </Tooltip>
@@ -47,26 +51,9 @@ const AnkiMenu: React.FC<AnkiMenuProps> = () => {
 };
 
 const AnkiLayout: React.FC<AnkiLayoutProps> = props => {
-  const { formatMessage } = useIntl();
-
   console.log('route: ', props.route);
   console.log('match: ', props.match);
   console.log('location: ', props.location);
-
-  const handleFormSubmit = (value: string) => {
-    // eslint-disable-next-line no-console
-    console.log(value);
-  };
-
-  const mainSearch = (
-    <div className={styles.searchWrapper}>
-      <Input.Search
-        //placeholder={formatMessage({ id: 'anki.search.placeholder' })}
-        onSearch={handleFormSubmit}
-        className={styles.search}
-      />
-    </div>
-  );
 
   const { children } = props;
 
