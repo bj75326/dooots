@@ -1,6 +1,7 @@
 import React from 'react';
 import MainSearch from '../components/MainSearch';
 import { useIntl } from 'umi';
+import NewCollection from './components/NewCollection';
 
 import styles from './style.less';
 
@@ -21,7 +22,9 @@ const AnkiCollections: React.FC<AnkiCollectionsProps> = () => {
         })}
         onSearch={handleSearch}
       />
-      <div></div>
+      <div className={styles.content}>
+        <NewCollection className={styles.folder} />
+      </div>
     </div>
   );
 };

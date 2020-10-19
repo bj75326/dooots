@@ -1,1 +1,39 @@
 @import '~antd/es/style/themes/default.less';
+
+.wrapper {
+  margin: 0 16px 28px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+  box-sizing: border-box;
+  width: 188px;
+  height: 160px;
+  padding: 49px 0 0;
+  text-decoration: none;
+  border: 4px dashed rgba(80, 122, 247, 0.3);
+}
+
+.tab {
+  position: absolute;
+  height: 32px;
+  left: -4px;
+  bottom: 100%;
+  display: block;
+  width: 40%;
+  border-top-left-radius: 12px;
+  border-top-right-radius: 12px;
+  border: 4px dashed rgba(80, 122, 247, 0.3);
+  border-bottom: 0px;
+  background-color: #f0f2f5;
+  // &:after {
+  //   content: '';
+  //   position: absolute;
+  //   top: calc(50% - 4px);
+  //   left: calc(100% - 4px);
+  //   display: block;
+  //   width: 46px;
+  //   border-bottom: 4px dashed rgba(80,122,247,.3);
+  //   transform: rotate(45deg);
+  // }
+}
