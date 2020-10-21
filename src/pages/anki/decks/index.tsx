@@ -1,17 +1,17 @@
 import React from 'react';
 import MainSearch from '../components/MainSearch';
 import { useIntl, connect, ConnectProps } from 'umi';
-import NewCollection from './components/NewCollection';
+import NewDeck from './components/NewDeck';
 import { ConnectState } from '@/models/connect';
 
 import styles from './style.less';
 import { PropertySafetyFilled } from '@ant-design/icons';
 
-interface AnkiCollectionsProps extends ConnectProps {
+interface AnkiDecksProps extends ConnectProps {
   primaryColor: ConnectState['settings']['primaryColor'];
 }
 
-const AnkiCollections: React.FC<AnkiCollectionsProps> = props => {
+const AnkiDecks: React.FC<AnkiDecksProps> = props => {
   const { formatMessage } = useIntl();
 
   const handleSearch = (value: string) => {
@@ -22,15 +22,12 @@ const AnkiCollections: React.FC<AnkiCollectionsProps> = props => {
     <div className={styles.wrapper}>
       <MainSearch
         placeholder={formatMessage({
-          id: 'anki.search.collection.placeholder',
+          id: 'anki.search.deck.placeholder',
         })}
         onSearch={handleSearch}
       />
       <div className={styles.content}>
-        <NewCollection
-          className={styles.folder}
-          primaryColor={props.primaryColor}
-        />
+        <NewDeck className={styles.folder} primaryColor={props.primaryColor} />
       </div>
     </div>
   );
@@ -38,4 +35,4 @@ const AnkiCollections: React.FC<AnkiCollectionsProps> = props => {
 
 export default connect(({ settings }: ConnectState) => ({
   primaryColor: settings.primaryColor,
-}))(AnkiCollections);
+}))(AnkiDecks);

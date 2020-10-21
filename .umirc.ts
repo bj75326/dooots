@@ -73,26 +73,26 @@ export default defineConfig({
               authority: ['admin', 'user'],
               routes: [
                 {
-                  name: 'collections',
-                  path: '/anki/collections',
-                  component: './anki/collections',
+                  name: 'decks',
+                  path: '/anki/decks',
+                  component: './anki/decks',
                   exact: true,
                 },
                 {
-                  name: 'collection',
-                  path: '/anki/:collection',
-                  component: './anki/collection',
+                  name: 'deck',
+                  path: '/anki/:deck',
+                  component: './anki/deck',
                   exact: true,
                 },
                 {
                   name: 'card',
-                  path: '/anki/:collection/:card',
+                  path: '/anki/:deck/:card',
                   component: './anki/card',
                   exact: true,
                 },
                 {
                   path: '/anki',
-                  redirect: '/anki/collections',
+                  redirect: '/anki/decks',
                 },
                 // getAuthorityFromRouter 等函数在筛选route的时候会默认传递 path='/', 这样会导致 '/anki' 路由路径下有父级路径，所以这里不能添加404路由
                 // {
@@ -107,7 +107,7 @@ export default defineConfig({
             },
             {
               path: '/',
-              redirect: '/anki/collections',
+              redirect: '/anki/decks',
             },
             {
               component: '404',

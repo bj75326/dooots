@@ -31,7 +31,7 @@ const AnkiMenu: React.FC<AnkiMenuProps> = () => {
         title={formatMessage({ id: 'anki.menu.home' })}
       >
         <li>
-          <NavLink to="/anki/collections" activeClassName={styles.selected}>
+          <NavLink to="/anki/decks" activeClassName={styles.selected}>
             <HomeOutlined className={styles.ankiMenuIcon} />
           </NavLink>
         </li>

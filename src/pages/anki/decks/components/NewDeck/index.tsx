@@ -7,24 +7,23 @@ import { SettingModelState, getColor } from '@/models/settings';
 import classNames from 'classnames';
 
 import styles from './index.less';
-import { format } from 'prettier';
 
-interface NewCollectionProps extends UploadProps {
+interface NewDeckProps extends UploadProps {
   className?: string;
   primaryColor: SettingModelState['primaryColor'];
 }
 
-const NewCollection: React.FC<NewCollectionProps> = props => {
-  const [newCollVisible, setNewCollVisible]: [boolean, any] = useState(false);
+const NewDeck: React.FC<NewDeckProps> = props => {
+  const [newDeckVisible, setNewDeckVisible]: [boolean, any] = useState(false);
 
   const { formatMessage } = useIntl();
 
   const handleAddClick = () => {
-    setNewCollVisible(true);
+    setNewDeckVisible(true);
   };
 
-  const toggleNewCollModal = () => {
-    setNewCollVisible(!newCollVisible);
+  const toggleNewDeckModal = () => {
+    setNewDeckVisible(!newDeckVisible);
   };
 
   const background = (
@@ -86,7 +85,7 @@ const NewCollection: React.FC<NewCollectionProps> = props => {
   const addModalContent = (
     <div className={styles.content}>
       <h2 className={styles.title}>
-        {formatMessage({ id: 'anki.collections.new.title' })}
+        {formatMessage({ id: 'anki.decks.new.title' })}
       </h2>
       <div className={styles.scroll}>
         <div></div>
@@ -104,14 +103,14 @@ const NewCollection: React.FC<NewCollectionProps> = props => {
         className={classNames(styles.add, styles.btn)}
       >
         <PlusOutlined className={styles.addIcon} />
-        <span>{formatMessage({ id: 'anki.collections.new' })}</span>
+        <span>{formatMessage({ id: 'anki.decks.new' })}</span>
       </div>
       <Modal
-        visible={newCollVisible}
+        visible={newDeckVisible}
         wrapClassName={styles.modal}
         footer={null}
         closable={false}
-        onCancel={toggleNewCollModal}
+        onCancel={toggleNewDeckModal}
       >
         {addModalContent}
       </Modal>
@@ -121,10 +120,10 @@ const NewCollection: React.FC<NewCollectionProps> = props => {
         //onClick={}
         className={classNames(styles.upload, styles.btn)}
       >
-        {formatMessage({ id: 'anki.collections.upload' })}
+        {formatMessage({ id: 'anki.decks.upload' })}
       </div>
     </div>
   );
 };
 
-export default NewCollection;
+export default NewDeck;
