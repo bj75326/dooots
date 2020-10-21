@@ -3,6 +3,7 @@
 .wrapper {
   margin: 0 16px 28px;
   position: relative;
+
   // display: flex;
   // flex-direction: column;
   // align-items: center;
@@ -20,10 +21,6 @@
   left: 4px;
   width: 180px;
   height: 160px;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
   .addIcon {
     font-size: 40px;
     padding-top: 22px;
@@ -33,11 +30,24 @@
 .upload {
   position: absolute;
   width: 180px;
-  height: 42px;
-  top: 164px;
+  height: 38px;
+  top: 168px;
   left: 4px;
+  text-decoration: underline;
+}
+
+.btn {
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
-  border-top: 4px dashed;
+  cursor: pointer;
+  transition: color 0.3s;
+  color: fade(@primary-color, 40%);
+  &:hover {
+    color: @primary-color;
+  }
+  &:focus {
+    outline: none;
+  }
 }

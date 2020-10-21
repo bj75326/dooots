@@ -20,6 +20,25 @@ export interface SettingModelState {
   fontSize: number;
 }
 
+export const getColor = (
+  primaryColor: SettingModelState['primaryColor'],
+): string => {
+  switch (primaryColor) {
+    case 'star':
+      return '#FFAD1F';
+    case 'blossom':
+      return '#E0245E';
+    case 'octopus':
+      return '#794BC4';
+    case 'fire':
+      return '#F45D22';
+    case 'avocado':
+      return '#17BF63';
+    default:
+      return '#1890ff';
+  }
+};
+
 const localTheme = localStorage.getItem('theme') || 'light';
 const localColor = localStorage.getItem('color') || 'default';
 const localFontSize = localStorage.getItem('fontSize') || '14';

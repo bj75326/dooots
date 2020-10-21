@@ -1,4 +1,4 @@
 export default {
-  'anki.collections.new': 'New Collection',
+  'anki.collections.new': 'New',
   'anki.collections.upload': 'Upload',
 };

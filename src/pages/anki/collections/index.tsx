@@ -1,13 +1,17 @@
 import React from 'react';
 import MainSearch from '../components/MainSearch';
-import { useIntl } from 'umi';
+import { useIntl, connect, ConnectProps } from 'umi';
 import NewCollection from './components/NewCollection';
+import { ConnectState } from '@/models/connect';
 
 import styles from './style.less';
+import { PropertySafetyFilled } from '@ant-design/icons';
 
-interface AnkiCollectionsProps {}
+interface AnkiCollectionsProps extends ConnectProps {
+  primaryColor: ConnectState['settings']['primaryColor'];
+}
 
-const AnkiCollections: React.FC<AnkiCollectionsProps> = () => {
+const AnkiCollections: React.FC<AnkiCollectionsProps> = props => {
   const { formatMessage } = useIntl();
 
   const handleSearch = (value: string) => {
@@ -23,10 +27,15 @@ const AnkiCollections: React.FC<AnkiCollectionsProps> = () => {
         onSearch={handleSearch}
       />
       <div className={styles.content}>
-        <NewCollection className={styles.folder} />
+        <NewCollection
+          className={styles.folder}
+          primaryColor={props.primaryColor}
+        />
       </div>
     </div>
   );
 };
 
-export default AnkiCollections;
+export default connect(({ settings }: ConnectState) => ({
+  primaryColor: settings.primaryColor,
+}))(AnkiCollections);

@@ -3,11 +3,14 @@ import { Upload, Modal } from 'antd';
 import { UploadProps } from 'antd/es/upload';
 import { PlusOutlined } from '@ant-design/icons';
 import { useIntl } from 'umi';
+import { SettingModelState, getColor } from '@/models/settings';
+import classNames from 'classnames';
 
 import styles from './index.less';
 
 interface NewCollectionProps extends UploadProps {
   className?: string;
+  primaryColor: SettingModelState['primaryColor'];
 }
 
 const NewCollection: React.FC<NewCollectionProps> = props => {
@@ -15,7 +18,9 @@ const NewCollection: React.FC<NewCollectionProps> = props => {
 
   const { formatMessage } = useIntl();
 
-  const handleAddClick = () => {};
+  const handleAddClick = () => {
+    setNewCollVisible(true);
+  };
 
   const toggleNewCollModal = () => {
     setNewCollVisible(!newCollVisible);
@@ -52,18 +57,27 @@ const NewCollection: React.FC<NewCollectionProps> = props => {
         stroke-width="1"
         fill="none"
         fill-rule="evenodd"
-        fill-opacity="0"
-        stroke-dasharray="8,4"
-        stroke-opacity="0.503962862"
       >
         <use
           id="Rectangle"
-          stroke="#979797"
+          stroke-opacity="0.3"
+          stroke={getColor(props.primaryColor)}
           mask="url(#mask-2)"
           stroke-width="8"
+          fill-opacity="0"
           fill="#D8D8D8"
+          stroke-dasharray="8,4"
           xlinkHref="#path-1"
         ></use>
+        <path
+          d="M8,166 L188,166"
+          id="Line"
+          stroke-opacity="0.3"
+          stroke={getColor(props.primaryColor)}
+          stroke-width="4"
+          stroke-linecap="square"
+          stroke-dasharray="4,8"
+        ></path>
       </g>
     </svg>
   );
@@ -75,7 +89,7 @@ const NewCollection: React.FC<NewCollectionProps> = props => {
         role="button"
         tabIndex={0}
         onClick={handleAddClick}
-        className={styles.add}
+        className={classNames(styles.add, styles.btn)}
       >
         <PlusOutlined className={styles.addIcon} />
         <span>{formatMessage({ id: 'anki.collections.new' })}</span>
@@ -86,12 +100,14 @@ const NewCollection: React.FC<NewCollectionProps> = props => {
         footer={null}
         closable={false}
         onCancel={toggleNewCollModal}
-      ></Modal>
+      >
+        {'test'}
+      </Modal>
       <div
         role="button"
         tabIndex={0}
         //onClick={}
-        className={styles.upload}
+        className={classNames(styles.upload, styles.btn)}
       >
         {formatMessage({ id: 'anki.collections.upload' })}
       </div>
