@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Upload, Modal } from 'antd';
+import { Upload, Modal, Form } from 'antd';
 import { UploadProps } from 'antd/es/upload';
 import { PlusOutlined } from '@ant-design/icons';
 import { useIntl } from 'umi';
@@ -7,6 +7,7 @@ import { SettingModelState, getColor } from '@/models/settings';
 import classNames from 'classnames';
 
 import styles from './index.less';
+import { format } from 'prettier';
 
 interface NewCollectionProps extends UploadProps {
   className?: string;
@@ -82,6 +83,17 @@ const NewCollection: React.FC<NewCollectionProps> = props => {
     </svg>
   );
 
+  const addModalContent = (
+    <div className={styles.content}>
+      <h2 className={styles.title}>
+        {formatMessage({ id: 'anki.collections.new.title' })}
+      </h2>
+      <div className={styles.scroll}>
+        <div></div>
+      </div>
+    </div>
+  );
+
   return (
     <div className={styles.wrapper}>
       {background}
@@ -101,7 +113,7 @@ const NewCollection: React.FC<NewCollectionProps> = props => {
         closable={false}
         onCancel={toggleNewCollModal}
       >
-        {'test'}
+        {addModalContent}
       </Modal>
       <div
         role="button"
