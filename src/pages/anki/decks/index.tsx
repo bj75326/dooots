@@ -5,7 +5,6 @@ import NewDeck from './components/NewDeck';
 import { ConnectState } from '@/models/connect';
 
 import styles from './style.less';
-import { PropertySafetyFilled } from '@ant-design/icons';
 
 interface AnkiDecksProps extends ConnectProps {
   primaryColor: ConnectState['settings']['primaryColor'];
@@ -27,7 +26,7 @@ const AnkiDecks: React.FC<AnkiDecksProps> = props => {
         onSearch={handleSearch}
       />
       <div className={styles.content}>
-        <NewDeck className={styles.folder} primaryColor={props.primaryColor} />
+        <NewDeck primaryColor={props.primaryColor} />
       </div>
     </div>
   );
