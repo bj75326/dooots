@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Upload, Modal, Form } from 'antd';
+import { Upload, Modal, Form, Input } from 'antd';
 import { UploadProps } from 'antd/es/upload';
 import { PlusOutlined } from '@ant-design/icons';
 import { useIntl } from 'umi';
@@ -35,7 +35,12 @@ const NewDeck: React.FC<NewDeckProps> = props => {
       </h2>
       <div className={styles.scroll}>
         <Form form={Form.useForm()[0]} name="newDeck" layout="vertical">
-          <FormItem name=""></FormItem>
+          <FormItem
+            name="deckName"
+            label={formatMessage({ id: 'anki.decks.new.deckName' })}
+          >
+            <Input />
+          </FormItem>
         </Form>
       </div>
     </div>
