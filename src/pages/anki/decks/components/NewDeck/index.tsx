@@ -1,18 +1,18 @@
 import React, { useState } from 'react';
-import { Upload, Modal, Form, Input } from 'antd';
+import { Upload, Modal, Form, Input, Tag } from 'antd';
 import { UploadProps } from 'antd/es/upload';
 import { PlusOutlined } from '@ant-design/icons';
 import { useIntl } from 'umi';
-import { SettingModelState, getColor } from '@/models/settings';
+import { SettingModelState } from '@/models/settings';
 import classNames from 'classnames';
 
 import styles from './index.less';
 
 const FormItem = Form.Item;
+const { TextArea } = Input;
 
 interface NewDeckProps extends UploadProps {
   className?: string;
-  primaryColor: SettingModelState['primaryColor'];
 }
 
 const NewDeck: React.FC<NewDeckProps> = props => {
@@ -34,14 +34,31 @@ const NewDeck: React.FC<NewDeckProps> = props => {
         {formatMessage({ id: 'anki.decks.new.title' })}
       </h2>
       <div className={styles.scroll}>
-        <Form form={Form.useForm()[0]} name="newDeck" layout="vertical">
-          <FormItem
-            name="deckName"
-            label={formatMessage({ id: 'anki.decks.new.deckName' })}
+        <div className={styles.body}>
+          <Form
+            form={Form.useForm()[0]}
+            name="newDeck"
+            layout="vertical"
+            className={styles.form}
           >
-            <Input />
-          </FormItem>
-        </Form>
+            <FormItem
+              name="deckName"
+              label={formatMessage({ id: 'anki.decks.new.deckName' })}
+            >
+              <Input />
+            </FormItem>
+            <FormItem
+              name="description"
+              label={formatMessage({ id: 'anki.decks.new.description' })}
+            >
+              <TextArea />
+            </FormItem>
+            <FormItem
+              name="tags"
+              label={formatMessage({ id: 'anki.decks.new.tags' })}
+            ></FormItem>
+          </Form>
+        </div>
       </div>
     </div>
   );
@@ -65,6 +82,7 @@ const NewDeck: React.FC<NewDeckProps> = props => {
           footer={null}
           closable={false}
           onCancel={toggleNewDeckModal}
+          width={900}
         >
           {addModalContent}
         </Modal>

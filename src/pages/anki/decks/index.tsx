@@ -26,12 +26,10 @@ const AnkiDecks: React.FC<AnkiDecksProps> = props => {
         onSearch={handleSearch}
       />
       <div className={styles.content}>
-        <NewDeck primaryColor={props.primaryColor} />
+        <NewDeck />
       </div>
     </div>
   );
 };
 
-export default connect(({ settings }: ConnectState) => ({
-  primaryColor: settings.primaryColor,
-}))(AnkiDecks);
+export default connect(({ settings }: ConnectState) => ({}))(AnkiDecks);
