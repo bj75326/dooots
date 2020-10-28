@@ -5,6 +5,7 @@ import { PlusOutlined } from '@ant-design/icons';
 import { useIntl } from 'umi';
 import { SettingModelState } from '@/models/settings';
 import classNames from 'classnames';
+import EditableTagGroup from '../../../components/EditableTagGroup';
 
 import styles from './index.less';
 
@@ -17,6 +18,8 @@ interface NewDeckProps extends UploadProps {
 
 const NewDeck: React.FC<NewDeckProps> = props => {
   const [newDeckVisible, setNewDeckVisible]: [boolean, any] = useState(false);
+
+  const [tags, setTags]: [string[], any] = useState([]);
 
   const { formatMessage } = useIntl();
 
@@ -56,7 +59,9 @@ const NewDeck: React.FC<NewDeckProps> = props => {
             <FormItem
               name="tags"
               label={formatMessage({ id: 'anki.decks.new.tags' })}
-            ></FormItem>
+            >
+              <EditableTagGroup tags={tags} onTagChange={setTags} />
+            </FormItem>
           </Form>
         </div>
       </div>
@@ -82,7 +87,7 @@ const NewDeck: React.FC<NewDeckProps> = props => {
           footer={null}
           closable={false}
           onCancel={toggleNewDeckModal}
-          width={900}
+          width={1000}
         >
           {addModalContent}
         </Modal>

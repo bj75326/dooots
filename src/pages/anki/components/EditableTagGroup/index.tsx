@@ -5,6 +5,7 @@ import { PlusOutlined } from '@ant-design/icons';
 export interface EditableTagGroupProps {
   className?: string;
   tags: string[];
+  onTagChange: (tags: string[]) => void;
 }
 
 const EditableTagGroup: React.FC<EditableTagGroupProps> = props => {
@@ -13,31 +14,60 @@ const EditableTagGroup: React.FC<EditableTagGroupProps> = props => {
   const [editInputIndex, setEditInputIndex] = useState(-1);
   const [editInputValue, setEditInputValue] = useState('');
 
-  const inputRef = useRef<Input>();
+  const editInputRef = useRef<Input>();
+  const newInputRef = useRef<Input>();
 
-  const { tags } = props;
+  const { tags, onTagChange } = props;
 
-  const handleEditInputChange = () => {};
+  const handleEditInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setEditInputValue(e.target.value);
+  };
 
-  const handleEditInputConfirm = () => {};
+  const handleEditInputConfirm = () => {
+    let newTags: string[] = [...tags];
+    if (editInputValue && tags.indexOf(editInputValue) === -1) {
+      newTags[editInputIndex] = editInputValue;
+      onTagChange(newTags);
+    }
+    setEditInputIndex(-1);
+    setEditInputValue('');
+  };
 
-  const handleClose = (tag: string) => {};
+  const handleClose = (tag: string) => {
+    let newTags = [...tags];
+    newTags = newTags.filter(value => value !== tag);
+    onTagChange(newTags);
+  };
 
-  const handleInputChange = () => {};
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setInputValue(e.target.value);
+  };
 
-  const handleInputConfirm = () => {};
+  const handleInputConfirm = () => {
+    let newTags: string[] = [];
+    if (inputValue && tags.indexOf(inputValue) === -1) {
+      newTags = [...tags, inputValue];
+      onTagChange(newTags);
+    }
+    setInputVisible(false);
+    setInputValue('');
+  };
 
   const showInput = () => {
     setInputVisible(true);
   };
 
   useEffect(() => {
-    if (inputRef.current) {
-      inputRef.current.focus();
+    if (editInputRef.current) {
+      editInputRef.current.focus();
     }
   }, [editInputIndex, editInputValue]);
 
-  useEffect(() => {}, [inputVisible]);
+  useEffect(() => {
+    if (newInputRef.current) {
+      newInputRef.current.focus();
+    }
+  }, [inputVisible]);
 
   return (
     <>
@@ -45,7 +75,7 @@ const EditableTagGroup: React.FC<EditableTagGroupProps> = props => {
         if (editInputIndex === index) {
           return (
             <Input
-              ref={inputRef as React.RefObject<Input>}
+              ref={editInputRef as React.RefObject<Input>}
               key={tag}
               size="small"
               value={editInputValue}
@@ -82,6 +112,7 @@ const EditableTagGroup: React.FC<EditableTagGroupProps> = props => {
       })}
       {inputVisible && (
         <Input
+          ref={newInputRef as React.RefObject<Input>}
           type="text"
           size="small"
           value={inputValue}
