@@ -74,7 +74,7 @@ const NewDeck: React.FC<NewDeckProps> = props => {
   );
 
   return (
-    <div className={styles.decks}>
+    <div className={styles.newDeck}>
       <div className={styles.card}></div>
       <div className={styles.wrapper}>
         <div
@@ -92,7 +92,7 @@ const NewDeck: React.FC<NewDeckProps> = props => {
           footer={null}
           closable={false}
           onCancel={toggleNewDeckModal}
-          width={1000}
+          width={900}
         >
           {addModalContent}
         </Modal>

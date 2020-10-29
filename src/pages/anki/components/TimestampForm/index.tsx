@@ -1,8 +1,11 @@
 import React, { useState } from 'react';
-import { InputNumber, Radio, Form, Button } from 'antd';
+import { InputNumber, Radio, Form, Button, DatePicker } from 'antd';
 import { FormInstance } from 'antd/es/form';
 import { useIntl } from 'umi';
 import { MinusCircleOutlined, PlusOutlined } from '@ant-design/icons';
+import classNames from 'classnames';
+
+import styles from './index.less';
 
 const FormItem = Form.Item;
 const FormList = Form.List;
@@ -28,11 +31,14 @@ const TimestampForm: React.FC<TimestampFormProps> = props => {
     },
   ];
 
-  const [type, setType]: ['days' | 'date', any] = useState('days');
+  const [type, setType]: ['days' | 'date', any] = useState('date');
 
   const handleValuesChange = (changedValues, allValues) => {
     console.log(changedValues);
     console.log(allValues);
+    // if (changedValues.timestampList) {
+    //   setType(changedValues.timestampList);
+    // }
   };
 
   return (
@@ -40,13 +46,14 @@ const TimestampForm: React.FC<TimestampFormProps> = props => {
       form={form}
       name="timestampForm"
       layout="vertical"
-      className={className}
+      className={classNames(className, styles.form)}
+      //initialValues={{timestampList: [1, 2,3]}}
       onValuesChange={handleValuesChange}
     >
       <FormItem
         name="timestampType"
         label={formatMessage({ id: 'anki.timestamp.form.label.type' })}
-        initialValue={type}
+        initialValue="days"
       >
         <Radio.Group options={options} optionType="button" />
       </FormItem>
@@ -59,15 +66,15 @@ const TimestampForm: React.FC<TimestampFormProps> = props => {
               })}
             >
               {fields.map((field, index) => (
-                <>
+                <div key={field.key}>
                   <FormItem {...field} noStyle>
-                    <InputNumber style={{}} />
+                    <DatePicker />
                   </FormItem>
                   <MinusCircleOutlined
                     //className={}
                     onClick={() => remove(field.name)}
                   />
-                </>
+                </div>
               ))}
             </FormItem>
             <FormItem>

@@ -1,6 +1,6 @@
 @import '~antd/es/style/themes/default.less';
 
-.decks {
+.newDeck {
   position: relative;
   margin: 0 16px 28px;
   box-sizing: border-box;
@@ -63,22 +63,38 @@
 
 .modal {
   :global(.ant-modal) {
+    min-width: 900;
+    display: flex;
+    flex-direction: column;
+  }
+  :global(.ant-modal-content) {
+    min-height: 0;
     display: flex;
     flex-direction: column;
   }
 
   :global(.ant-modal-body) {
     padding: 0;
+    min-height: 0;
+    display: flex;
+    flex-direction: column;
   }
 }
 
 .content {
+  min-height: 0px;
+  display: flex;
+  flex-direction: column;
 }
 
 .title {
   text-align: center;
   margin-top: 24px;
   color: @text-color;
+}
+
+.scroll {
+  overflow: scroll;
 }
 
 .body {
@@ -89,11 +105,14 @@
 .form {
   width: 272px;
   margin-right: 28px;
-  label {
-    font-size: @font-size-base - 2px;
-    font-weight: bold;
-    color: var(--text-light-color);
-    margin-bottom: 4px;
+
+  :global(.ant-form-item-label) {
+    padding: 0 0 4px;
+    & > label {
+      font-size: @font-size-base - 2px;
+      font-weight: bold;
+      color: var(--text-light-color);
+    }
   }
 }
 
