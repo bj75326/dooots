@@ -6,4 +6,7 @@ export default {
   'anki.timestamp.form.label.type': 'Timestamp type',
   'anki.timestamp.form.label.type.days': 'Days',
   'anki.timestamp.form.label.type.date': 'Date',
+  'anki.timestamp.form.label.timestamps': 'Timestamps',
+  'anki.timestamp.form.add': 'Add timestamp',
+  'anki.timestamp.form.addAtHead': 'Add timestamp at head',
 };

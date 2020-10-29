@@ -6,6 +6,7 @@ import { useIntl } from 'umi';
 import { SettingModelState } from '@/models/settings';
 import classNames from 'classnames';
 import EditableTagGroup from '../../../components/EditableTagGroup';
+import TimestampForm from '../../../components/TimestampForm';
 
 import styles from './index.less';
 
@@ -31,6 +32,8 @@ const NewDeck: React.FC<NewDeckProps> = props => {
     setNewDeckVisible(!newDeckVisible);
   };
 
+  const form = Form.useForm()[0];
+
   const addModalContent = (
     <div className={styles.content}>
       <h2 className={styles.title}>
@@ -39,7 +42,7 @@ const NewDeck: React.FC<NewDeckProps> = props => {
       <div className={styles.scroll}>
         <div className={styles.body}>
           <Form
-            form={Form.useForm()[0]}
+            form={form}
             name="newDeck"
             layout="vertical"
             className={styles.form}
@@ -63,6 +66,8 @@ const NewDeck: React.FC<NewDeckProps> = props => {
               <EditableTagGroup tags={tags} onTagChange={setTags} />
             </FormItem>
           </Form>
+          <TimestampForm form={form} className={styles.form} />
+          <div className={styles.curve}></div>
         </div>
       </div>
     </div>
