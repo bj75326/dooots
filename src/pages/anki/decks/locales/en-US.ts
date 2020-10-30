@@ -5,7 +5,9 @@ export default {
   'anki.decks.new.deckName': 'Deck name',
   'anki.decks.new.description': 'Description',
   'anki.decks.new.tags': 'tags',
-  'anki.deck.timestamp.form.label.timestamps': 'Timestamps',
-  'anki.deck.timestamp.form.add': 'Add timestamp',
-  'anki.deck.timestamp.form.addAtHead': 'Add timestamp at head',
+  'anki.decks.timestamp.form.label.timestamps': 'Timestamps',
+  'anki.decks.timestamp.form.add': 'Add timestamp',
+  'anki.decks.timestamp.form.addAtHead': 'Add timestamp at head',
+  'anki.decks.timestamp.form.suffix': 'days later',
+  'anki.decks.timestamp.form.single.suffix': 'day later',
 };

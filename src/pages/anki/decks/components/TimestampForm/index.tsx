@@ -22,24 +22,6 @@ const TimestampForm: React.FC<TimestampFormProps> = props => {
   const { formatMessage } = useIntl();
 
   let initialValues = { timestampList: [1, 3, 7] };
-  // const handleValuesChange = (changedValues, allValues) => {
-  //   console.log(changedValues);
-  //   console.log(allValues);
-  //   const type: 'date' | 'days' | undefined = changedValues.timestampType;
-  //   const timestampList = allValues.timestampList || [];
-  //   if (type) {
-  //     setType(type);
-  //     if (type === 'date') {
-  //       initialValues = {
-  //         timestampList: timestampList.map((timestamp: number)=>moment().add(timestamp, 'days')),
-  //       };
-  //     } else if (type==='days') {
-  //       initialValues = {
-  //         timestampList: timestampList.map((timestamp: moment.Moment)=>);
-  //       };
-  //     }
-  //   }
-  // };
 
   return (
     <Form
@@ -60,7 +42,18 @@ const TimestampForm: React.FC<TimestampFormProps> = props => {
               {fields.map((field, index) => (
                 <div key={field.key}>
                   <FormItem {...field} noStyle>
-                    <InputNumber />
+                    <InputNumber
+                      min={1}
+                      formatter={value =>
+                        `${value} ${formatMessage({
+                          id:
+                            value === 1
+                              ? 'anki.decks.timestamp.form.single.suffix'
+                              : 'anki.decks.timestamp.form.suffix',
+                        })}`
+                      }
+                      parser={(value = '') => +value.split(' ')[0]}
+                    />
                   </FormItem>
                   <MinusCircleOutlined
                     //className={}
