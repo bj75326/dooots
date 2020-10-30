@@ -4,6 +4,7 @@ import { FormInstance } from 'antd/es/form';
 import { useIntl } from 'umi';
 import { MinusCircleOutlined, PlusOutlined } from '@ant-design/icons';
 import classNames from 'classnames';
+import moment from 'moment';
 
 import styles from './index.less';
 
@@ -20,26 +21,25 @@ const TimestampForm: React.FC<TimestampFormProps> = props => {
 
   const { formatMessage } = useIntl();
 
-  const options = [
-    {
-      label: formatMessage({ id: 'anki.timestamp.form.label.type.days' }),
-      value: 'days',
-    },
-    {
-      label: formatMessage({ id: 'anki.timestamp.form.label.type.date' }),
-      value: 'date',
-    },
-  ];
-
-  const [type, setType]: ['days' | 'date', any] = useState('date');
-
-  const handleValuesChange = (changedValues, allValues) => {
-    console.log(changedValues);
-    console.log(allValues);
-    // if (changedValues.timestampList) {
-    //   setType(changedValues.timestampList);
-    // }
-  };
+  let initialValues = { timestampList: [1, 3, 7] };
+  // const handleValuesChange = (changedValues, allValues) => {
+  //   console.log(changedValues);
+  //   console.log(allValues);
+  //   const type: 'date' | 'days' | undefined = changedValues.timestampType;
+  //   const timestampList = allValues.timestampList || [];
+  //   if (type) {
+  //     setType(type);
+  //     if (type === 'date') {
+  //       initialValues = {
+  //         timestampList: timestampList.map((timestamp: number)=>moment().add(timestamp, 'days')),
+  //       };
+  //     } else if (type==='days') {
+  //       initialValues = {
+  //         timestampList: timestampList.map((timestamp: moment.Moment)=>);
+  //       };
+  //     }
+  //   }
+  // };
 
   return (
     <Form
@@ -47,28 +47,20 @@ const TimestampForm: React.FC<TimestampFormProps> = props => {
       name="timestampForm"
       layout="vertical"
       className={classNames(className, styles.form)}
-      //initialValues={{timestampList: [1, 2,3]}}
-      onValuesChange={handleValuesChange}
+      initialValues={initialValues}
     >
-      <FormItem
-        name="timestampType"
-        label={formatMessage({ id: 'anki.timestamp.form.label.type' })}
-        initialValue="days"
-      >
-        <Radio.Group options={options} optionType="button" />
-      </FormItem>
       <FormList name="timestampList">
         {(fields, { add, remove }, { errors }) => (
           <>
             <FormItem
               label={formatMessage({
-                id: 'anki.timestamp.form.label.timestamps',
+                id: 'anki.decks.timestamp.form.label.timestamps',
               })}
             >
               {fields.map((field, index) => (
                 <div key={field.key}>
                   <FormItem {...field} noStyle>
-                    <DatePicker />
+                    <InputNumber />
                   </FormItem>
                   <MinusCircleOutlined
                     //className={}
@@ -84,7 +76,7 @@ const TimestampForm: React.FC<TimestampFormProps> = props => {
                 style={{}}
                 icon={<PlusOutlined />}
               >
-                {formatMessage({ id: 'anki.timestamp.form.add' })}
+                {formatMessage({ id: 'anki.decks.timestamp.form.add' })}
               </Button>
             </FormItem>
             <FormItem>
@@ -94,7 +86,7 @@ const TimestampForm: React.FC<TimestampFormProps> = props => {
                 style={{}}
                 icon={<PlusOutlined />}
               >
-                {formatMessage({ id: 'anki.timestamp.form.addAtHead' })}
+                {formatMessage({ id: 'anki.decks.timestamp.form.addAtHead' })}
               </Button>
             </FormItem>
           </>

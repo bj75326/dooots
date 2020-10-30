@@ -6,7 +6,7 @@ import { useIntl } from 'umi';
 import { SettingModelState } from '@/models/settings';
 import classNames from 'classnames';
 import EditableTagGroup from '../../../components/EditableTagGroup';
-import TimestampForm from '../../../components/TimestampForm';
+import TimestampForm from '../TimestampForm';
 
 import styles from './index.less';
 
