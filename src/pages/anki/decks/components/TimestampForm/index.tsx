@@ -23,6 +23,30 @@ const TimestampForm: React.FC<TimestampFormProps> = props => {
 
   let initialValues = { timestampList: [1, 3, 7] };
 
+  const checkTimestampHOF = (index: number) => {
+    return (_: any, value: number) => {
+      // console.log('checkTimestamp value: ', value);
+      // console.log('index: ', index);
+      // console.log(form.getFieldValue('timestampList'));
+      const promise = Promise;
+      const values = form.getFieldValue('timestampList');
+      if (index >= 1) {
+        if (values[index] <= values[index - 1]) {
+          return promise.reject(
+            formatMessage({
+              id: 'anki.decks.timestamp.form.days.require.ascend',
+            }),
+          );
+        }
+      }
+      return promise.resolve();
+    };
+  };
+
+  const checkTimestamp = (_: any, value: number) => {
+    console.log('value: ', value);
+  };
+
   return (
     <Form
       form={form}
@@ -31,7 +55,14 @@ const TimestampForm: React.FC<TimestampFormProps> = props => {
       className={classNames(className, styles.form)}
       initialValues={initialValues}
     >
-      <FormList name="timestampList">
+      <FormList
+        name="timestampList"
+        rules={[
+          {
+            validator: checkTimestamp,
+          },
+        ]}
+      >
         {(fields, { add, remove }, { errors }) => (
           <>
             <FormItem
@@ -40,7 +71,7 @@ const TimestampForm: React.FC<TimestampFormProps> = props => {
               })}
             >
               {fields.map((field, index) => (
-                <div key={field.key}>
+                <div key={field.key} className={styles.timestamp}>
                   <FormItem {...field} noStyle>
                     <InputNumber
                       min={1}
@@ -56,7 +87,7 @@ const TimestampForm: React.FC<TimestampFormProps> = props => {
                     />
                   </FormItem>
                   <MinusCircleOutlined
-                    //className={}
+                    className={styles.delete}
                     onClick={() => remove(field.name)}
                   />
                 </div>

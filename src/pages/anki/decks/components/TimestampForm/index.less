@@ -1,4 +1,27 @@
 @import '~antd/es/style/themes/default.less';
 
 .form {
+  width: 226px;
+}
+
+.timestamp {
+  display: flex;
+  align-items: center;
+  margin-bottom: 12px;
+
+  :global(.ant-input-number) {
+    flex-grow: 1;
+  }
+}
+
+.delete {
+  margin: 0 8px;
+  cursor: pointer;
+  font-size: 22px;
+  color: #999;
+  position: relative;
+  transition: all 0.3s;
+  &:hover {
+    color: #777;
+  }
 }

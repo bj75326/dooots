@@ -10,4 +10,5 @@ export default {
   'anki.decks.timestamp.form.addAtHead': '添加头部时间戳',
   'anki.decks.timestamp.form.suffix': '天后',
   'anki.decks.timestamp.form.single.suffix': '天后',
+  'anki.decks.timestamp.form.days.require.ascend': '间隔天数要求依次递增',
 };

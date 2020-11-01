@@ -10,4 +10,6 @@ export default {
   'anki.decks.timestamp.form.addAtHead': 'Add timestamp at head',
   'anki.decks.timestamp.form.suffix': 'days later',
   'anki.decks.timestamp.form.single.suffix': 'day later',
+  'anki.decks.timestamp.form.days.require.ascend':
+    'Number of days between requests in ascending order',
 };
