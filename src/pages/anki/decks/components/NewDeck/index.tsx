@@ -46,6 +46,7 @@ const NewDeck: React.FC<NewDeckProps> = props => {
             name="newDeck"
             layout="vertical"
             className={styles.form}
+            style={{ width: '272px' }}
           >
             <FormItem
               name="deckName"

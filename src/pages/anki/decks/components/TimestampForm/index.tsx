@@ -44,7 +44,17 @@ const TimestampForm: React.FC<TimestampFormProps> = props => {
   };
 
   const checkTimestamp = (_: any, value: number) => {
-    console.log('value: ', value);
+    const timestampList = form.getFieldValue('timestampList');
+    const wrongTimestamp = timestampList.find(
+      (value: number, index: number) =>
+        index >= 1 && value <= timestampList[index - 1],
+    );
+    if (wrongTimestamp) {
+      return Promise.reject(
+        formatMessage({ id: 'anki.decks.timestamp.form.days.require.ascend' }),
+      );
+    }
+    return Promise.resolve();
   };
 
   return (
@@ -55,14 +65,7 @@ const TimestampForm: React.FC<TimestampFormProps> = props => {
       className={classNames(className, styles.form)}
       initialValues={initialValues}
     >
-      <FormList
-        name="timestampList"
-        rules={[
-          {
-            validator: checkTimestamp,
-          },
-        ]}
-      >
+      <FormList name="timestampList">
         {(fields, { add, remove }, { errors }) => (
           <>
             <FormItem
@@ -72,7 +75,22 @@ const TimestampForm: React.FC<TimestampFormProps> = props => {
             >
               {fields.map((field, index) => (
                 <div key={field.key} className={styles.timestamp}>
-                  <FormItem {...field} noStyle>
+                  <FormItem
+                    {...field}
+                    noStyle
+                    validateFirst
+                    rules={[
+                      {
+                        required: true,
+                        message: formatMessage({
+                          id: 'anki.decks.timestamp.form.days.required',
+                        }),
+                      },
+                      {
+                        validator: checkTimestamp,
+                      },
+                    ]}
+                  >
                     <InputNumber
                       min={1}
                       formatter={value =>
@@ -96,8 +114,15 @@ const TimestampForm: React.FC<TimestampFormProps> = props => {
             <FormItem>
               <Button
                 type="dashed"
-                onClick={() => add()}
-                style={{}}
+                onClick={() => {
+                  const values: [] = form.getFieldValue('timestampList');
+                  if (!values.length) {
+                    add(1);
+                  } else {
+                    add(values[values.length - 1] + 1);
+                  }
+                }}
+                className={styles.addBtn}
                 icon={<PlusOutlined />}
               >
                 {formatMessage({ id: 'anki.decks.timestamp.form.add' })}
@@ -107,7 +132,7 @@ const TimestampForm: React.FC<TimestampFormProps> = props => {
               <Button
                 type="dashed"
                 onClick={() => add('The head item', 0)}
-                style={{}}
+                className={styles.addBtn}
                 icon={<PlusOutlined />}
               >
                 {formatMessage({ id: 'anki.decks.timestamp.form.addAtHead' })}

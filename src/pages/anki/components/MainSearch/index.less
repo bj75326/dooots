@@ -15,18 +15,17 @@
       }
     }
 
-    .ant-input-group-addon {
-      background: transparent;
-    }
-
-    .ant-btn {
-      height: 34px;
-      border-top-right-radius: 17px;
-      border-bottom-right-radius: 17px;
-    }
-
     .ant-input-group {
       border-radius: 17px;
+      .ant-input-group-addon {
+        background: transparent;
+        .ant-btn {
+          height: 34px;
+          border-top-right-radius: 17px;
+          border-bottom-right-radius: 17px;
+        }
+      }
+
       &:focus-within {
         box-shadow: 0 0 0 2px fade(@primary-color, @outline-fade);
       }
