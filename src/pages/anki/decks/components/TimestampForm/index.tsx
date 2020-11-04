@@ -53,14 +53,26 @@ const TimestampForm: React.FC<TimestampFormProps> = props => {
   // };
 
   const handleValuesChange = () => {
+    console.log('onValuesChange');
     form.validateFields();
+    // if (!removeWillNotValidateFields) {
+    //   form.validateFields();
+    // }
+    // if (removeWillNotValidateFields) {
+    //   removeWillNotValidateFields = false;
+    // }
   };
 
-  const handleFieldsChange = () => {
-    console.log('onFieldsChange');
-    console.log('values: ', form.getFieldsValue());
-    console.log('errors: ', form.getFieldsError());
-  };
+  // const handleFieldsChange = () => {
+  //   console.log('onFieldsChange');
+  //   console.log('values: ', form.getFieldsValue());
+  //   console.log('errors: ', form.getFieldsError());
+  //   console.log('ing: ', form.isFieldValidating(['timestampList', 0]));
+  //   console.log('ing: ', form.isFieldValidating(['timestampList', 1]));
+  //   console.log('1: ', form.getFieldValue(['timestampList', 1]));
+  // };
+
+  //let removeWillNotValidateFields = false;
 
   return (
     <Form
@@ -70,10 +82,11 @@ const TimestampForm: React.FC<TimestampFormProps> = props => {
       className={classNames(className, styles.form)}
       initialValues={initialValues}
       onValuesChange={handleValuesChange}
-      onFieldsChange={handleFieldsChange}
+      // onFieldsChange={handleFieldsChange}
     >
       <FormList name="timestampList">
         {(fields, { add, remove }, { errors }) => {
+          console.log('fields: ', fields);
           return (
             <>
               <FormItem
@@ -83,7 +96,7 @@ const TimestampForm: React.FC<TimestampFormProps> = props => {
                 className={classNames({ [styles.noItem]: !fields.length })}
               >
                 {fields.map((field, index) => (
-                  <div key={field.key} className={styles.timestamp}>
+                  <div key={index} className={styles.timestamp}>
                     <FormItem
                       {...field}
                       noStyle
@@ -116,7 +129,7 @@ const TimestampForm: React.FC<TimestampFormProps> = props => {
                     <MinusCircleOutlined
                       className={styles.delete}
                       onClick={() => {
-                        console.log('remove: ', field.name);
+                        //removeWillNotValidateFields = true;
                         remove(field.name);
                       }}
                     />
@@ -143,7 +156,7 @@ const TimestampForm: React.FC<TimestampFormProps> = props => {
               <FormItem>
                 <Button
                   type="dashed"
-                  onClick={() => add('The head item', 0)}
+                  onClick={() => add(1, 0)}
                   className={styles.addBtn}
                   icon={<PlusOutlined />}
                 >
