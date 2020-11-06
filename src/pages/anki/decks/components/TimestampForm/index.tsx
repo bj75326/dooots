@@ -38,6 +38,30 @@ const TimestampForm: React.FC<TimestampFormProps> = props => {
     };
   };
 
+  const checkTimestamps = (_: any, values: []) => {
+    console.log('values', values);
+    let meetRequired = true;
+    values.forEach(value => {
+      if (!Number.isInteger(value)) {
+        meetRequired = false;
+      }
+    });
+    if (!meetRequired) {
+      return Promise.reject(
+        formatMessage({ id: 'anki.decks.timestamp.form.days.required' }),
+      );
+    }
+    const wrongTimestamp = values.find(
+      (value: number, index: number) =>
+        index >= 1 && value <= values[index - 1],
+    );
+    if (wrongTimestamp) {
+      return Promise.reject(
+        formatMessage({ id: 'anki.decks.timestamp.form.days.require.ascend' }),
+      );
+    }
+  };
+
   // const checkTimestamp = (_: any, value: number) => {
   //   const timestampList = form.getFieldValue('timestampList');
   //   const wrongTimestamp = timestampList.find(
@@ -54,7 +78,8 @@ const TimestampForm: React.FC<TimestampFormProps> = props => {
 
   const handleValuesChange = () => {
     console.log('onValuesChange');
-    form.validateFields();
+    form.validateFields(['timestampList']);
+    //form.validateFields();
     // if (!removeWillNotValidateFields) {
     //   form.validateFields();
     // }
@@ -84,9 +109,15 @@ const TimestampForm: React.FC<TimestampFormProps> = props => {
       onValuesChange={handleValuesChange}
       // onFieldsChange={handleFieldsChange}
     >
-      <FormList name="timestampList">
+      <FormList
+        name="timestampList"
+        rules={[
+          {
+            validator: checkTimestamps,
+          },
+        ]}
+      >
         {(fields, { add, remove }, { errors }) => {
-          console.log('fields: ', fields);
           return (
             <>
               <FormItem
@@ -96,22 +127,22 @@ const TimestampForm: React.FC<TimestampFormProps> = props => {
                 className={classNames({ [styles.noItem]: !fields.length })}
               >
                 {fields.map((field, index) => (
-                  <div key={index} className={styles.timestamp}>
+                  <div key={field.key} className={styles.timestamp}>
                     <FormItem
                       {...field}
                       noStyle
-                      validateFirst
-                      rules={[
-                        {
-                          required: true,
-                          message: formatMessage({
-                            id: 'anki.decks.timestamp.form.days.required',
-                          }),
-                        },
-                        {
-                          validator: checkTimestampHOF(index),
-                        },
-                      ]}
+                      // validateFirst
+                      // rules={[
+                      //   {
+                      //     required: true,
+                      //     message: formatMessage({
+                      //       id: 'anki.decks.timestamp.form.days.required',
+                      //     }),
+                      //   },
+                      //   {
+                      //     validator: checkTimestampHOF(index),
+                      //   },
+                      // ]}
                     >
                       <InputNumber
                         min={1}
@@ -136,6 +167,9 @@ const TimestampForm: React.FC<TimestampFormProps> = props => {
                   </div>
                 ))}
               </FormItem>
+              <div className={styles.errorList}>
+                <Form.ErrorList errors={errors} />
+              </div>
               <FormItem>
                 <Button
                   type="dashed"
