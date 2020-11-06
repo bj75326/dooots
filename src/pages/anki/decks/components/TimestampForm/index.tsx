@@ -124,7 +124,7 @@ const TimestampForm: React.FC<TimestampFormProps> = props => {
                 label={formatMessage({
                   id: 'anki.decks.timestamp.form.label.timestamps',
                 })}
-                className={classNames({ [styles.noItem]: !fields.length })}
+                className={styles.item}
               >
                 {fields.map((field, index) => (
                   <div key={field.key} className={styles.timestamp}>
@@ -167,7 +167,12 @@ const TimestampForm: React.FC<TimestampFormProps> = props => {
                   </div>
                 ))}
               </FormItem>
-              <div className={styles.errorList}>
+              <div
+                className={classNames(
+                  { [styles.noItem]: fields.length <= 0 },
+                  styles.errorList,
+                )}
+              >
                 <Form.ErrorList errors={errors} />
               </div>
               <FormItem>

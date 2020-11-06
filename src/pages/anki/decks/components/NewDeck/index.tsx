@@ -3,7 +3,6 @@ import { Upload, Modal, Form, Input, Tag } from 'antd';
 import { UploadProps } from 'antd/es/upload';
 import { PlusOutlined } from '@ant-design/icons';
 import { useIntl } from 'umi';
-import { SettingModelState } from '@/models/settings';
 import classNames from 'classnames';
 import EditableTagGroup from '../../../components/EditableTagGroup';
 import TimestampForm from '../TimestampForm';

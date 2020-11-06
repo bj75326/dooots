@@ -1,11 +1,17 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { Tag, Input, Tooltip } from 'antd';
 import { PlusOutlined } from '@ant-design/icons';
+import { connect, ConnectProps } from 'umi';
+import { ConnectState } from '@/models/connect';
+import { getColor, SettingModelState } from '@/models/settings';
 
-export interface EditableTagGroupProps {
+import styles from './index.less';
+
+export interface EditableTagGroupProps extends ConnectProps {
   className?: string;
   tags: string[];
   onTagChange: (tags: string[]) => void;
+  primaryColor: SettingModelState['primaryColor'];
 }
 
 const EditableTagGroup: React.FC<EditableTagGroupProps> = props => {
@@ -17,7 +23,7 @@ const EditableTagGroup: React.FC<EditableTagGroupProps> = props => {
   const editInputRef = useRef<Input>();
   const newInputRef = useRef<Input>();
 
-  const { tags, onTagChange } = props;
+  const { tags, onTagChange, primaryColor } = props;
 
   const handleEditInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setEditInputValue(e.target.value);
@@ -78,6 +84,7 @@ const EditableTagGroup: React.FC<EditableTagGroupProps> = props => {
               ref={editInputRef as React.RefObject<Input>}
               key={tag}
               size="small"
+              className={styles.input}
               value={editInputValue}
               onChange={handleEditInputChange}
               onBlur={handleEditInputConfirm}
@@ -89,7 +96,13 @@ const EditableTagGroup: React.FC<EditableTagGroupProps> = props => {
         const isLongTag = tag.length > 20;
 
         const tagElem = (
-          <Tag key={tag} closable onClose={() => handleClose(tag)}>
+          <Tag
+            key={tag}
+            className={styles.tag}
+            color={getColor(primaryColor)}
+            closable
+            onClose={() => handleClose(tag)}
+          >
             <span
               onDoubleClick={e => {
                 setEditInputIndex(index);
@@ -115,6 +128,7 @@ const EditableTagGroup: React.FC<EditableTagGroupProps> = props => {
           ref={newInputRef as React.RefObject<Input>}
           type="text"
           size="small"
+          className={styles.input}
           value={inputValue}
           onChange={handleInputChange}
           onBlur={handleInputConfirm}
@@ -122,7 +136,7 @@ const EditableTagGroup: React.FC<EditableTagGroupProps> = props => {
         />
       )}
       {!inputVisible && (
-        <Tag onClick={showInput}>
+        <Tag onClick={showInput} className={styles.add}>
           <PlusOutlined /> New Tag
         </Tag>
       )}
@@ -130,4 +144,6 @@ const EditableTagGroup: React.FC<EditableTagGroupProps> = props => {
   );
 };
 
-export default EditableTagGroup;
+export default connect(({ settings }: ConnectState) => ({
+  primaryColor: settings.primaryColor,
+}))(EditableTagGroup);
