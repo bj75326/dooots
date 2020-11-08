@@ -155,6 +155,7 @@ const TimestampForm: React.FC<TimestampFormProps> = props => {
                           })}`
                         }
                         parser={(value = '') => +value.split(' ')[0]}
+                        //size="small"
                       />
                     </FormItem>
                     <MinusCircleOutlined

@@ -7,7 +7,7 @@ import { getColor, SettingModelState } from '@/models/settings';
 
 import styles from './index.less';
 
-export interface EditableTagGroupProps extends ConnectProps {
+export interface EditableTagGroupProps extends Partial<ConnectProps> {
   className?: string;
   tags: string[];
   onTagChange: (tags: string[]) => void;

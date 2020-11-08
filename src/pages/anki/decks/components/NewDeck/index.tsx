@@ -6,6 +6,7 @@ import { useIntl } from 'umi';
 import classNames from 'classnames';
 import EditableTagGroup from '../../../components/EditableTagGroup';
 import TimestampForm from '../TimestampForm';
+import Ebbinghaus from '../../../components/Charts/Ebbinghaus';
 
 import styles from './index.less';
 
