@@ -5,7 +5,7 @@ import { PlusOutlined } from '@ant-design/icons';
 import { useIntl } from 'umi';
 import classNames from 'classnames';
 import EditableTagGroup from '../../../components/EditableTagGroup';
-import TimestampForm from '../TimestampForm';
+import TimePointForm from '../TimePointForm';
 import Ebbinghaus from '../../../components/Charts/Ebbinghaus';
 
 import styles from './index.less';
@@ -67,7 +67,7 @@ const NewDeck: React.FC<NewDeckProps> = props => {
               <EditableTagGroup tags={tags} onTagChange={setTags} />
             </FormItem>
           </Form>
-          <TimestampForm form={form} className={styles.form} />
+          <TimePointForm form={form} className={styles.form} />
           <div className={styles.curve}></div>
         </div>
       </div>

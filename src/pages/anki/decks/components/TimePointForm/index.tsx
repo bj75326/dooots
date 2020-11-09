@@ -10,26 +10,26 @@ import styles from './index.less';
 const FormItem = Form.Item;
 const FormList = Form.List;
 
-interface TimestampFormProps {
+interface TimePointFormProps {
   form: FormInstance;
   className?: string;
 }
 
-const TimestampForm: React.FC<TimestampFormProps> = props => {
+const TimePointForm: React.FC<TimePointFormProps> = props => {
   const { form, className } = props;
 
   const { formatMessage } = useIntl();
 
-  let initialValues = { timestampList: [1, 3, 7] };
+  let initialValues = { timePointList: [1, 3, 7] };
 
-  const checkTimestampHOF = (index: number) => {
+  const checkTimePointHOF = (index: number) => {
     return (_: any, value: number) => {
-      const values = form.getFieldValue('timestampList');
+      const values = form.getFieldValue('timePointList');
       if (index >= 1) {
         if (values[index] <= values[index - 1]) {
           return Promise.reject(
             formatMessage({
-              id: 'anki.decks.timestamp.form.days.require.ascend',
+              id: 'anki.decks.timePoint.form.days.require.ascend',
             }),
           );
         }
@@ -38,7 +38,7 @@ const TimestampForm: React.FC<TimestampFormProps> = props => {
     };
   };
 
-  const checkTimestamps = (_: any, values: []) => {
+  const checkTimePoints = (_: any, values: []) => {
     console.log('values', values);
     let meetRequired = true;
     values.forEach(value => {
@@ -48,29 +48,29 @@ const TimestampForm: React.FC<TimestampFormProps> = props => {
     });
     if (!meetRequired) {
       return Promise.reject(
-        formatMessage({ id: 'anki.decks.timestamp.form.days.required' }),
+        formatMessage({ id: 'anki.decks.timePoint.form.days.required' }),
       );
     }
-    const wrongTimestamp = values.find(
+    const wrongTimePoint = values.find(
       (value: number, index: number) =>
         index >= 1 && value <= values[index - 1],
     );
-    if (wrongTimestamp) {
+    if (wrongTimePoint) {
       return Promise.reject(
-        formatMessage({ id: 'anki.decks.timestamp.form.days.require.ascend' }),
+        formatMessage({ id: 'anki.decks.timePoint.form.days.require.ascend' }),
       );
     }
   };
 
-  // const checkTimestamp = (_: any, value: number) => {
-  //   const timestampList = form.getFieldValue('timestampList');
-  //   const wrongTimestamp = timestampList.find(
+  // const checkTimePoint = (_: any, value: number) => {
+  //   const timePointList = form.getFieldValue('timePointList');
+  //   const wrongTimePoint = timePointList.find(
   //     (value: number, index: number) =>
-  //       index >= 1 && value <= timestampList[index - 1],
+  //       index >= 1 && value <= timePointList[index - 1],
   //   );
-  //   if (wrongTimestamp) {
+  //   if (wrongTimePoint) {
   //     return Promise.reject(
-  //       formatMessage({ id: 'anki.decks.timestamp.form.days.require.ascend' }),
+  //       formatMessage({ id: 'anki.decks.timePoint.form.days.require.ascend' }),
   //     );
   //   }
   //   return Promise.resolve();
@@ -78,7 +78,7 @@ const TimestampForm: React.FC<TimestampFormProps> = props => {
 
   const handleValuesChange = () => {
     console.log('onValuesChange');
-    form.validateFields(['timestampList']);
+    form.validateFields(['timePointList']);
     //form.validateFields();
     // if (!removeWillNotValidateFields) {
     //   form.validateFields();
@@ -92,9 +92,9 @@ const TimestampForm: React.FC<TimestampFormProps> = props => {
   //   console.log('onFieldsChange');
   //   console.log('values: ', form.getFieldsValue());
   //   console.log('errors: ', form.getFieldsError());
-  //   console.log('ing: ', form.isFieldValidating(['timestampList', 0]));
-  //   console.log('ing: ', form.isFieldValidating(['timestampList', 1]));
-  //   console.log('1: ', form.getFieldValue(['timestampList', 1]));
+  //   console.log('ing: ', form.isFieldValidating(['timePointList', 0]));
+  //   console.log('ing: ', form.isFieldValidating(['timePointList', 1]));
+  //   console.log('1: ', form.getFieldValue(['timePointList', 1]));
   // };
 
   //let removeWillNotValidateFields = false;
@@ -102,18 +102,18 @@ const TimestampForm: React.FC<TimestampFormProps> = props => {
   return (
     <Form
       form={form}
-      name="timestampForm"
+      name="timePointForm"
       layout="vertical"
       className={classNames(className, styles.form)}
       initialValues={initialValues}
       onValuesChange={handleValuesChange}
-      // onFieldsChange={handleFieldsChange}
+    // onFieldsChange={handleFieldsChange}
     >
       <FormList
-        name="timestampList"
+        name="timePointList"
         rules={[
           {
-            validator: checkTimestamps,
+            validator: checkTimePoints,
           },
         ]}
       >
@@ -122,27 +122,27 @@ const TimestampForm: React.FC<TimestampFormProps> = props => {
             <>
               <FormItem
                 label={formatMessage({
-                  id: 'anki.decks.timestamp.form.label.timestamps',
+                  id: 'anki.decks.timePoint.form.label.timePoints',
                 })}
                 className={styles.item}
               >
                 {fields.map((field, index) => (
-                  <div key={field.key} className={styles.timestamp}>
+                  <div key={field.key} className={styles.timePoint}>
                     <FormItem
                       {...field}
                       noStyle
-                      // validateFirst
-                      // rules={[
-                      //   {
-                      //     required: true,
-                      //     message: formatMessage({
-                      //       id: 'anki.decks.timestamp.form.days.required',
-                      //     }),
-                      //   },
-                      //   {
-                      //     validator: checkTimestampHOF(index),
-                      //   },
-                      // ]}
+                    // validateFirst
+                    // rules={[
+                    //   {
+                    //     required: true,
+                    //     message: formatMessage({
+                    //       id: 'anki.decks.timePoint.form.days.required',
+                    //     }),
+                    //   },
+                    //   {
+                    //     validator: checkTimePointHOF(index),
+                    //   },
+                    // ]}
                     >
                       <InputNumber
                         min={1}
@@ -150,12 +150,12 @@ const TimestampForm: React.FC<TimestampFormProps> = props => {
                           `${value} ${formatMessage({
                             id:
                               value === 1
-                                ? 'anki.decks.timestamp.form.single.suffix'
-                                : 'anki.decks.timestamp.form.suffix',
+                                ? 'anki.decks.timePoint.form.single.suffix'
+                                : 'anki.decks.timePoint.form.suffix',
                           })}`
                         }
                         parser={(value = '') => +value.split(' ')[0]}
-                        //size="small"
+                      //size="small"
                       />
                     </FormItem>
                     <MinusCircleOutlined
@@ -180,7 +180,7 @@ const TimestampForm: React.FC<TimestampFormProps> = props => {
                 <Button
                   type="dashed"
                   onClick={() => {
-                    const values: [] = form.getFieldValue('timestampList');
+                    const values: [] = form.getFieldValue('timePointList');
                     if (!values.length) {
                       add(1);
                     } else {
@@ -190,7 +190,7 @@ const TimestampForm: React.FC<TimestampFormProps> = props => {
                   className={styles.addBtn}
                   icon={<PlusOutlined />}
                 >
-                  {formatMessage({ id: 'anki.decks.timestamp.form.add' })}
+                  {formatMessage({ id: 'anki.decks.timePoint.form.add' })}
                 </Button>
               </FormItem>
               <FormItem>
@@ -200,7 +200,7 @@ const TimestampForm: React.FC<TimestampFormProps> = props => {
                   className={styles.addBtn}
                   icon={<PlusOutlined />}
                 >
-                  {formatMessage({ id: 'anki.decks.timestamp.form.addAtHead' })}
+                  {formatMessage({ id: 'anki.decks.timePoint.form.addAtHead' })}
                 </Button>
               </FormItem>
             </>
@@ -211,4 +211,4 @@ const TimestampForm: React.FC<TimestampFormProps> = props => {
   );
 };
 
-export default TimestampForm;
+export default TimePointForm;
