@@ -22,21 +22,21 @@ const TimestampForm: React.FC<TimestampFormProps> = props => {
 
   let initialValues = { timestampList: [1, 3, 7] };
 
-  const checkTimestampHOF = (index: number) => {
-    return (_: any, value: number) => {
-      const values = form.getFieldValue('timestampList');
-      if (index >= 1) {
-        if (values[index] <= values[index - 1]) {
-          return Promise.reject(
-            formatMessage({
-              id: 'anki.decks.timestamp.form.days.require.ascend',
-            }),
-          );
-        }
-      }
-      return Promise.resolve();
-    };
-  };
+  // const checkTimestampHOF = (index: number) => {
+  //   return (_: any, value: number) => {
+  //     const values = form.getFieldValue('timestampList');
+  //     if (index >= 1) {
+  //       if (values[index] <= values[index - 1]) {
+  //         return Promise.reject(
+  //           formatMessage({
+  //             id: 'anki.decks.timestamp.form.days.require.ascend',
+  //           }),
+  //         );
+  //       }
+  //     }
+  //     return Promise.resolve();
+  //   };
+  // };
 
   const checkTimestamps = (_: any, values: []) => {
     console.log('values', values);
