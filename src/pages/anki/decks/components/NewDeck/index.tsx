@@ -68,7 +68,9 @@ const NewDeck: React.FC<NewDeckProps> = props => {
             </FormItem>
           </Form>
           <TimePointForm form={form} className={styles.form} />
-          <div className={styles.curve}></div>
+          <div className={styles.curve}>
+            <Ebbinghaus />
+          </div>
         </div>
       </div>
     </div>
