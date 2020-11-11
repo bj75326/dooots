@@ -1,5 +1,14 @@
 import React from 'react';
-import { Axis, Chart, LineAdvance, Tooltip, Annotation } from 'bizcharts';
+import {
+  Axis,
+  Chart,
+  LineAdvance,
+  Tooltip,
+  Annotation,
+  Line,
+  Geom,
+  Point,
+} from 'bizcharts';
 
 import styles from './index.less';
 
@@ -82,11 +91,19 @@ const Ebbinghaus: React.FC<EbbinghausProps> = props => {
           <Axis name="elapsedTimeSinceLearing" title />
           <Axis name="retention" title />
           <Tooltip />
-          <LineAdvance
-            shape="smooth"
-            point
+          <Geom
+            type="line"
             position="elapsedTimeSinceLearing*retention"
+            shape="smooth"
+            tooltip={[
+              'elapsedTimeSinceLearing*retention',
+              (elapsedTimeSinceLearing, retention) => ({
+                title: '',
+                name: 'retention',
+              }),
+            ]}
           />
+          <Point position="elapsedTimeSinceLearing*retention" shape="circle" />
         </Chart>
       </div>
     </div>
