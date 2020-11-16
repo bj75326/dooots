@@ -8,6 +8,7 @@ import {
   Line,
   Geom,
   Point,
+  View,
 } from 'bizcharts';
 
 import styles from './index.less';
@@ -26,44 +27,39 @@ const defaultData = [
   {
     elapsedTimeSinceLearing: 0,
     retention: 100,
-    type: 'non-intervention',
   },
   {
     elapsedTimeSinceLearing: 0.014,
     retention: 58,
-    type: 'non-intervention',
   },
   {
     elapsedTimeSinceLearing: 0.042,
     retention: 44,
-    type: 'non-intervention',
   },
   {
     elapsedTimeSinceLearing: 0.375,
     retention: 36,
-    type: 'non-intervention',
   },
   {
     elapsedTimeSinceLearing: 1,
     retention: 33.7,
-    type: 'non-intervention',
   },
   {
     elapsedTimeSinceLearing: 2,
     retention: 27.8,
-    type: 'non-intervention',
   },
   {
     elapsedTimeSinceLearing: 6,
     retention: 25.4,
-    type: 'non-intervention',
   },
   {
     elapsedTimeSinceLearing: 31,
     retention: 21.1,
-    type: 'non-intervention',
   },
   //test
+];
+
+const testData = [
   {
     elapsedTimeSinceLearing: 1,
     retention: 100,
@@ -128,14 +124,8 @@ const Ebbinghaus: React.FC<EbbinghausProps> = props => {
   return (
     <div className={styles.chart} style={{}}>
       <div>
-        {title && <div>{title}</div>}
-        <Chart
-          padding={[10, 20, 50, 40]}
-          autoFit
-          height={300}
-          data={defaultData}
-          scale={scale}
-        >
+        {title && <div className={styles.title}>{title}</div>}
+        <Chart height={300} autoFit scale={scale} padding={[10, 10, 30, 25]}>
           <Axis
             name="elapsedTimeSinceLearing"
             title
@@ -167,48 +157,63 @@ const Ebbinghaus: React.FC<EbbinghausProps> = props => {
               alignTick: true,
             }}
           />
-          <Geom
-            type="line"
-            position="elapsedTimeSinceLearing*retention"
-            shape="smooth"
-            tooltip={false}
-            color={'type'}
-          />
-          <Point
-            position="elapsedTimeSinceLearing*retention"
-            shape="circle"
-            color={'type'}
-            tooltip={[
-              'elapsedTimeSinceLearing*retention',
-              (elapsedTimeSinceLearing, retention) => {
-                let title = '';
-                switch (elapsedTimeSinceLearing) {
-                  case 0:
-                    title = 'Immediate Recall';
-                    break;
-                  case 0.014:
-                    title = '19 min';
-                    break;
-                  case 0.042:
-                    title = '63 min';
-                    break;
-                  case 0.375:
-                    title = '525 min';
-                    break;
-                  case 1:
-                    title = '1 day';
-                    break;
-                  default:
-                    title = `${elapsedTimeSinceLearing} days`;
-                }
-                return {
-                  title,
-                  name: 'retention',
-                  value: `${retention}%`,
-                };
-              },
-            ]}
-          />
+          <View data={defaultData}>
+            <Geom
+              type="line"
+              position="elapsedTimeSinceLearing*retention"
+              shape="smooth"
+              tooltip={false}
+            />
+            <Point
+              position="elapsedTimeSinceLearing*retention"
+              shape="circle"
+              size={3}
+              tooltip={[
+                'elapsedTimeSinceLearing*retention',
+                (elapsedTimeSinceLearing, retention) => {
+                  let title = '';
+                  switch (elapsedTimeSinceLearing) {
+                    case 0:
+                      title = 'Immediate Recall';
+                      break;
+                    case 0.014:
+                      title = '19 min';
+                      break;
+                    case 0.042:
+                      title = '63 min';
+                      break;
+                    case 0.375:
+                      title = '525 min';
+                      break;
+                    case 1:
+                      title = '1 day';
+                      break;
+                    default:
+                      title = `${elapsedTimeSinceLearing} days`;
+                  }
+                  return {
+                    title,
+                    name: 'retention',
+                    value: `${retention}%`,
+                  };
+                },
+              ]}
+            />
+            <Annotation.Text
+              position={['50%', '65%']}
+              content="non-intervention"
+            />
+          </View>
+          <View data={testData}>
+            <Geom
+              type="line"
+              position="elapsedTimeSinceLearing*retention"
+              shape="smooth"
+              tooltip={false}
+              color="#5ad2ad"
+            />
+            <Annotation.Text position={['50%', '35%']} content="" />
+          </View>
         </Chart>
       </div>
     </div>

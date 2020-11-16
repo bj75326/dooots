@@ -12,4 +12,5 @@ export default {
   'anki.decks.timePoint.form.single.suffix': '天后',
   'anki.decks.timePoint.form.days.required': '请设置或者删除不必要的时间点',
   'anki.decks.timePoint.form.days.require.ascend': '间隔天数要求依次递增',
+  'anki.decks.curve.title': '记忆曲线',
 };

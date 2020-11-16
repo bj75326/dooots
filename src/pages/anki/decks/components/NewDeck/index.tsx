@@ -69,7 +69,9 @@ const NewDeck: React.FC<NewDeckProps> = props => {
           </Form>
           <TimePointForm form={form} className={styles.form} />
           <div className={styles.curve}>
-            <Ebbinghaus />
+            <Ebbinghaus
+              title={formatMessage({ id: 'anki.decks.curve.title' })}
+            />
           </div>
         </div>
       </div>

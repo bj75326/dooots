@@ -14,4 +14,5 @@ export default {
     'Please input time point or delete the field.',
   'anki.decks.timePoint.form.days.require.ascend':
     'Number of days between requests in ascending order.',
+  'anki.decks.curve.title': 'Memory curve',
 };
