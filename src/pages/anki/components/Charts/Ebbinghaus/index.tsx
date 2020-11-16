@@ -10,6 +10,7 @@ import {
   Point,
   View,
 } from 'bizcharts';
+import { Form } from 'antd';
 
 import styles from './index.less';
 
@@ -21,6 +22,7 @@ export interface TimePoint {
 export interface EbbinghausProps {
   title?: React.ReactNode;
   data?: TimePoint[];
+  className?: string;
 }
 
 const defaultData = [
@@ -119,12 +121,15 @@ const scale = {
 };
 
 const Ebbinghaus: React.FC<EbbinghausProps> = props => {
-  const { title, data } = props;
+  const { title, data, className } = props;
 
   return (
-    <div className={styles.chart} style={{}}>
+    <div className={styles.chart}>
       <div>
-        {title && <div className={styles.title}>{title}</div>}
+        <Form layout="vertical" className={className}>
+          <Form.Item label={title} />
+        </Form>
+
         <Chart height={300} autoFit scale={scale} padding={[10, 10, 30, 25]}>
           <Axis
             name="elapsedTimeSinceLearing"
@@ -212,7 +217,10 @@ const Ebbinghaus: React.FC<EbbinghausProps> = props => {
               tooltip={false}
               color="#5ad2ad"
             />
-            <Annotation.Text position={['50%', '35%']} content="" />
+            <Annotation.Text
+              position={['50%', '35%']}
+              content="periodic review"
+            />
           </View>
         </Chart>
       </div>

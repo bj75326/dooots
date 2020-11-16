@@ -71,6 +71,7 @@ const NewDeck: React.FC<NewDeckProps> = props => {
           <div className={styles.curve}>
             <Ebbinghaus
               title={formatMessage({ id: 'anki.decks.curve.title' })}
+              className={styles.form}
             />
           </div>
         </div>
