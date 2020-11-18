@@ -17,7 +17,7 @@ interface TimePointFormProps {
 }
 
 const TimePointForm: React.FC<TimePointFormProps> = props => {
-  const { form, className } = props;
+  const { form, className, changeTimePoints } = props;
 
   const { formatMessage } = useIntl();
 
@@ -61,6 +61,7 @@ const TimePointForm: React.FC<TimePointFormProps> = props => {
         formatMessage({ id: 'anki.decks.timePoint.form.days.require.ascend' }),
       );
     }
+    return Promise.resolve();
   };
 
   // const checkTimePoint = (_: any, value: number) => {
@@ -79,7 +80,17 @@ const TimePointForm: React.FC<TimePointFormProps> = props => {
 
   const handleValuesChange = () => {
     console.log('onValuesChange');
-    form.validateFields(['timePointList']);
+    form.validateFields(['timePointList']).then(
+      values => {
+        changeTimePoints(values['timePointList']);
+      },
+      errorInfo => {
+        const { errorFields, values } = errorInfo;
+        if (errorFields.length <= 0) {
+          changeTimePoints(values['timePointList']);
+        }
+      },
+    );
     //form.validateFields();
     // if (!removeWillNotValidateFields) {
     //   form.validateFields();

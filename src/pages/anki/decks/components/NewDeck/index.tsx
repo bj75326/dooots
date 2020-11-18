@@ -17,27 +17,6 @@ interface NewDeckProps extends UploadProps {
   className?: string;
 }
 
-const convertTimePoints = (timePoints: number[]): TimePoint[] =>
-  timePoints
-    .map((value, index, array) => {
-      if (index === array.length - 1)
-        return {
-          elapsedTimeSinceLearing: value,
-          retention: 100,
-        };
-      return [
-        {
-          elapsedTimeSinceLearing: value,
-          retention: 100,
-        },
-        {
-          elapsedTimeSinceLearing: (array[index] + array[index + 1]) / 2,
-          retention: 65,
-        },
-      ];
-    })
-    .flat();
-
 const NewDeck: React.FC<NewDeckProps> = props => {
   const [newDeckVisible, setNewDeckVisible]: [boolean, any] = useState(false);
 
@@ -102,7 +81,7 @@ const NewDeck: React.FC<NewDeckProps> = props => {
             <Ebbinghaus
               title={formatMessage({ id: 'anki.decks.curve.title' })}
               className={styles.form}
-              data={convertTimePoints(timePoints)}
+              data={timePoints}
             />
           </div>
         </div>

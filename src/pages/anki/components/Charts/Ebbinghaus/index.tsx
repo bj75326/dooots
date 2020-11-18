@@ -21,7 +21,7 @@ export interface TimePoint {
 
 export interface EbbinghausProps {
   title?: React.ReactNode;
-  data?: TimePoint[];
+  data: number[];
   className?: string;
 }
 
@@ -61,7 +61,7 @@ const defaultData = [
   //test
 ];
 
-const scale = {
+const defaultScale = {
   elapsedTimeSinceLearing: {
     alias: 'Elapsed Time Since Learing',
     type: 'pow',
@@ -78,9 +78,41 @@ const scale = {
   },
 };
 
+const convertTimePoints = (timePoints: number[]): TimePoint[] =>
+  timePoints
+    .map((value, index, array) => {
+      if (index === array.length - 1)
+        return {
+          elapsedTimeSinceLearing: value,
+          retention: 100,
+        };
+      return [
+        {
+          elapsedTimeSinceLearing: value,
+          retention: 100,
+        },
+        {
+          elapsedTimeSinceLearing: (array[index] + array[index + 1]) / 2,
+          retention: 65,
+        },
+      ];
+    })
+    .flat();
+
 const Ebbinghaus: React.FC<EbbinghausProps> = props => {
   const { title, data, className } = props;
-  console.log('data', data);
+
+  const scale = {
+    ...defaultScale,
+    elapsedTimeSinceLearing: {
+      ...defaultScale.elapsedTimeSinceLearing,
+      ticks: ['', '', '', ''].concat(
+        [1, 2, 6, 31, ...data].sort((a, b) => a - b),
+      ),
+      max: ([1, 2, 6, 31, ...data].sort((a, b) => a - b).pop() as number) + 5,
+    },
+  };
+
   return (
     <div className={styles.chart}>
       <div>
@@ -167,7 +199,7 @@ const Ebbinghaus: React.FC<EbbinghausProps> = props => {
               content="non-intervention"
             />
           </View>
-          <View data={data}>
+          <View data={convertTimePoints(data)}>
             <Geom
               type="line"
               position="elapsedTimeSinceLearing*retention"
