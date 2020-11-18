@@ -6,7 +6,7 @@ import { useIntl } from 'umi';
 import classNames from 'classnames';
 import EditableTagGroup from '../../../components/EditableTagGroup';
 import TimePointForm from '../TimePointForm';
-import Ebbinghaus from '../../../components/Charts/Ebbinghaus';
+import Ebbinghaus, { TimePoint } from '../../../components/Charts/Ebbinghaus';
 
 import styles from './index.less';
 
@@ -17,10 +17,32 @@ interface NewDeckProps extends UploadProps {
   className?: string;
 }
 
+const convertTimePoints = (timePoints: number[]): TimePoint[] =>
+  timePoints
+    .map((value, index, array) => {
+      if (index === array.length - 1)
+        return {
+          elapsedTimeSinceLearing: value,
+          retention: 100,
+        };
+      return [
+        {
+          elapsedTimeSinceLearing: value,
+          retention: 100,
+        },
+        {
+          elapsedTimeSinceLearing: (array[index] + array[index + 1]) / 2,
+          retention: 65,
+        },
+      ];
+    })
+    .flat();
+
 const NewDeck: React.FC<NewDeckProps> = props => {
   const [newDeckVisible, setNewDeckVisible]: [boolean, any] = useState(false);
 
   const [tags, setTags]: [string[], any] = useState([]);
+  const [timePoints, setTimePoints]: [number[], any] = useState([1, 2, 6, 31]);
 
   const { formatMessage } = useIntl();
 
@@ -30,6 +52,10 @@ const NewDeck: React.FC<NewDeckProps> = props => {
 
   const toggleNewDeckModal = () => {
     setNewDeckVisible(!newDeckVisible);
+  };
+
+  const changeTimePoints = (timePoints: number[]) => {
+    setTimePoints(timePoints);
   };
 
   const form = Form.useForm()[0];
@@ -67,11 +93,16 @@ const NewDeck: React.FC<NewDeckProps> = props => {
               <EditableTagGroup tags={tags} onTagChange={setTags} />
             </FormItem>
           </Form>
-          <TimePointForm form={form} className={styles.form} />
+          <TimePointForm
+            form={form}
+            className={styles.form}
+            changeTimePoints={changeTimePoints}
+          />
           <div className={styles.curve}>
             <Ebbinghaus
               title={formatMessage({ id: 'anki.decks.curve.title' })}
               className={styles.form}
+              data={convertTimePoints(timePoints)}
             />
           </div>
         </div>

@@ -13,6 +13,7 @@ const FormList = Form.List;
 interface TimePointFormProps {
   form: FormInstance;
   className?: string;
+  changeTimePoints: (timePoints: number[]) => void;
 }
 
 const TimePointForm: React.FC<TimePointFormProps> = props => {
@@ -20,7 +21,7 @@ const TimePointForm: React.FC<TimePointFormProps> = props => {
 
   const { formatMessage } = useIntl();
 
-  let initialValues = { timePointList: [1, 3, 7] };
+  let initialValues = { timePointList: [1, 2, 6, 31] };
 
   const checkTimePointHOF = (index: number) => {
     return (_: any, value: number) => {
@@ -107,7 +108,7 @@ const TimePointForm: React.FC<TimePointFormProps> = props => {
       className={classNames(className, styles.form)}
       initialValues={initialValues}
       onValuesChange={handleValuesChange}
-    // onFieldsChange={handleFieldsChange}
+      // onFieldsChange={handleFieldsChange}
     >
       <FormList
         name="timePointList"
@@ -131,18 +132,18 @@ const TimePointForm: React.FC<TimePointFormProps> = props => {
                     <FormItem
                       {...field}
                       noStyle
-                    // validateFirst
-                    // rules={[
-                    //   {
-                    //     required: true,
-                    //     message: formatMessage({
-                    //       id: 'anki.decks.timePoint.form.days.required',
-                    //     }),
-                    //   },
-                    //   {
-                    //     validator: checkTimePointHOF(index),
-                    //   },
-                    // ]}
+                      // validateFirst
+                      // rules={[
+                      //   {
+                      //     required: true,
+                      //     message: formatMessage({
+                      //       id: 'anki.decks.timePoint.form.days.required',
+                      //     }),
+                      //   },
+                      //   {
+                      //     validator: checkTimePointHOF(index),
+                      //   },
+                      // ]}
                     >
                       <InputNumber
                         min={1}
@@ -155,7 +156,7 @@ const TimePointForm: React.FC<TimePointFormProps> = props => {
                           })}`
                         }
                         parser={(value = '') => +value.split(' ')[0]}
-                      //size="small"
+                        //size="small"
                       />
                     </FormItem>
                     <MinusCircleOutlined

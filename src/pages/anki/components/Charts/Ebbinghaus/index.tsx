@@ -61,48 +61,6 @@ const defaultData = [
   //test
 ];
 
-const testData = [
-  {
-    elapsedTimeSinceLearing: 1,
-    retention: 100,
-    type: 'repeated-review',
-  },
-
-  {
-    elapsedTimeSinceLearing: 1.5,
-    retention: 70,
-    type: 'repeated-review',
-  },
-
-  {
-    elapsedTimeSinceLearing: 2,
-    retention: 100,
-    type: 'repeated-review',
-  },
-  {
-    elapsedTimeSinceLearing: 4,
-    retention: 70,
-    type: 'repeated-review',
-  },
-
-  {
-    elapsedTimeSinceLearing: 6,
-    retention: 100,
-    type: 'repeated-review',
-  },
-
-  {
-    elapsedTimeSinceLearing: 18,
-    retention: 70,
-    type: 'repeated-review',
-  },
-  {
-    elapsedTimeSinceLearing: 31,
-    retention: 100,
-    type: 'repeated-review',
-  },
-];
-
 const scale = {
   elapsedTimeSinceLearing: {
     alias: 'Elapsed Time Since Learing',
@@ -122,7 +80,7 @@ const scale = {
 
 const Ebbinghaus: React.FC<EbbinghausProps> = props => {
   const { title, data, className } = props;
-
+  console.log('data', data);
   return (
     <div className={styles.chart}>
       <div>
@@ -209,7 +167,7 @@ const Ebbinghaus: React.FC<EbbinghausProps> = props => {
               content="non-intervention"
             />
           </View>
-          <View data={testData}>
+          <View data={data}>
             <Geom
               type="line"
               position="elapsedTimeSinceLearing*retention"
