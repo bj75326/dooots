@@ -67,14 +67,14 @@ const defaultData = [
 
 const defaultScale = {
   elapsedTimeSinceLearing: {
-    alias: 'Elapsed Time Since Learing',
+    alias: 'Elapsed Time Since Learing (day)',
     type: 'pow',
     ticks: ['', '', '', '', 1, 2, 6, 31],
     min: -0.2,
     max: 33,
   },
   retention: {
-    alias: 'Retention %',
+    alias: 'Retention (%)',
     type: 'linear',
     min: 0,
     max: 100,
@@ -116,7 +116,7 @@ const Ebbinghaus: React.FC<EbbinghausProps> = props => {
     ...defaultScale,
     elapsedTimeSinceLearing: {
       ...defaultScale.elapsedTimeSinceLearing,
-      ticks: ((['', '', '', ''] as unknown) as [number, string]).concat(
+      ticks: (([] as unknown) as [number, string]).concat(
         Array.from(new Set([1, 2, 6, 31, ...data])).sort((a, b) => a - b),
       ),
       max:
@@ -133,7 +133,7 @@ const Ebbinghaus: React.FC<EbbinghausProps> = props => {
           <Form.Item label={title} />
         </Form>
 
-        <Chart height={300} autoFit scale={scale} padding={[10, 5, 30, 25]}>
+        <Chart height={300} autoFit scale={scale} padding={[10, 0, 30, 25]}>
           <Axis
             name="elapsedTimeSinceLearing"
             title
@@ -147,6 +147,10 @@ const Ebbinghaus: React.FC<EbbinghausProps> = props => {
               },
             }}
             tickLine={null}
+            label={{
+              autoRotate: false,
+              rotate: 0,
+            }}
           />
           <Axis
             name="retention"
