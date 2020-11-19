@@ -11,6 +11,7 @@ import {
   View,
 } from 'bizcharts';
 import { Form } from 'antd';
+import { useIntl } from 'umi';
 
 import styles from './index.less';
 
@@ -69,7 +70,7 @@ const defaultScale = {
   elapsedTimeSinceLearing: {
     alias: 'Elapsed Time Since Learing (day)',
     type: 'pow',
-    ticks: ['', '', '', '', 1, 2, 6, 31],
+    ticks: [1, 2, 6, 31],
     min: -0.2,
     max: 33,
   },
@@ -112,17 +113,17 @@ const convertTimePoints = (timePoints: number[]): TimePoint[] =>
 const Ebbinghaus: React.FC<EbbinghausProps> = props => {
   const { title, data, className } = props;
 
+  const { formatMessage } = useIntl();
+
   const scale = {
     ...defaultScale,
     elapsedTimeSinceLearing: {
       ...defaultScale.elapsedTimeSinceLearing,
-      ticks: (([] as unknown) as [number, string]).concat(
-        Array.from(new Set([1, 2, 6, 31, ...data])).sort((a, b) => a - b),
-      ),
+      ticks: Array.from(new Set([1, 2, 6, 31, ...data])).sort((a, b) => a - b),
       max:
         (Array.from(new Set([1, 2, 6, 31, ...data]))
           .sort((a, b) => a - b)
-          .pop() as number) + 5,
+          .pop() as number) * 1.1,
     },
   };
 
@@ -230,7 +231,10 @@ const Ebbinghaus: React.FC<EbbinghausProps> = props => {
             />
           </View>
         </Chart>
-        <div className={styles.annotation}></div>
+        <div className={styles.annotation}>
+          <div>{formatMessage({ id: 'anki.curve.annotation#1' })}</div>
+          <div>{formatMessage({ id: 'anki.curve.annotation#2' })}</div>
+        </div>
       </div>
     </div>
   );
