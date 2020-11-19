@@ -59,6 +59,10 @@ const defaultData = [
     retention: 21.1,
   },
   //test
+  {
+    elapsedTimeSinceLearing: 5000,
+    retention: 0,
+  },
 ];
 
 const defaultScale = {
@@ -82,10 +86,16 @@ const convertTimePoints = (timePoints: number[]): TimePoint[] =>
   timePoints
     .map((value, index, array) => {
       if (index === array.length - 1)
-        return {
-          elapsedTimeSinceLearing: value,
-          retention: 100,
-        };
+        return [
+          {
+            elapsedTimeSinceLearing: value,
+            retention: 100,
+          },
+          {
+            elapsedTimeSinceLearing: 5000,
+            retention: 0,
+          },
+        ];
       return [
         {
           elapsedTimeSinceLearing: value,
@@ -93,7 +103,7 @@ const convertTimePoints = (timePoints: number[]): TimePoint[] =>
         },
         {
           elapsedTimeSinceLearing: (array[index] + array[index + 1]) / 2,
-          retention: 65,
+          retention: 50 + index * 5 <= 65 ? 50 + index * 5 : 65,
         },
       ];
     })
@@ -106,10 +116,13 @@ const Ebbinghaus: React.FC<EbbinghausProps> = props => {
     ...defaultScale,
     elapsedTimeSinceLearing: {
       ...defaultScale.elapsedTimeSinceLearing,
-      ticks: ['', '', '', ''].concat(
-        [1, 2, 6, 31, ...data].sort((a, b) => a - b),
+      ticks: ((['', '', '', ''] as unknown) as [number, string]).concat(
+        Array.from(new Set([1, 2, 6, 31, ...data])).sort((a, b) => a - b),
       ),
-      max: ([1, 2, 6, 31, ...data].sort((a, b) => a - b).pop() as number) + 5,
+      max:
+        (Array.from(new Set([1, 2, 6, 31, ...data]))
+          .sort((a, b) => a - b)
+          .pop() as number) + 5,
     },
   };
 
@@ -120,7 +133,7 @@ const Ebbinghaus: React.FC<EbbinghausProps> = props => {
           <Form.Item label={title} />
         </Form>
 
-        <Chart height={300} autoFit scale={scale} padding={[10, 10, 30, 25]}>
+        <Chart height={300} autoFit scale={scale} padding={[10, 5, 30, 25]}>
           <Axis
             name="elapsedTimeSinceLearing"
             title
@@ -213,6 +226,7 @@ const Ebbinghaus: React.FC<EbbinghausProps> = props => {
             />
           </View>
         </Chart>
+        <div className={styles.annotation}></div>
       </div>
     </div>
   );
