@@ -2,11 +2,11 @@ import React, { useState } from 'react';
 import { Upload, Modal, Form, Input, Button } from 'antd';
 import { UploadProps } from 'antd/es/upload';
 import { PlusOutlined } from '@ant-design/icons';
-import { useIntl } from 'umi';
+import { useIntl, Dispatch } from 'umi';
 import classNames from 'classnames';
 import EditableTagGroup from '../../../components/EditableTagGroup';
 import TimePointForm from '../TimePointForm';
-import Ebbinghaus, { TimePoint } from '../../../components/Charts/Ebbinghaus';
+import Ebbinghaus from '../../../components/Charts/Ebbinghaus';
 
 import styles from './index.less';
 
@@ -15,6 +15,7 @@ const { TextArea } = Input;
 
 interface NewDeckProps extends UploadProps {
   className?: string;
+  dispatch?: Dispatch;
 }
 
 const NewDeck: React.FC<NewDeckProps> = props => {
@@ -24,6 +25,7 @@ const NewDeck: React.FC<NewDeckProps> = props => {
   const [timePoints, setTimePoints]: [number[], any] = useState([1, 2, 6, 31]);
 
   const { formatMessage } = useIntl();
+  const { dispatch } = props;
 
   const handleAddClick = () => {
     setNewDeckVisible(true);
@@ -38,6 +40,30 @@ const NewDeck: React.FC<NewDeckProps> = props => {
   };
 
   const form = Form.useForm()[0];
+
+  const handleClick = () => {
+    form
+      .validateFields()
+      .then(values => {
+        console.log('validate pass: ', values);
+        if (dispatch) {
+          dispatch({
+            type: 'decks/addDeck',
+            payload: {
+              ...values,
+            },
+          });
+        }
+      })
+      .catch(err => {
+        //console.log('validate failed: ', err);
+      });
+  };
+
+  const handleTagsChange = (tags: string[]) => {
+    form.setFieldsValue({ tags: tags });
+    setTags(tags);
+  };
 
   const addModalContent = (
     <div className={styles.content}>
@@ -78,7 +104,7 @@ const NewDeck: React.FC<NewDeckProps> = props => {
               name="tags"
               label={formatMessage({ id: 'anki.decks.new.tags' })}
             >
-              <EditableTagGroup tags={tags} onTagChange={setTags} />
+              <EditableTagGroup tags={tags} onTagChange={handleTagsChange} />
             </FormItem>
           </Form>
           <TimePointForm
@@ -95,7 +121,12 @@ const NewDeck: React.FC<NewDeckProps> = props => {
           </div>
         </div>
         <div className={styles.footer}>
-          <Button type="primary" className={styles.footerBtn}>
+          <Button
+            type="primary"
+            className={styles.footerBtn}
+            onClick={handleClick}
+            loading
+          >
             {formatMessage({ id: 'anki.decks.create' })}
           </Button>
         </div>

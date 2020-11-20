@@ -188,7 +188,7 @@ const TimePointForm: React.FC<TimePointFormProps> = props => {
               >
                 <Form.ErrorList errors={errors} />
               </div>
-              <FormItem>
+              <FormItem className={styles.addItem}>
                 <Button
                   type="dashed"
                   onClick={() => {
@@ -205,7 +205,7 @@ const TimePointForm: React.FC<TimePointFormProps> = props => {
                   {formatMessage({ id: 'anki.decks.timePoint.form.add' })}
                 </Button>
               </FormItem>
-              <FormItem>
+              <FormItem className={styles.addItem}>
                 <Button
                   type="dashed"
                   onClick={() => add(1, 0)}

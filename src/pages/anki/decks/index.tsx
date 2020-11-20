@@ -6,12 +6,11 @@ import { ConnectState } from '@/models/connect';
 
 import styles from './style.less';
 
-interface AnkiDecksProps extends ConnectProps {
-  primaryColor: ConnectState['settings']['primaryColor'];
-}
+interface AnkiDecksProps extends ConnectProps {}
 
 const AnkiDecks: React.FC<AnkiDecksProps> = props => {
   const { formatMessage } = useIntl();
+  const { dispatch } = props;
 
   const handleSearch = (value: string) => {
     console.log(value);
@@ -26,7 +25,7 @@ const AnkiDecks: React.FC<AnkiDecksProps> = props => {
         onSearch={handleSearch}
       />
       <div className={styles.content}>
-        <NewDeck />
+        <NewDeck dispatch={dispatch} />
       </div>
     </div>
   );

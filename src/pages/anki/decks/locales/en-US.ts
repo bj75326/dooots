@@ -16,5 +16,5 @@ export default {
     'Number of days between requests in ascending order.',
   'anki.decks.curve.title': 'Memory curve',
   'anki.decks.create': 'Create',
-  'anki.decks.deckName.required': "Please enter deck's name",
+  'anki.decks.deckName.required': 'Please enter deck name',
 };
