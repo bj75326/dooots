@@ -129,112 +129,112 @@ const Ebbinghaus: React.FC<EbbinghausProps> = props => {
 
   return (
     <div className={styles.chart}>
-      <div>
-        <Form layout="vertical" className={className}>
-          <Form.Item label={title} />
-        </Form>
+      <Form layout="vertical" className={className}>
+        <Form.Item label={title} />
+      </Form>
 
-        <Chart height={300} autoFit scale={scale} padding={[10, 0, 30, 25]}>
-          <Axis
-            name="elapsedTimeSinceLearing"
-            title
-            grid={{
-              line: {
-                type: 'line',
-                style: {
-                  stroke: '#d9d9d9',
-                  lineDash: [4, 4],
-                },
-              },
-            }}
-            tickLine={null}
-            label={{
-              autoRotate: false,
-              rotate: 0,
-            }}
-          />
-          <Axis
-            name="retention"
-            title
-            grid={null}
-            line={{
+      <Chart height={300} autoFit scale={scale} padding={[10, 0, 30, 25]}>
+        <Axis
+          name="elapsedTimeSinceLearing"
+          title
+          grid={{
+            line: {
+              type: 'line',
               style: {
-                stroke: '#ddd',
+                stroke: '#d9d9d9',
+                lineDash: [4, 4],
               },
-            }}
-            tickLine={{
-              style: {
-                stroke: '#ccc',
-              },
-              length: -5,
-              alignTick: true,
-            }}
+            },
+          }}
+          tickLine={null}
+          label={{
+            autoRotate: false,
+            rotate: 0,
+          }}
+        />
+        <Axis
+          name="retention"
+          title
+          grid={null}
+          line={{
+            style: {
+              stroke: '#ddd',
+            },
+          }}
+          tickLine={{
+            style: {
+              stroke: '#ccc',
+            },
+            length: -5,
+            alignTick: true,
+          }}
+        />
+        <View data={defaultData}>
+          <Geom
+            type="line"
+            position="elapsedTimeSinceLearing*retention"
+            shape="smooth"
+            tooltip={false}
           />
-          <View data={defaultData}>
-            <Geom
-              type="line"
-              position="elapsedTimeSinceLearing*retention"
-              shape="smooth"
-              tooltip={false}
-            />
-            <Point
-              position="elapsedTimeSinceLearing*retention"
-              shape="circle"
-              size={3}
-              tooltip={[
-                'elapsedTimeSinceLearing*retention',
-                (elapsedTimeSinceLearing, retention) => {
-                  let title = '';
-                  switch (elapsedTimeSinceLearing) {
-                    case 0:
-                      title = 'Immediate Recall';
-                      break;
-                    case 0.014:
-                      title = '19 min';
-                      break;
-                    case 0.042:
-                      title = '63 min';
-                      break;
-                    case 0.375:
-                      title = '525 min';
-                      break;
-                    case 1:
-                      title = '1 day';
-                      break;
-                    default:
-                      title = `${elapsedTimeSinceLearing} days`;
-                  }
-                  return {
-                    title,
-                    name: 'retention',
-                    value: `${retention}%`,
-                  };
-                },
-              ]}
-            />
-            <Annotation.Text
-              position={['50%', '65%']}
-              content="non-intervention"
-            />
-          </View>
-          <View data={convertTimePoints(data)}>
-            <Geom
-              type="line"
-              position="elapsedTimeSinceLearing*retention"
-              shape="smooth"
-              tooltip={false}
-              color="#5ad2ad"
-            />
-            <Annotation.Text
-              position={['50%', '35%']}
-              content="periodic review"
-            />
-          </View>
-        </Chart>
-        <div className={styles.annotation}>
-          <div>{formatMessage({ id: 'anki.curve.annotation#1' })}</div>
-          <div>{formatMessage({ id: 'anki.curve.annotation#2' })}</div>
-        </div>
+          <Point
+            position="elapsedTimeSinceLearing*retention"
+            shape="circle"
+            size={3}
+            tooltip={[
+              'elapsedTimeSinceLearing*retention',
+              (elapsedTimeSinceLearing, retention) => {
+                let title = '';
+                switch (elapsedTimeSinceLearing) {
+                  case 0:
+                    title = 'Immediate Recall';
+                    break;
+                  case 0.014:
+                    title = '19 min';
+                    break;
+                  case 0.042:
+                    title = '63 min';
+                    break;
+                  case 0.375:
+                    title = '525 min';
+                    break;
+                  case 1:
+                    title = '1 day';
+                    break;
+                  default:
+                    title = `${elapsedTimeSinceLearing} days`;
+                }
+                return {
+                  title,
+                  name: 'retention',
+                  value: `${retention}%`,
+                };
+              },
+            ]}
+          />
+          <Annotation.Text
+            position={['50%', '65%']}
+            content="non-intervention"
+          />
+        </View>
+        <View data={convertTimePoints(data)}>
+          <Geom
+            type="line"
+            position="elapsedTimeSinceLearing*retention"
+            shape="smooth"
+            tooltip={false}
+            color="#5ad2ad"
+          />
+          <Annotation.Text
+            position={['50%', '35%']}
+            content="periodic review"
+          />
+        </View>
+      </Chart>
+      <div className={styles.annotation}>
+        <ul>
+          <li>{formatMessage({ id: 'anki.curve.annotation#1' })}</li>
+          <li>{formatMessage({ id: 'anki.curve.annotation#2' })}</li>
+        </ul>
       </div>
     </div>
   );

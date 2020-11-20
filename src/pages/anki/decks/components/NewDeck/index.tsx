@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Upload, Modal, Form, Input, Tag } from 'antd';
+import { Upload, Modal, Form, Input, Button } from 'antd';
 import { UploadProps } from 'antd/es/upload';
 import { PlusOutlined } from '@ant-design/icons';
 import { useIntl } from 'umi';
@@ -51,11 +51,20 @@ const NewDeck: React.FC<NewDeckProps> = props => {
             name="newDeck"
             layout="vertical"
             className={styles.form}
+            requiredMark={false}
             style={{ width: '272px' }}
           >
             <FormItem
               name="deckName"
               label={formatMessage({ id: 'anki.decks.new.deckName' })}
+              rules={[
+                {
+                  required: true,
+                  message: formatMessage({
+                    id: 'anki.decks.deckName.required',
+                  }),
+                },
+              ]}
             >
               <Input />
             </FormItem>
@@ -84,6 +93,11 @@ const NewDeck: React.FC<NewDeckProps> = props => {
               data={timePoints}
             />
           </div>
+        </div>
+        <div className={styles.footer}>
+          <Button type="primary" className={styles.footerBtn}>
+            {formatMessage({ id: 'anki.decks.create' })}
+          </Button>
         </div>
       </div>
     </div>

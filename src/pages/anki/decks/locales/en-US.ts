@@ -2,7 +2,7 @@ export default {
   'anki.decks.new': 'New',
   'anki.decks.upload': 'Upload',
   'anki.decks.new.title': 'Create new deck',
-  'anki.decks.new.deckName': 'Deck name',
+  'anki.decks.new.deckName': 'Deck name (required)',
   'anki.decks.new.description': 'Description',
   'anki.decks.new.tags': 'tags',
   'anki.decks.timePoint.form.label.timePoints': 'Time points',
@@ -15,4 +15,6 @@ export default {
   'anki.decks.timePoint.form.days.require.ascend':
     'Number of days between requests in ascending order.',
   'anki.decks.curve.title': 'Memory curve',
+  'anki.decks.create': 'Create',
+  'anki.decks.deckName.required': "Please enter deck's name",
 };
