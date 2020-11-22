@@ -60,8 +60,14 @@ const Model: ModelType = {
         });
       } else if (response.status === 'error') {
         notification['error']({
-          message: response.message || formatMessage({ id: '' }),
-          description: response.description || formatMessage({ id: '' }),
+          message:
+            response.message ||
+            formatMessage({ id: 'userAndRegister.register.failed.message' }),
+          description:
+            response.description ||
+            formatMessage({
+              id: 'userAndRegister.register.failed.description',
+            }),
         });
       }
     },

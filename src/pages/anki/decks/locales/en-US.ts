@@ -17,4 +17,8 @@ export default {
   'anki.decks.curve.title': 'Memory curve',
   'anki.decks.create': 'Create',
   'anki.decks.deckName.required': 'Please enter deck name',
+  'anki.decks.new.deck.failed.message': 'New deck failed',
+  'anki.decks.new.deck.failed.description':
+    'An internal error caused the creation of the deck to be unsuccessful, please try again later.',
+  'anki.decks.new.deck.success': 'New Deck Created',
 };

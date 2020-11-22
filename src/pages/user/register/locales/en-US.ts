@@ -22,7 +22,7 @@ export default {
   'userAndRegister.username.format.error': 'Please check username format',
   'userAndRegister.username.existed': 'Username has been registered',
   'userAndRegister.username.unique.failed': 'Username validate failed',
-  'userAndRegister.register.fail.message': 'Register failed',
-  'userAndRegister.register.fail.description':
+  'userAndRegister.register.failed.message': 'Register failed',
+  'userAndRegister.register.failed.description':
     'Server-side registration service is temporarily unavailable, Please try again later.',
 };

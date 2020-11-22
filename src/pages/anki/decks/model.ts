@@ -1,4 +1,4 @@
-import { Effect, Reducer } from 'umi';
+import { Effect, Reducer, history } from 'umi';
 import { message, notification } from 'antd';
 
 import { addNewDeck } from './service';
@@ -27,7 +27,26 @@ const Model: ModelType = {
 
   effects: {
     *addDeck({ payload }, { call }) {
-      const response = yield call(addNewDeck, payload);
+      const { formatMessage, ...values } = payload;
+      const response = yield call(addNewDeck, values);
+      if (response.status === 'ok') {
+        message.success(formatMessage({ id: 'anki.decks.new.deck.success' }));
+        history.push({
+          pathname: `/anki/${response.deckName}`,
+          state: {
+            deckId: response.deckId,
+          },
+        });
+      } else if (response.status === 'error') {
+        notification['error']({
+          message:
+            response.message ||
+            formatMessage({ id: 'anki.decks.new.deck.failed.message' }),
+          description:
+            response.description ||
+            formatMessage({ id: 'anki.decks.new.deck.failed.description' }),
+        });
+      }
     },
   },
 

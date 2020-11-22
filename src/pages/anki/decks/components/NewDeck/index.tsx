@@ -16,6 +16,14 @@ const { TextArea } = Input;
 interface NewDeckProps extends UploadProps {
   className?: string;
   dispatch?: Dispatch;
+  creating: boolean;
+}
+
+export interface AddNewDeckParams {
+  deckName: string;
+  description?: string;
+  tags?: string[];
+  timePointList?: number[];
 }
 
 const NewDeck: React.FC<NewDeckProps> = props => {
@@ -25,7 +33,7 @@ const NewDeck: React.FC<NewDeckProps> = props => {
   const [timePoints, setTimePoints]: [number[], any] = useState([1, 2, 6, 31]);
 
   const { formatMessage } = useIntl();
-  const { dispatch } = props;
+  const { dispatch, creating } = props;
 
   const handleAddClick = () => {
     setNewDeckVisible(true);
@@ -51,6 +59,7 @@ const NewDeck: React.FC<NewDeckProps> = props => {
             type: 'decks/addDeck',
             payload: {
               ...values,
+              formatMessage,
             },
           });
         }
@@ -125,7 +134,7 @@ const NewDeck: React.FC<NewDeckProps> = props => {
             type="primary"
             className={styles.footerBtn}
             onClick={handleClick}
-            loading
+            loading={creating}
           >
             {formatMessage({ id: 'anki.decks.create' })}
           </Button>

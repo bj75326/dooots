@@ -15,4 +15,8 @@ export default {
   'anki.decks.curve.title': '记忆曲线',
   'anki.decks.create': '创建',
   'anki.decks.deckName.required': '请输入卡组名',
+  'anki.decks.new.deck.failed.message': '卡组创建异常',
+  'anki.decks.new.deck.failed.description':
+    '内部错误导致卡组创建未成功，请稍后再试',
+  'anki.decks.new.deck.success': '卡组创建成功',
 };
