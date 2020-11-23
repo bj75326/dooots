@@ -26,9 +26,24 @@
       border-radius: 50%;
       background-color: @body-background;
       color: @text-color;
+      transition: all 0.3s;
     }
     a.selected {
       color: @primary-color;
+    }
+  }
+}
+
+.darkMenu {
+  li {
+    a {
+      border: 2px solid @primary-color;
+      box-shadow: none;
+      color: @primary-color;
+    }
+    a.selected {
+      color: #fff;
+      background-color: @primary-color;
     }
   }
 }

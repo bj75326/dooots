@@ -100,41 +100,17 @@ export const changeTheme = (
     if (primaryColor === 'default') {
       styleLink.href = '';
       body.className = 'body-wrap-default';
-    } else if (primaryColor === 'star') {
-      styleLink.href = '/theme/star.css';
-      body.className = 'body-wrap-star';
-    } else if (primaryColor === 'blossom') {
-      styleLink.href = '/theme/blossom.css';
-      body.className = 'body-wrap-blossom';
-    } else if (primaryColor === 'octopus') {
-      styleLink.href = '/theme/octopus.css';
-      body.className = 'body-wrap-octopus';
-    } else if (primaryColor === 'fire') {
-      styleLink.href = '/theme/fire.css';
-      body.className = 'body-wrap-fire';
-    } else if (primaryColor === 'avocado') {
-      styleLink.href = '/theme/avocado.css';
-      body.className = 'body-wrap-avocado';
+    } else {
+      styleLink.href = `/theme/${primaryColor}.css`;
+      body.className = `body-wrap-${primaryColor}`;
     }
   } else if (theme === 'dark') {
     if (primaryColor === 'default') {
       styleLink.href = '/theme/dark.css';
       body.className = 'body-wrap-dark';
-    } else if (primaryColor === 'star') {
-      styleLink.href = '/theme/dark-star.css';
-      body.className = 'body-wrap-dark-star';
-    } else if (primaryColor === 'blossom') {
-      styleLink.href = '/theme/dark-blossom.css';
-      body.className = 'body-wrap-dark-blossom';
-    } else if (primaryColor === 'octopus') {
-      styleLink.href = '/theme/dark-octopus.css';
-      body.className = 'body-wrap-dark-octopus';
-    } else if (primaryColor === 'fire') {
-      styleLink.href = '/theme/dark-fire.css';
-      body.className = 'body-wrap-dark-fire';
-    } else if (primaryColor === 'avocado') {
-      styleLink.href = '/theme/dark-avocado.css';
-      body.className = 'body-wrap-dark-avocado';
+    } else {
+      styleLink.href = `/theme/dark-${primaryColor}.css`;
+      body.className = `dark body-wrap-dark-${primaryColor}`;
     }
   }
 

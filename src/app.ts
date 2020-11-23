@@ -31,6 +31,6 @@ if (theme === 'light') {
     body.className = 'body-wrap-dark';
   } else {
     styleLink.href = `/theme/dark-${primaryColor}.css`;
-    body.className = `body-wrap-dark-${primaryColor}`;
+    body.className = `dark body-wrap-dark-${primaryColor}`;
   }
 }

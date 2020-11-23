@@ -1,31 +1,31 @@
 import React from 'react';
 import { Tooltip } from 'antd';
-import { NavLink, useIntl } from 'umi';
-import {
-  UserOutlined,
-  HighlightOutlined,
-  HomeOutlined,
-} from '@ant-design/icons';
+import { NavLink, useIntl, connect, ConnectProps } from 'umi';
+import { UserOutlined, HomeOutlined } from '@ant-design/icons';
+import { ConnectState } from '@/models/connect';
+import { SettingModelState } from '@/models/settings';
+import classNames from 'classnames';
 
 import styles from './style.less';
 
-interface AnkiLayoutProps {
-  match: {
-    url: string;
-    path: string;
-  };
-  location: {
-    pathname: string;
-  };
+interface AnkiLayoutProps extends ConnectProps {
+  theme: SettingModelState['theme'];
 }
 
-interface AnkiMenuProps {}
+interface AnkiMenuProps {
+  theme: SettingModelState['theme'];
+}
 
-const AnkiMenu: React.FC<AnkiMenuProps> = () => {
+const AnkiMenu: React.FC<AnkiMenuProps> = props => {
   const { formatMessage } = useIntl();
+  const { theme } = props;
 
   return (
-    <ul className={styles.ankiMenu}>
+    <ul
+      className={classNames(styles.ankiMenu, {
+        [styles.darkMenu]: theme === 'dark',
+      })}
+    >
       <Tooltip
         placement="right"
         title={formatMessage({ id: 'anki.menu.home' })}
@@ -55,14 +55,16 @@ const AnkiLayout: React.FC<AnkiLayoutProps> = props => {
   console.log('match: ', props.match);
   console.log('location: ', props.location);
 
-  const { children } = props;
+  const { children, theme } = props;
 
   return (
     <div className={styles.anki}>
-      <AnkiMenu />
+      <AnkiMenu theme={theme} />
       <div className={styles.wrapper}>{children}</div>
     </div>
   );
 };
 
-export default AnkiLayout;
+export default connect(({ settings }: ConnectState) => ({
+  theme: settings.theme,
+}))(AnkiLayout);
