@@ -10,9 +10,16 @@ interface AnkiDeckProps {}
 const AnkiDeck: React.FC<AnkiDeckProps> = props => {
   const { formatMessage } = useIntl();
 
+  const handleSearch = (value: string) => {
+    console.log(value);
+  };
   return (
     <div className={styles.wrapper}>
-      <MainSearch placeholder={} />
+      <MainSearch
+        placeholder={formatMessage({ id: 'anki.search.card.placeholder' })}
+        onSearch={handleSearch}
+      />
+      <div className={styles.content}></div>
     </div>
   );
 };

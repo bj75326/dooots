@@ -1,4 +1,5 @@
 export default {
+  'anki.search.deck.placeholder': '输入卡组名称或关键字快速查找',
   'anki.decks.new': '新建',
   'anki.decks.upload': '上传',
   'anki.decks.new.title': '新建卡组',

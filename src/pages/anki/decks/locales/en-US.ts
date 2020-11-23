@@ -1,4 +1,5 @@
 export default {
+  'anki.search.deck.placeholder': 'Deck name or keyword',
   'anki.decks.new': 'New',
   'anki.decks.upload': 'Upload',
   'anki.decks.new.title': 'Create new deck',
