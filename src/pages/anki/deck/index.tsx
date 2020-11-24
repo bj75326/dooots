@@ -19,7 +19,12 @@ const AnkiDeck: React.FC<AnkiDeckProps> = props => {
         placeholder={formatMessage({ id: 'anki.search.card.placeholder' })}
         onSearch={handleSearch}
       />
-      <div className={styles.content}></div>
+      <div className={styles.content}>
+        <div className={styles.filter}></div>
+        <div className={styles.cards}>
+          <NewCard />
+        </div>
+      </div>
     </div>
   );
 };

@@ -1,0 +1,50 @@
+@import '~antd/es/style/themes/default.less';
+
+.newCard {
+  position: relative;
+  margin: 0 16px 28px;
+  box-sizing: border-box;
+}
+
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 188px;
+  height: 210px;
+  border: 4px dashed fade(@primary-color, 30%);
+  border-radius: 8px;
+  position: relative;
+}
+
+.add {
+  width: 180px;
+  height: 160px;
+  .addIcon {
+    font-size: 56px;
+    padding-top: 22px;
+  }
+}
+
+.upload {
+  width: 180px;
+  height: 42px;
+  border-top: 4px dashed fade(@primary-color, 30%);
+  text-decoration: underline;
+}
+
+.btn {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  transition: color 0.3s;
+  color: fade(@primary-color, 40%);
+  &:hover {
+    color: @primary-color;
+  }
+  &:focus {
+    outline: none;
+  }
+}
