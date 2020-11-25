@@ -3,6 +3,7 @@ import MainSearch from '../components/MainSearch';
 import { useIntl } from 'umi';
 import NewCard from './components/NewCard';
 import { Form, Select, Row, Col, Space, Button } from 'antd';
+import { FilterOutlined } from '@ant-design/icons';
 
 import styles from './style.less';
 
@@ -38,6 +39,9 @@ const AnkiDeck: React.FC<AnkiDeckProps> = props => {
               <Option value="overdue">
                 {formatMessage({ id: 'anki.deck.filter.status.overdue' })}
               </Option>
+              <Option value="done">
+                {formatMessage({ id: 'anki.deck.filter.status.done' })}
+              </Option>
             </Select>
           </Form.Item>
         </Col>
@@ -48,6 +52,9 @@ const AnkiDeck: React.FC<AnkiDeckProps> = props => {
             labelCol={{ flex: '0 0 120px' }}
           >
             <Select>
+              <Option value="all">
+                {formatMessage({ id: 'anki.deck.filter.rate.all' })}
+              </Option>
               <Option value="4">
                 {formatMessage({ id: 'anki.deck.filter.rate.underFour' })}
               </Option>
@@ -60,7 +67,7 @@ const AnkiDeck: React.FC<AnkiDeckProps> = props => {
             </Select>
           </Form.Item>
         </Col>
-        <Col span={8}>
+        <Col span={8} hidden>
           <Form.Item
             name="tags"
             label={formatMessage({ id: 'anki.deck.filter.tags' })}
@@ -71,6 +78,9 @@ const AnkiDeck: React.FC<AnkiDeckProps> = props => {
           <Form.Item>
             <Space>
               <Button>{formatMessage({ id: 'anki.deck.filter.reset' })}</Button>
+              <Button>
+                {formatMessage({ id: 'anki.deck.filter.filter' })}
+              </Button>
             </Space>
           </Form.Item>
         </Col>
@@ -78,12 +88,20 @@ const AnkiDeck: React.FC<AnkiDeckProps> = props => {
     </Form>
   );
 
+  const extra = (
+    <Button type="primary" shape="circle" className={styles.searchExtra}>
+      <FilterOutlined />
+    </Button>
+  );
+
   return (
     <div className={styles.wrapper}>
-      {/* <MainSearch
+      <MainSearch
         placeholder={formatMessage({ id: 'anki.search.card.placeholder' })}
         onSearch={handleSearch}
-      /> */}
+        extra={extra}
+        className={styles.search}
+      />
       <div className={styles.filter}>{filterForm}</div>
       <div className={styles.content}>
         <NewCard />

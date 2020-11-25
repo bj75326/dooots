@@ -6,9 +6,13 @@ export default {
   'anki.deck.filter.status.all': 'All',
   'anki.deck.filter.status.wip': 'For today',
   'anki.deck.filter.status.overdue': 'Overdue',
+  'anki.deck.filter.status.done': 'Memory cycle completed',
   'anki.deck.filter.rate.label': 'Latest rate',
   'anki.deck.filter.rate.all': 'Unlimited',
   'anki.deck.filter.rate.underFour': '< 4',
   'anki.deck.filter.rate.underThree': '< 3',
   'anki.deck.filter.rate.underTwo': '< 2',
+  'anki.deck.filter.tags': 'Card tags',
+  'anki.deck.filter.reset': 'Reset',
+  'anki.deck.filter.filter': 'Filter',
 };

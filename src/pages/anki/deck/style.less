@@ -3,8 +3,22 @@
 .wrapper {
 }
 
+.searchExtra {
+  &:global(.ant-btn) {
+    height: 34px;
+    border: 0;
+  }
+  &:global(.ant-btn-circle) {
+    min-width: 34px;
+  }
+}
+
+.search {
+  margin-bottom: 20px;
+}
+
 .content {
-  padding: 14px 50px 0;
+  padding: 0 50px;
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
@@ -13,6 +27,10 @@
 .filter {
   background-color: @popover-background;
   border-radius: 10px;
-  margin: 20px 66px 16px;
-  padding: 24px 24px 0;
+  margin: 20px 66px;
+  padding: 12px 24px;
+
+  :global(.ant-form-item) {
+    margin-bottom: 0;
+  }
 }
