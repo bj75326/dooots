@@ -132,7 +132,7 @@ const NewDeck: React.FC<NewDeckProps> = props => {
         <div className={styles.footer}>
           <Button
             type="primary"
-            className={styles.footerBtn}
+            shape="round"
             onClick={handleClick}
             loading={creating}
           >

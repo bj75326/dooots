@@ -23,11 +23,11 @@ const AnkiDeck: React.FC<AnkiDeckProps> = props => {
   const filterForm = (
     <Form form={form} name="deckFilter" className={styles.form}>
       <Row gutter={16}>
-        <Col span={8}>
+        <Col span={6}>
           <Form.Item
             name="status"
             label={formatMessage({ id: 'anki.deck.filter.status.label' })}
-            labelCol={{ flex: '0 0 120px' }}
+            labelCol={{ flex: '0 0 90px' }}
           >
             <Select>
               <Option value="all">
@@ -45,11 +45,11 @@ const AnkiDeck: React.FC<AnkiDeckProps> = props => {
             </Select>
           </Form.Item>
         </Col>
-        <Col span={8}>
+        <Col span={6}>
           <Form.Item
             name="rate"
             label={formatMessage({ id: 'anki.deck.filter.rate.label' })}
-            labelCol={{ flex: '0 0 120px' }}
+            labelCol={{ flex: '0 0 90px' }}
           >
             <Select>
               <Option value="all">
@@ -67,18 +67,22 @@ const AnkiDeck: React.FC<AnkiDeckProps> = props => {
             </Select>
           </Form.Item>
         </Col>
-        <Col span={8} hidden>
+        <Col span={8}>
           <Form.Item
             name="tags"
             label={formatMessage({ id: 'anki.deck.filter.tags' })}
-            labelCol={{ flex: '0 0 120px' }}
-          ></Form.Item>
+            labelCol={{ flex: '0 0 90px' }}
+          >
+            <Select mode="tags"></Select>
+          </Form.Item>
         </Col>
-        <Col span={8}>
+        <Col span={4} style={{ textAlign: 'right' }}>
           <Form.Item>
             <Space>
-              <Button>{formatMessage({ id: 'anki.deck.filter.reset' })}</Button>
-              <Button>
+              <Button shape="round">
+                {formatMessage({ id: 'anki.deck.filter.reset' })}
+              </Button>
+              <Button type="primary" shape="round">
                 {formatMessage({ id: 'anki.deck.filter.filter' })}
               </Button>
             </Space>
