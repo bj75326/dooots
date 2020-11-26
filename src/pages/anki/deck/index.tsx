@@ -6,6 +6,8 @@ import { Form, Select, Row, Col, Space, Button } from 'antd';
 import { FilterOutlined } from '@ant-design/icons';
 import Animate from 'rc-animate';
 
+//import
+
 import styles from './style.less';
 
 const { Option } = Select;
@@ -24,7 +26,7 @@ const Filter: React.FC<FilterProps> = props => {
   return (
     <div
       className={styles.filter}
-      style={{ display: visible ? 'block' : 'none' }}
+      style={{ display: visible ? 'flex' : 'none' }}
     >
       <Form form={form} name="deckFilter" className={styles.form}>
         <Row gutter={16}>
@@ -131,11 +133,7 @@ const AnkiDeck: React.FC<AnkiDeckProps> = props => {
         extra={extra}
         className={styles.search}
       />
-      <Animate
-        showProp={'visible'}
-        transitionName="ant-motion-collapse-legacy"
-        component=""
-      >
+      <Animate showProp={'visible'} transitionName="collapsed" component="">
         <Filter visible={filterCollapsed} />
       </Animate>
       <div className={styles.content}>

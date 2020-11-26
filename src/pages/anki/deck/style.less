@@ -18,7 +18,7 @@
 }
 
 .content {
-  padding: 0 50px;
+  padding: 20px 50px 0;
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
@@ -27,10 +27,45 @@
 .filter {
   background-color: @popover-background;
   border-radius: 10px;
-  margin: 20px 66px;
-  padding: 12px 24px;
-
+  margin: 0 66px;
+  padding: 0 24px;
+  height: 56px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   :global(.ant-form-item) {
     margin-bottom: 0;
+  }
+}
+
+.form {
+  flex: 1 0 auto;
+}
+
+:global {
+  .collapsed-enter {
+    height: 0px;
+    opacity: 0;
+    overflow: hidden;
+  }
+
+  .collapsed-enter-active {
+    height: 56px;
+    opacity: 1;
+    transition: height @animation-duration-base @ease-in-out,
+      opacity @animation-duration-base @ease-in-out !important;
+  }
+
+  .collapsed-leave {
+    height: 56px;
+    opacity: 1;
+    overflow: hidden;
+  }
+
+  .collapsed-leave-active {
+    height: 0;
+    opacity: 0;
+    transition: height @animation-duration-base @ease-in-out,
+      opacity @animation-duration-base @ease-in-out !important;
   }
 }
