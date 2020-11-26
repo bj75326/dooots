@@ -7,3 +7,7 @@ export async function addNewDeck(params: AddNewDeckParams) {
     data: params,
   });
 }
+
+export async function getDecks() {
+  return request('/api/decks');
+}

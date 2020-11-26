@@ -1,9 +1,19 @@
 import { Effect, Reducer, history } from 'umi';
 import { message, notification } from 'antd';
 
-import { addNewDeck } from './service';
+import { addNewDeck, getDecks } from './service';
 
-export interface Deck {}
+export interface Deck {
+  deckId: string;
+  deckName: string;
+  description?: string;
+  tags?: string[];
+  timePointList?: number[];
+  numberOfCards: number;
+  numberOfOverdue: number;
+  numberOfToday: number;
+  status: 'Overdue' | 'Today' | 'Underway';
+}
 
 export interface StateType {
   decks: Deck[];
@@ -14,6 +24,7 @@ export interface ModelType {
   state: StateType;
   effects: {
     addDeck: Effect;
+    fetchDecks: Effect;
   };
   reducers: {};
 }
@@ -47,6 +58,9 @@ const Model: ModelType = {
             formatMessage({ id: 'anki.decks.new.deck.failed.description' }),
         });
       }
+    },
+    *fetchDecks(_, { call, put }) {
+      const data = yield call(getDecks);
     },
   },
 
