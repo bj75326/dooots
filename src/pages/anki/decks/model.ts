@@ -8,11 +8,11 @@ export interface Deck {
   deckName: string;
   description?: string;
   tags?: string[];
-  timePointList?: number[];
   numberOfCards: number;
   numberOfOverdue: number;
   numberOfToday: number;
-  status: 'Overdue' | 'Today' | 'Underway';
+  numberOfUnactivated: number;
+  status: 'Overdue' | 'Today' | 'Underway' | 'Unactivated';
 }
 
 export interface StateType {
@@ -59,8 +59,15 @@ const Model: ModelType = {
         });
       }
     },
-    *fetchDecks(_, { call, put }) {
-      const data = yield call(getDecks);
+    *fetchDecks({ payload: { formatMessage } }, { call, put }) {
+      const response = yield call(getDecks);
+      yield put({
+        type: '',
+        payload: response,
+      });
+      if (response.status === 'ok') {
+      } else if (response.status === 'error') {
+      }
     },
   },
 

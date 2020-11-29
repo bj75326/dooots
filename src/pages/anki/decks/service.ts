@@ -1,4 +1,4 @@
-import request from 'umi-request';
+import request from '@/utils/request';
 import { AddNewDeckParams } from './components/NewDeck';
 
 export async function addNewDeck(params: AddNewDeckParams) {

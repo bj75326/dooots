@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import MainSearch from '../components/MainSearch';
 import { useIntl, connect, ConnectProps } from 'umi';
 import NewDeck from './components/NewDeck';
@@ -18,6 +18,17 @@ const AnkiDecks: React.FC<AnkiDecksProps> = props => {
   const handleSearch = (value: string) => {
     console.log(value);
   };
+
+  useEffect(() => {
+    if (dispatch) {
+      dispatch({
+        type: 'decks/fetchDecks',
+        payload: {
+          formatMessage,
+        },
+      });
+    }
+  }, []);
 
   return (
     <div className={styles.wrapper}>
