@@ -30,6 +30,7 @@ const codeMessage: { [code: number]: string } = {
 const errorHandler = (error: { response: Response }): Response => {
   const { response } = error;
   if (response && response.status) {
+    console.log('我也想报错来着');
     const errorText = codeMessage[response.status] || response.statusText;
     const { status, url } = response;
 

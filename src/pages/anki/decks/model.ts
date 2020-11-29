@@ -26,7 +26,9 @@ export interface ModelType {
     addDeck: Effect;
     fetchDecks: Effect;
   };
-  reducers: {};
+  reducers: {
+    changeDecks: Reducer<StateType>;
+  };
 }
 
 const Model: ModelType = {
@@ -43,35 +45,51 @@ const Model: ModelType = {
       if (response.status === 'ok') {
         message.success(formatMessage({ id: 'anki.decks.new.deck.success' }));
         history.push({
-          pathname: `/anki/${response.deckName}`,
-          state: {
-            deckId: response.deckId,
-          },
+          pathname: `/anki/${response.deckId}`,
+          // state: {
+          //   deckId: response.deckId,
+          // },
         });
       } else if (response.status === 'error') {
-        notification['error']({
-          message:
-            response.message ||
+        // notification['error']({
+        //   message:
+        //     response.message ||
+        //     formatMessage({ id: 'anki.decks.new.deck.failed.message' }),
+        //   description:
+        //     response.description ||
+        //     formatMessage({ id: 'anki.decks.new.deck.failed.description' }),
+        // });
+        message.error(
+          response.message ||
             formatMessage({ id: 'anki.decks.new.deck.failed.message' }),
-          description:
-            response.description ||
-            formatMessage({ id: 'anki.decks.new.deck.failed.description' }),
-        });
+        );
       }
     },
     *fetchDecks({ payload: { formatMessage } }, { call, put }) {
       const response = yield call(getDecks);
-      yield put({
-        type: '',
-        payload: response,
-      });
+
       if (response.status === 'ok') {
+        yield put({
+          type: 'changeDecks',
+          payload: response,
+        });
       } else if (response.status === 'error') {
+        message.error(
+          response.message ||
+            formatMessage({ id: 'anki.decks.fetch.decks.failed' }),
+        );
       }
     },
   },
 
-  reducers: {},
+  reducers: {
+    changeDecks(state, { payload }): StateType {
+      return {
+        ...state,
+        decks: payload.decks,
+      };
+    },
+  },
 };
 
 export default Model;

@@ -22,4 +22,5 @@ export default {
   'anki.decks.new.deck.failed.description':
     'An internal error caused the creation of the deck to be unsuccessful, please try again later.',
   'anki.decks.new.deck.success': 'New Deck Created',
+  'anki.decks.fetch.decks.failed': 'Fetch decks failed',
 };
