@@ -26,6 +26,9 @@ export default {
             numberOfToday: 11,
             numberOfUnactivated: 51,
             status: 'Today',
+            createTimestamp: 1606752072770,
+            stick: true,
+            stickTimestamp: 1606752072773,
           },
           {
             deckId: '000000004327',
@@ -37,6 +40,9 @@ export default {
             numberOfToday: 0,
             numberOfUnactivated: 19,
             status: 'Underway',
+            createTimestamp: 1606752072770,
+            stick: true,
+            stickTimestamp: 1606752072773,
           },
           {
             deckId: '000000007476',
@@ -48,6 +54,9 @@ export default {
             numberOfToday: 0,
             numberOfUnactivated: 78,
             status: 'Unactivated',
+            createTimestamp: 1606752072773,
+            stick: false,
+            stickTimestamp: undefined,
           },
           {
             deckId: '000000008732',
@@ -59,9 +68,12 @@ export default {
             numberOfToday: 19,
             numberOfUnactivated: 8,
             status: 'Today',
+            createTimestamp: 1606752072773,
+            stick: false,
+            stickTimestamp: undefined,
           },
           {
-            deckId: '000000008732',
+            deckId: '000000006666',
             deckName: '病理生理学2-1',
             description: 'XX老师整理，期末考试启用',
             tags: ['病理', '生理', '2021', '期末'],
@@ -70,6 +82,9 @@ export default {
             numberOfToday: 0,
             numberOfUnactivated: 0,
             status: 'Overdue',
+            createTimestamp: 1606752072773,
+            stick: false,
+            stickTimestamp: undefined,
           },
           {
             deckId: '000000009999',
@@ -81,9 +96,12 @@ export default {
             numberOfToday: 9,
             numberOfUnactivated: 6,
             status: 'Today',
+            createTimestamp: 1606752072773,
+            stick: false,
+            stickTimestamp: undefined,
           },
         ],
       });
-    }, 3000);
+    }, 1000);
   },
 };

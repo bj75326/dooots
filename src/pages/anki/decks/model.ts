@@ -13,6 +13,9 @@ export interface Deck {
   numberOfToday: number;
   numberOfUnactivated: number;
   status: 'Overdue' | 'Today' | 'Underway' | 'Unactivated';
+  createTimestamp: number;
+  stick: boolean;
+  stickTimestamp?: number;
 }
 
 export interface StateType {
@@ -28,6 +31,7 @@ export interface ModelType {
   };
   reducers: {
     changeDecks: Reducer<StateType>;
+    sortDecks: Reducer<StateType>;
   };
 }
 
@@ -89,6 +93,7 @@ const Model: ModelType = {
         decks: payload.decks,
       };
     },
+    sortDecks(state, { payload }): StateType {},
   },
 };
 

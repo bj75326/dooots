@@ -45,7 +45,7 @@ const AnkiDecks: React.FC<AnkiDecksProps> = props => {
         <div className={styles.content}>
           <NewDeck dispatch={dispatch} creating={newDeckCreating} />
           {decks.map((deck, index) => (
-            <DeckThumbnail deck={deck} key={index} />
+            <DeckThumbnail deck={deck} key={deck.deckId} />
           ))}
           {new Array(10).fill(null).map((_, index) => (
             <div className={styles.fill} key={`fill_${index}`}></div>

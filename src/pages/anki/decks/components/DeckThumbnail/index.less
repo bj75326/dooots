@@ -2,7 +2,7 @@
 
 .thumbnail {
   position: relative;
-  margin: 0 16px 28px;
+  margin: 0 16px 42px;
 }
 
 .card {
@@ -22,9 +22,26 @@
   align-items: center;
   width: 188px;
   height: 210px;
+  padding: 25px 20px;
   border-radius: 8px;
   background-color: @popover-background;
   box-shadow: @box-shadow-base;
   position: relative;
   z-index: 2;
+}
+
+.body {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  position: relative;
+}
+
+.top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.status {
 }
