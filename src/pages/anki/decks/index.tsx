@@ -5,6 +5,7 @@ import NewDeck from './components/NewDeck';
 import { StateType, Deck } from './model';
 import { Spin } from 'antd';
 import DeckThumbnail from './components/DeckThumbnail';
+import { SettingModelState } from '@/models/settings';
 
 import styles from './style.less';
 
@@ -12,11 +13,12 @@ interface AnkiDecksProps extends ConnectProps {
   decks: Deck[];
   newDeckCreating: boolean;
   fetchingDecks: boolean;
+  theme: SettingModelState['theme'];
 }
 
 const AnkiDecks: React.FC<AnkiDecksProps> = props => {
   const { formatMessage } = useIntl();
-  const { dispatch, newDeckCreating, fetchingDecks, decks } = props;
+  const { dispatch, newDeckCreating, fetchingDecks, decks, theme } = props;
 
   const handleSearch = (value: string) => {
     console.log(value);
@@ -45,7 +47,7 @@ const AnkiDecks: React.FC<AnkiDecksProps> = props => {
         <div className={styles.content}>
           <NewDeck dispatch={dispatch} creating={newDeckCreating} />
           {decks.map((deck, index) => (
-            <DeckThumbnail deck={deck} key={deck.deckId} />
+            <DeckThumbnail deck={deck} key={deck.deckId} theme={theme} />
           ))}
           {new Array(10).fill(null).map((_, index) => (
             <div className={styles.fill} key={`fill_${index}`}></div>
@@ -60,8 +62,10 @@ export default connect(
   ({
     decks,
     loading,
+    settings,
   }: {
     decks: StateType;
+    settings: SettingModelState;
     loading: {
       effects: {
         [key: string]: boolean;
@@ -69,6 +73,7 @@ export default connect(
     };
   }) => ({
     decks: decks.decks,
+    theme: settings.theme,
     newDeckCreating: loading.effects['decks/addDeck'],
     fetchingDecks: loading.effects['decks/fetchDecks'],
   }),

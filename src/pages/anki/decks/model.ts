@@ -12,7 +12,7 @@ export interface Deck {
   numberOfOverdue: number;
   numberOfToday: number;
   numberOfUnactivated: number;
-  status: 'Overdue' | 'Today' | 'Underway' | 'Unactivated';
+  status: 'overdue' | 'today' | 'underway' | 'unactivated';
   createTimestamp: number;
   stick: boolean;
   stickTimestamp?: number;
