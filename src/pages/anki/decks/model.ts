@@ -1,7 +1,7 @@
 import { Effect, Reducer, history } from 'umi';
 import { message, notification } from 'antd';
 
-import { addNewDeck, getDecks } from './service';
+import { addNewDeck, getDecks, toggleStick } from './service';
 
 export interface Deck {
   deckId: string;
@@ -28,6 +28,7 @@ export interface ModelType {
   effects: {
     addDeck: Effect;
     fetchDecks: Effect;
+    stickOrUnstickDeck: Effect;
   };
   reducers: {
     changeDecks: Reducer<StateType>;
@@ -83,6 +84,9 @@ const Model: ModelType = {
             formatMessage({ id: 'anki.decks.fetch.decks.failed' }),
         );
       }
+    },
+    *stickOrUnstickDeck({ payload }, { call, put }) {
+      const response = call();
     },
   },
 

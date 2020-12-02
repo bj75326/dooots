@@ -11,3 +11,7 @@ export async function addNewDeck(params: AddNewDeckParams) {
 export async function getDecks() {
   return request('/api/decks');
 }
+
+export async function toggleStick() {
+  return request('api/toggleStick');
+}

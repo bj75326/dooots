@@ -1,10 +1,6 @@
 import { Deck } from './decks/model';
-import { SettingModelState } from '@/models/settings';
 
-export const getDeckStatusColor = (
-  status: Deck['status'],
-  theme: SettingModelState['theme'],
-) => {
+export const getDeckStatusColor = (status: Deck['status']) => {
   switch (status) {
     case 'overdue':
       return '#F5222D';
