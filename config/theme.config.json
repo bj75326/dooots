@@ -1,4 +1,89 @@
 {
+  "theme": [
+    {
+      "theme": "dark",
+      "fileName": "dark.css",
+      "modifyVars": {
+        "@border-radius-base": "4px"
+      }
+    },
+    {
+      "fileName": "star.css",
+      "modifyVars": {
+        "@primary-color": "#FFAD1F",
+        "@border-radius-base": "4px"
+      }
+    },
+    {
+      "fileName": "blossom.css",
+      "modifyVars": {
+        "@primary-color": "#E0245E",
+        "@border-radius-base": "4px"
+      }
+    },
+    {
+      "fileName": "octopus.css",
+      "modifyVars": {
+        "@primary-color": "#794BC4",
+        "@border-radius-base": "4px"
+      }
+    },
+    {
+      "fileName": "fire.css",
+      "modifyVars": {
+        "@primary-color": "#F45D22",
+        "@border-radius-base": "4px"
+      }
+    },
+    {
+      "fileName": "avocado.css",
+      "modifyVars": {
+        "@primary-color": "#17BF63",
+        "@border-radius-base": "4px"
+      }
+    },
+    {
+      "fileName": "dark-star.css",
+      "theme": "dark",
+      "modifyVars": {
+        "@primary-color": "#FFAD1F",
+        "@border-radius-base": "4px"
+      }
+    },
+    {
+      "fileName": "dark-blossom.css",
+      "theme": "dark",
+      "modifyVars": {
+        "@primary-color": "#E0245E",
+        "@border-radius-base": "4px"
+      }
+    },
+    {
+      "fileName": "dark-octopus.css",
+      "theme": "dark",
+      "modifyVars": {
+        "@primary-color": "#794BC4",
+        "@border-radius-base": "4px"
+      }
+    },
+    {
+      "fileName": "dark-fire.css",
+      "theme": "dark",
+      "modifyVars": {
+        "@primary-color": "#F45D22",
+        "@border-radius-base": "4px"
+      }
+    },
+    {
+      "fileName": "dark-avocado.css",
+      "theme": "dark",
+      "modifyVars": {
+        "@primary-color": "#17BF63",
+        "@border-radius-base": "4px"
+      }
+    }
+  ],
+
   "min": true,
 
   "isModule": true,

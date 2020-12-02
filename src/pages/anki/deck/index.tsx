@@ -131,7 +131,7 @@ const AnkiDeck: React.FC<AnkiDeckProps> = props => {
         placeholder={formatMessage({ id: 'anki.search.card.placeholder' })}
         onSearch={handleSearch}
         extra={extra}
-        className={styles.search}
+        style={{ marginBottom: '20px' }}
       />
       <Animate showProp={'visible'} transitionName="collapsed" component="">
         <Filter visible={filterCollapsed} />

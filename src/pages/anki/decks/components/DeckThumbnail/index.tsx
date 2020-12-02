@@ -6,8 +6,11 @@ import classNames from 'classnames';
 import moment from 'moment';
 import { SettingModelState } from '@/models/settings';
 import { getDeckStatusColor } from '../../../utils';
+import { Typography } from 'antd';
 
 import styles from './index.less';
+
+const { Title, Paragraph, Text } = Typography;
 
 export interface DeckThumbnailProps {
   deck: Deck;
@@ -20,11 +23,11 @@ const DeckThumbnail: React.FC<DeckThumbnailProps> = props => {
 
   const handleStickClick = () => {};
 
-  const getStatusBg = (deck: Deck) => {
+  const getStatusBg = (deck: Deck, theme: SettingModelState['theme']) => {
     const { status, numberOfOverdue } = deck;
     if (status === 'overdue') {
     }
-    return getDeckStatusColor(status);
+    return getDeckStatusColor(status, theme);
   };
 
   return (
@@ -35,7 +38,7 @@ const DeckThumbnail: React.FC<DeckThumbnailProps> = props => {
           <div className={styles.top}>
             <div
               className={styles.status}
-              style={{ background: getStatusBg(deck) }}
+              style={{ background: getStatusBg(deck, theme) }}
             >
               {formatMessage({ id: `anki.deck&card.status.${deck.status}` })}
             </div>
@@ -48,7 +51,7 @@ const DeckThumbnail: React.FC<DeckThumbnailProps> = props => {
               {deck.stick ? <PushpinFilled /> : <PushpinOutlined />}
             </div>
           </div>
-          <div className={styles.deckName}>{deck.deckName}</div>
+          <h3 className={styles.deckName}>{deck.deckName}</h3>
           <div className={styles.timestamp}>
             {moment(deck.createTimestamp).format('YYYY-MM-DD hh:mm:ss')}
           </div>

@@ -53,15 +53,38 @@
   border-radius: 6px;
 }
 
-.Overdue {
+.stick {
+  height: 18px;
+  font-size: 18px;
+  color: #faa725;
+  line-height: 18px;
+  display: none;
+  transition: transform 0.3s;
+  &:hover {
+    transform: rotate(-10deg) scale(1.3);
+  }
 }
 
-.Today {
+.thumbnail:hover .stick {
+  display: block;
 }
 
-.Underway {
+.stuck {
+  display: block;
+  &:hover {
+    transform: rotate(10deg) scale(1.3);
+  }
 }
 
-.Unactivated {
-  background-color: hsv(0, 0, 60%);
+.deckName {
+  color: var(--text-light-color-75);
+  font-size: @font-size-lg;
+  margin: 15px 0 9px;
+  font-weight: 600;
+}
+
+.timestamp {
+  font-size: @font-size-base - 2px;
+  color: @text-color-secondary;
+  font-weight: 400;
 }
