@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Deck } from '../../model';
 import { Link, useIntl, connect, ConnectProps } from 'umi';
 import {
@@ -9,6 +9,7 @@ import {
 import classNames from 'classnames';
 import moment from 'moment';
 import { getDeckStatusColor } from '../../../utils';
+import { Modal, Button } from 'antd';
 
 import styles from './index.less';
 
@@ -18,7 +19,7 @@ export interface ToggleStickParams {
   stickTimestamp: Deck['stickTimestamp'];
 }
 
-export interface DeckThumbnailProps extends ConnectProps {
+export interface DeckThumbnailProps extends Partial<ConnectProps> {
   deck: Deck;
   sticking: boolean;
 }
@@ -27,11 +28,16 @@ const DeckThumbnail: React.FC<DeckThumbnailProps> = props => {
   const { deck, dispatch, sticking } = props;
   const { formatMessage } = useIntl();
 
-  const handleStickClick = () => {
+  const [dltModalVisible, setDltModalVisible]: [boolean, any] = useState(false);
+
+  const handleStickClick = (e: React.MouseEvent) => {
+    //e.stopPropagation();
+    console.log('click');
+    e.preventDefault();
     const stickTimestamp = Date.now();
     if (dispatch) {
       dispatch({
-        type: 'decks/stickDeck',
+        type: 'decks/stickOrUnstickDeck',
         payload: {
           deckId: deck.deckId,
           stick: !deck.stick,
@@ -51,7 +57,25 @@ const DeckThumbnail: React.FC<DeckThumbnailProps> = props => {
     return getDeckStatusColor(status);
   };
 
-  const handleDelete = () => {};
+  const handleDltBtnClick = (e: React.MouseEvent) => {
+    e.preventDefault();
+    setDltModalVisible((dltModalVisible: boolean) => !dltModalVisible);
+  };
+
+  const handleDelete = (e: React.MouseEvent) => {
+    e.preventDefault();
+  };
+
+  const footerElement = (
+    <div>
+      <Button shape="round" onClick={handleDltBtnClick}>
+        {formatMessage({ id: 'app.common.cancel' })}
+      </Button>
+      <Button shape="round" type="primary" onClick={handleDelete}>
+        {formatMessage({ id: 'app.common.confirm' })}
+      </Button>
+    </div>
+  );
 
   return (
     <Link className={styles.thumbnail} to={`/anki/${deck.deckId}`}>
@@ -71,6 +95,8 @@ const DeckThumbnail: React.FC<DeckThumbnailProps> = props => {
               })}
               role="button"
               onClick={handleStickClick}
+              // onMouseUp={handleStickMouseUp}
+              // onMouseDown={ handleStickMouseDown}
             >
               {deck.stick ? <PushpinFilled /> : <PushpinOutlined />}
             </div>
@@ -95,9 +121,21 @@ const DeckThumbnail: React.FC<DeckThumbnailProps> = props => {
             /<span>{deck.numberOfCards}</span>
           </div>
           <div className={styles.btns}>
-            <div className={styles.delete} onClick={handleDelete}>
+            <div className={styles.delete} onClick={handleDltBtnClick}>
               <DeleteOutlined />
             </div>
+            <Modal
+              visible={dltModalVisible}
+              width={280}
+              closable={false}
+              title={formatMessage({ id: 'anki.decks.delete.modal.title' })}
+              onCancel={handleDltBtnClick}
+              footer={footerElement}
+            >
+              <div className={styles.deleteContent}>
+                {formatMessage({ id: 'anki.decks.delete.modal.content' })}
+              </div>
+            </Modal>
           </div>
         </div>
       </div>

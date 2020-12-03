@@ -14,7 +14,7 @@ export async function getDecks() {
 }
 
 export async function toggleStick(params: ToggleStickParams) {
-  return request('api/toggleStick', {
+  return request('/api/toggleStick', {
     method: 'POST',
     data: params,
   });

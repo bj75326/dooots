@@ -25,4 +25,7 @@ export default {
   'anki.decks.fetch.decks.failed': 'Fetch decks failed',
   'anki.decks.stick.deck.failed': 'Deck topping failed',
   'anki.decks.unstick.deck.failed': 'Deck cancel top failed',
+  'anki.decks.delete.modal.title': 'Tips',
+  'anki.decks.delete.modal.content':
+    'If you confirm the deletion of the deck, it will not be recoverable! Shall we continue?',
 };

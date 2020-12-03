@@ -3,6 +3,7 @@ import settings from './zh-CN/settings';
 import globalHeader from './zh-CN/globalHeader';
 import userLayout from './zh-CN/userLayout';
 import user from './zh-CN/user';
+import common from './zh-CN/common';
 
 export default {
   'navBar.lang': '语言',
@@ -11,4 +12,5 @@ export default {
   ...globalHeader,
   ...userLayout,
   ...user,
+  ...common,
 };

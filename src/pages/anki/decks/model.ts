@@ -36,7 +36,20 @@ export interface ModelType {
   };
 }
 
-export const sortDecks = (decks: Deck[]): Deck[] => {};
+export const sortDecks = (decks: Deck[]): Deck[] => {
+  const sticks = decks.filter(deck => deck.stick);
+  const unsticks = decks.filter(deck => !deck.stick);
+  return sticks
+    .sort(
+      (deckA, deckB) =>
+        (deckB.stickTimestamp as number) - (deckA.stickTimestamp as number),
+    )
+    .concat(
+      unsticks.sort(
+        (deckA, deckB) => deckB.createTimestamp - deckA.createTimestamp,
+      ),
+    );
+};
 
 const Model: ModelType = {
   namespace: 'decks',
@@ -90,7 +103,7 @@ const Model: ModelType = {
     *stickOrUnstickDeck({ payload }, { call, put }) {
       const { formatMessage, ...data } = payload;
 
-      const response = call(toggleStick, data);
+      const response = yield call(toggleStick, data);
       if (response.status === 'ok') {
         yield put({
           type: 'sortDecks',
@@ -119,16 +132,18 @@ const Model: ModelType = {
       const { deckId, stick, stickTimestamp } = payload;
       return {
         ...state,
-        decks: decks.map(deck => {
-          if (deck.deckId === deckId) {
-            return {
-              ...deck,
-              stick,
-              stickTimestamp,
-            };
-          }
-          return deck;
-        }),
+        decks: sortDecks(
+          decks.map(deck => {
+            if (deck.deckId === deckId) {
+              return {
+                ...deck,
+                stick,
+                stickTimestamp,
+              };
+            }
+            return deck;
+          }),
+        ),
       };
     },
   },

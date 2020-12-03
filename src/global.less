@@ -203,6 +203,33 @@ div.ant-modal {
   border-radius: 15px;
 }
 
+div.ant-modal-header {
+  border: none;
+  background: @background-color-base;
+}
+
+div.ant-modal-title {
+  text-align: center;
+}
+
+div.ant-modal-body {
+  padding: 16px 24px;
+}
+
+div.ant-modal-footer {
+  border: none;
+  padding: 0;
+  & > div {
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: center;
+    padding: 14px 0 16px;
+    & > .ant-btn {
+      margin: 0 10px;
+    }
+  }
+}
+
 span.ant-tag {
   margin-bottom: 8px;
 }

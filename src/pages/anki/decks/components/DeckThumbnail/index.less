@@ -121,7 +121,7 @@
   justify-content: space-between;
   width: 100%;
   height: 46px;
-  padding: 0 20px;
+  padding: 0 15px 0 20px;
   background-color: @component-background;
   border-top: 1px solid @border-color-split;
   border-bottom-right-radius: 8px;
@@ -135,10 +135,16 @@
 
 .btns {
   font-size: 18px;
-  line-height: 18px;
+  & > div {
+    padding: 0 5px;
+  }
   display: none;
 }
 
 .delete {
   color: @red-5;
+}
+
+.deleteContent {
+  padding: 0 12px;
 }

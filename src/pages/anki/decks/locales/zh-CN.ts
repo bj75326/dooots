@@ -23,4 +23,7 @@ export default {
   'anki.decks.fetch.decks.failed': '卡组检索异常',
   'anki.decks.stick.deck.failed': '卡组置顶异常',
   'anki.decks.unstick.deck.failed': '卡组取消置顶异常',
+  'anki.decks.delete.modal.title': '删除提示',
+  'anki.decks.delete.modal.content':
+    '如果您确认删除该卡组，它将无法恢复！是否继续？',
 };
