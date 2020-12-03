@@ -1,6 +1,9 @@
 import request from '@/utils/request';
 import { AddNewDeckParams } from './components/NewDeck';
-import { ToggleStickParams } from './components/DeckThumbnail';
+import {
+  ToggleStickParams,
+  RemoveDeckParams,
+} from './components/DeckThumbnail';
 
 export async function addNewDeck(params: AddNewDeckParams) {
   return request('/api/addNewDeck', {
@@ -15,6 +18,13 @@ export async function getDecks() {
 
 export async function toggleStick(params: ToggleStickParams) {
   return request('/api/toggleStick', {
+    method: 'POST',
+    data: params,
+  });
+}
+
+export async function removeDeck(params: RemoveDeckParams) {
+  return request('/api/removeDeck', {
     method: 'POST',
     data: params,
   });

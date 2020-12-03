@@ -26,4 +26,5 @@ export default {
   'anki.decks.delete.modal.title': '删除提示',
   'anki.decks.delete.modal.content':
     '如果您确认删除该卡组，它将无法恢复！是否继续？',
+  'anki.decks.delete.deck.failed': '卡组删除异常',
 };

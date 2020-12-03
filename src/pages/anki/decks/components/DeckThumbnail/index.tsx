@@ -19,6 +19,10 @@ export interface ToggleStickParams {
   stickTimestamp: Deck['stickTimestamp'];
 }
 
+export interface RemoveDeckParams {
+  deckId: Deck['deckId'];
+}
+
 export interface DeckThumbnailProps extends Partial<ConnectProps> {
   deck: Deck;
   sticking: boolean;
@@ -64,6 +68,15 @@ const DeckThumbnail: React.FC<DeckThumbnailProps> = props => {
 
   const handleDelete = (e: React.MouseEvent) => {
     e.preventDefault();
+    if (dispatch) {
+      dispatch({
+        type: 'decks/deleteDeck',
+        payload: {
+          deckId: deck.deckId,
+          formatMessage,
+        },
+      });
+    }
   };
 
   const footerElement = (

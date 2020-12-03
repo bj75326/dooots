@@ -1,7 +1,7 @@
 import { Effect, Reducer, history, formatMessage } from 'umi';
 import { message, notification } from 'antd';
 
-import { addNewDeck, getDecks, toggleStick } from './service';
+import { addNewDeck, getDecks, toggleStick, removeDeck } from './service';
 
 export interface Deck {
   deckId: string;
@@ -29,6 +29,7 @@ export interface ModelType {
     addDeck: Effect;
     fetchDecks: Effect;
     stickOrUnstickDeck: Effect;
+    deleteDeck: Effect;
   };
   reducers: {
     changeDecks: Reducer<StateType>;
@@ -118,6 +119,21 @@ const Model: ModelType = {
         );
       }
     },
+    *deleteDeck({ payload }, { call, put }) {
+      const { formatMessage, ...data } = payload;
+      const response = yield call(removeDeck, data);
+      if (response.status === 'ok') {
+        yield put({
+          type: 'removeDeck',
+          payload: response,
+        });
+      } else if (response.status === 'error') {
+        message.error(
+          response.message ||
+            formatMessage({ id: 'anki.decks.delete.deck.failed' }),
+        );
+      }
+    },
   },
 
   reducers: {
@@ -144,6 +160,14 @@ const Model: ModelType = {
             return deck;
           }),
         ),
+      };
+    },
+    removeDeck(state, { payload }): StateType {
+      const { decks } = state as StateType;
+      const { deckId } = payload;
+      return {
+        ...state,
+        decks: decks.filter(deck => deck.deckId !== deckId),
       };
     },
   },

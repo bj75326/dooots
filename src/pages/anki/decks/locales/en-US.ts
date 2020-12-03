@@ -28,4 +28,5 @@ export default {
   'anki.decks.delete.modal.title': 'Tips',
   'anki.decks.delete.modal.content':
     'If you confirm the deletion of the deck, it will not be recoverable! Shall we continue?',
+  'anki.decks.delete.deck.failed': 'Delete failed',
 };

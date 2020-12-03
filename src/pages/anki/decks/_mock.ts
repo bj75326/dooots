@@ -117,4 +117,13 @@ export default {
       });
     }, 500);
   },
+
+  'POST /api/removeDeck': (req: Request, res: Response) => {
+    setTimeout(() => {
+      res.send({
+        status: 'ok',
+        deckId: req.body.deckId,
+      });
+    }, 500);
+  },
 };
