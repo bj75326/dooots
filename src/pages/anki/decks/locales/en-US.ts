@@ -23,4 +23,6 @@ export default {
     'An internal error caused the creation of the deck to be unsuccessful, please try again later.',
   'anki.decks.new.deck.success': 'New Deck Created',
   'anki.decks.fetch.decks.failed': 'Fetch decks failed',
+  'anki.decks.stick.deck.failed': 'Deck topping failed',
+  'anki.decks.unstick.deck.failed': 'Deck cancel top failed',
 };

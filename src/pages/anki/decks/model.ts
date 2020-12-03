@@ -1,4 +1,4 @@
-import { Effect, Reducer, history } from 'umi';
+import { Effect, Reducer, history, formatMessage } from 'umi';
 import { message, notification } from 'antd';
 
 import { addNewDeck, getDecks, toggleStick } from './service';
@@ -35,6 +35,8 @@ export interface ModelType {
     sortDecks: Reducer<StateType>;
   };
 }
+
+export const sortDecks = (decks: Deck[]): Deck[] => {};
 
 const Model: ModelType = {
   namespace: 'decks',
@@ -86,7 +88,22 @@ const Model: ModelType = {
       }
     },
     *stickOrUnstickDeck({ payload }, { call, put }) {
-      const response = call();
+      const { formatMessage, ...data } = payload;
+
+      const response = call(toggleStick, data);
+      if (response.status === 'ok') {
+        yield put({
+          type: 'sortDecks',
+          payload: response,
+        });
+      } else if (response.status === 'error') {
+        message.error(
+          response.message ||
+            (data.stick
+              ? formatMessage({ id: 'anki.decks.stick.deck.failed' })
+              : formatMessage({ id: 'anki.decks.unstick.deck.failed' })),
+        );
+      }
     },
   },
 
@@ -97,7 +114,23 @@ const Model: ModelType = {
         decks: payload.decks,
       };
     },
-    sortDecks(state, { payload }): StateType {},
+    sortDecks(state, { payload }): StateType {
+      const { decks } = state as StateType;
+      const { deckId, stick, stickTimestamp } = payload;
+      return {
+        ...state,
+        decks: decks.map(deck => {
+          if (deck.deckId === deckId) {
+            return {
+              ...deck,
+              stick,
+              stickTimestamp,
+            };
+          }
+          return deck;
+        }),
+      };
+    },
   },
 };
 

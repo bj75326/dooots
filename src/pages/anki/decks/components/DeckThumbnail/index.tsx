@@ -12,7 +12,11 @@ import { getDeckStatusColor } from '../../../utils';
 
 import styles from './index.less';
 
-export interface ToggleStickParams {}
+export interface ToggleStickParams {
+  deckId: Deck['deckId'];
+  stick: Deck['stick'];
+  stickTimestamp: Deck['stickTimestamp'];
+}
 
 export interface DeckThumbnailProps extends ConnectProps {
   deck: Deck;
@@ -30,7 +34,10 @@ const DeckThumbnail: React.FC<DeckThumbnailProps> = props => {
         type: 'decks/stickDeck',
         payload: {
           deckId: deck.deckId,
+          stick: !deck.stick,
           stickTimestamp,
+
+          formatMessage,
         },
       });
     }
@@ -62,6 +69,7 @@ const DeckThumbnail: React.FC<DeckThumbnailProps> = props => {
               className={classNames(styles.stick, {
                 [styles.stuck]: deck.stick,
               })}
+              role="button"
               onClick={handleStickClick}
             >
               {deck.stick ? <PushpinFilled /> : <PushpinOutlined />}
@@ -107,6 +115,6 @@ export default connect(
       };
     };
   }) => ({
-    sticking: loading['effects']['decks/stickDeck'],
+    sticking: loading['effects']['decks/stickOrUnstickDeck'],
   }),
 )(DeckThumbnail);

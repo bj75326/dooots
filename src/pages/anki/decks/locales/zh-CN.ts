@@ -21,4 +21,6 @@ export default {
     '内部错误导致卡组创建未成功，请稍后再试',
   'anki.decks.new.deck.success': '卡组创建成功',
   'anki.decks.fetch.decks.failed': '卡组检索异常',
+  'anki.decks.stick.deck.failed': '卡组置顶异常',
+  'anki.decks.unstick.deck.failed': '卡组取消置顶异常',
 };
