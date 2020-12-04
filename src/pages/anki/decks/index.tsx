@@ -1,18 +1,13 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import MainSearch from '../components/MainSearch';
 import { useIntl, connect, ConnectProps, history } from 'umi';
-import NewDeck from './components/NewDeck';
-import { StateType, Deck } from './model';
 import { Spin } from 'antd';
-import DeckThumbnail from './components/DeckThumbnail';
 
 import { PageHeaderWrapper } from '@ant-design/pro-layout';
 
 import styles from './style.less';
 
 interface AnkiDecksProps extends ConnectProps {
-  decks: Deck[];
-  newDeckCreating: boolean;
   fetchingDecks: boolean;
   deleting: boolean;
 }
@@ -24,7 +19,7 @@ const AnkiDecks: React.FC<AnkiDecksProps> = props => {
     console.log(value);
   };
 
-  const { children, match, location } = props;
+  const { children, match, location, fetchingDecks, deleting } = props;
   console.log('match ', match);
   console.log('location ', location);
 
@@ -88,39 +83,34 @@ const AnkiDecks: React.FC<AnkiDecksProps> = props => {
   };
 
   return (
-    <PageHeaderWrapper
-      content={mainSeach}
-      tabList={tabList}
-      tabActiveKey={getTabKey()}
-      onTabChange={handleTabChange}
-    >
-      <Spin spinning={false} size="large">
+    <Spin spinning={!!(fetchingDecks || deleting)} size="large">
+      <PageHeaderWrapper
+        content={mainSeach}
+        tabList={tabList}
+        tabActiveKey={getTabKey()}
+        onTabChange={handleTabChange}
+      >
         <div className={styles.content}>
           {children}
           {new Array(10).fill(null).map((_, index) => (
             <div className={styles.fill} key={`fill_${index}`}></div>
           ))}
         </div>
-      </Spin>
-    </PageHeaderWrapper>
+      </PageHeaderWrapper>
+    </Spin>
   );
 };
 
 export default connect(
   ({
-    decks,
     loading,
   }: {
-    decks: StateType;
     loading: {
       effects: {
         [key: string]: boolean;
       };
     };
   }) => ({
-    decks: decks.decks,
-
-    newDeckCreating: loading.effects['decks/addDeck'],
     fetchingDecks: loading.effects['decks/fetchDecks'],
     deleting: loading.effects['decks/deleteDeck'],
   }),

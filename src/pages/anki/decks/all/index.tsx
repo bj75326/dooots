@@ -1,34 +1,38 @@
 import React, { useEffect } from 'react';
-import { connect, ConnectProps } from 'umi';
-import NewCard from '../../deck/components/NewCard';
+import { connect, ConnectProps, useIntl } from 'umi';
 import DeckThumbnail from '../components/DeckThumbnail';
 import NewDeck from '../components/NewDeck';
-import { StateType } from '../model';
+import { StateType, Deck } from '../model';
 
-export interface AllDecksProps extends ConnectProps {}
+export interface AllDecksProps extends ConnectProps {
+  decks: Deck[];
+}
 
 const AllDecks: React.FC<AllDecksProps> = props => {
+  const { dispatch, decks } = props;
+  const { formatMessage } = useIntl();
+
+  useEffect(() => {
+    if (dispatch) {
+      dispatch({
+        type: 'decks/fetchDecks',
+        payload: {
+          formatMessage,
+        },
+      });
+    }
+  }, []);
+
   return (
     <>
       <NewDeck />
-      {}
+      {decks.map(deck => (
+        <DeckThumbnail deck={deck} key={deck.deckId} />
+      ))}
     </>
   );
 };
 
-export default connect(
-  ({
-    decks,
-    loading,
-  }: {
-    decks: StateType;
-    loading: {
-      effects: {
-        [key: string]: boolean;
-      };
-    };
-  }) => ({
-    decks: decks.decks,
-    fetching: loading.effects['decks/fetchDecks'],
-  }),
-)(AllDecks);
+export default connect(({ decks }: { decks: StateType }) => ({
+  decks: decks.decks,
+}))(AllDecks);
