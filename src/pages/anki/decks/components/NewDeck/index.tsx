@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Upload, Modal, Form, Input, Button } from 'antd';
 import { UploadProps } from 'antd/es/upload';
 import { PlusOutlined } from '@ant-design/icons';
-import { useIntl, Dispatch } from 'umi';
+import { useIntl, connect, ConnectProps } from 'umi';
 import classNames from 'classnames';
 import EditableTagGroup from '../../../components/EditableTagGroup';
 import TimePointForm from '../TimePointForm';
@@ -13,9 +13,8 @@ import styles from './index.less';
 const FormItem = Form.Item;
 const { TextArea } = Input;
 
-interface NewDeckProps extends UploadProps {
+interface NewDeckProps extends UploadProps, Partial<ConnectProps> {
   className?: string;
-  dispatch?: Dispatch;
   creating: boolean;
 }
 
@@ -178,4 +177,16 @@ const NewDeck: React.FC<NewDeckProps> = props => {
   );
 };
 
-export default NewDeck;
+export default connect(
+  ({
+    loading,
+  }: {
+    loading: {
+      effects: {
+        [key: string]: boolean;
+      };
+    };
+  }) => ({
+    creating: loading.effects['decks/addDeck'],
+  }),
+)(NewDeck);

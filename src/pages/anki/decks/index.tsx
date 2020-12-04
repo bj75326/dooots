@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import MainSearch from '../components/MainSearch';
-import { useIntl, connect, ConnectProps } from 'umi';
+import { useIntl, connect, ConnectProps, history } from 'umi';
 import NewDeck from './components/NewDeck';
 import { StateType, Deck } from './model';
 import { Spin } from 'antd';
@@ -19,23 +19,14 @@ interface AnkiDecksProps extends ConnectProps {
 
 const AnkiDecks: React.FC<AnkiDecksProps> = props => {
   const { formatMessage } = useIntl();
-  // const { dispatch, newDeckCreating, fetchingDecks, decks, deleting } = props;
 
   const handleSearch = (value: string) => {
     console.log(value);
   };
 
-  // useEffect(() => {
-  //   if (dispatch) {
-  //     dispatch({
-  //       type: 'decks/fetchDecks',
-  //       payload: {
-  //         formatMessage,
-  //       },
-  //     });
-  //   }
-  // }, []);
-  const { children } = props;
+  const { children, match, location } = props;
+  console.log('match ', match);
+  console.log('location ', location);
 
   const mainSeach = (
     <MainSearch
@@ -65,38 +56,52 @@ const AnkiDecks: React.FC<AnkiDecksProps> = props => {
     },
   ];
 
-  const getTabKey = () => {};
+  const getTabKey = () => {
+    const url = match!.path === '/' ? '' : match!.path;
+    const tabKey = location.pathname.replace(`${url}/`, '');
+    if (tabKey && tabKey !== '/') {
+      return tabKey;
+    }
+    return 'all';
+  };
 
-  const handleTabChange = () => {};
+  const handleTabChange = (key: string) => {
+    if (match) {
+      const url = match.url === '/' ? '' : match.url;
+      switch (key) {
+        case 'all':
+          history.push(`${url}/all`);
+          break;
+        case 'today':
+          history.push(`${url}/today`);
+          break;
+        case 'overdue':
+          history.push(`${url}/overdue`);
+          break;
+        case 'unactivated':
+          history.push(`${url}/unactivated`);
+          break;
+        default:
+          break;
+      }
+    }
+  };
 
   return (
-    // <Spin spinning={!!(fetchingDecks || deleting)} size="large">
-    //   <div className={styles.wrapper}>
-    //     <MainSearch
-    //       placeholder={formatMessage({
-    //         id: 'anki.search.deck.placeholder',
-    //       })}
-    //       onSearch={handleSearch}
-    //     />
-    //     <div className={styles.content}>
-    //       <NewDeck dispatch={dispatch} creating={newDeckCreating} />
-    //       {decks.map((deck, index) => (
-    //         <DeckThumbnail deck={deck} key={deck.deckId} />
-    //       ))}
-    //       {new Array(10).fill(null).map((_, index) => (
-    //         <div className={styles.fill} key={`fill_${index}`}></div>
-    //       ))}
-    //     </div>
-    //   </div>
-    // </Spin>
-
     <PageHeaderWrapper
       content={mainSeach}
       tabList={tabList}
       tabActiveKey={getTabKey()}
       onTabChange={handleTabChange}
     >
-      {children}
+      <Spin spinning={false} size="large">
+        <div className={styles.content}>
+          {children}
+          {new Array(10).fill(null).map((_, index) => (
+            <div className={styles.fill} key={`fill_${index}`}></div>
+          ))}
+        </div>
+      </Spin>
     </PageHeaderWrapper>
   );
 };
