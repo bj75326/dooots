@@ -6,6 +6,8 @@ import { StateType, Deck } from './model';
 import { Spin } from 'antd';
 import DeckThumbnail from './components/DeckThumbnail';
 
+import { PageHeaderWrapper } from '@ant-design/pro-layout';
+
 import styles from './style.less';
 
 interface AnkiDecksProps extends ConnectProps {
@@ -17,42 +19,85 @@ interface AnkiDecksProps extends ConnectProps {
 
 const AnkiDecks: React.FC<AnkiDecksProps> = props => {
   const { formatMessage } = useIntl();
-  const { dispatch, newDeckCreating, fetchingDecks, decks, deleting } = props;
+  // const { dispatch, newDeckCreating, fetchingDecks, decks, deleting } = props;
 
   const handleSearch = (value: string) => {
     console.log(value);
   };
 
-  useEffect(() => {
-    if (dispatch) {
-      dispatch({
-        type: 'decks/fetchDecks',
-        payload: {
-          formatMessage,
-        },
-      });
-    }
-  }, []);
+  // useEffect(() => {
+  //   if (dispatch) {
+  //     dispatch({
+  //       type: 'decks/fetchDecks',
+  //       payload: {
+  //         formatMessage,
+  //       },
+  //     });
+  //   }
+  // }, []);
+  const { children } = props;
+
+  const mainSeach = (
+    <MainSearch
+      placeholder={formatMessage({
+        id: 'anki.search.deck.placeholder',
+      })}
+      onSearch={handleSearch}
+    />
+  );
+
+  const tabList = [
+    {
+      key: 'all',
+      tab: '所有状态',
+    },
+    {
+      key: 'today',
+      tab: '今日份',
+    },
+    {
+      key: 'overdue',
+      tab: '已逾期',
+    },
+    {
+      key: 'unactivated',
+      tab: '未激活',
+    },
+  ];
+
+  const getTabKey = () => {};
+
+  const handleTabChange = () => {};
+
   return (
-    <Spin spinning={!!(fetchingDecks || deleting)} size="large">
-      <div className={styles.wrapper}>
-        <MainSearch
-          placeholder={formatMessage({
-            id: 'anki.search.deck.placeholder',
-          })}
-          onSearch={handleSearch}
-        />
-        <div className={styles.content}>
-          <NewDeck dispatch={dispatch} creating={newDeckCreating} />
-          {decks.map((deck, index) => (
-            <DeckThumbnail deck={deck} key={deck.deckId} />
-          ))}
-          {new Array(10).fill(null).map((_, index) => (
-            <div className={styles.fill} key={`fill_${index}`}></div>
-          ))}
-        </div>
-      </div>
-    </Spin>
+    // <Spin spinning={!!(fetchingDecks || deleting)} size="large">
+    //   <div className={styles.wrapper}>
+    //     <MainSearch
+    //       placeholder={formatMessage({
+    //         id: 'anki.search.deck.placeholder',
+    //       })}
+    //       onSearch={handleSearch}
+    //     />
+    //     <div className={styles.content}>
+    //       <NewDeck dispatch={dispatch} creating={newDeckCreating} />
+    //       {decks.map((deck, index) => (
+    //         <DeckThumbnail deck={deck} key={deck.deckId} />
+    //       ))}
+    //       {new Array(10).fill(null).map((_, index) => (
+    //         <div className={styles.fill} key={`fill_${index}`}></div>
+    //       ))}
+    //     </div>
+    //   </div>
+    // </Spin>
+
+    <PageHeaderWrapper
+      content={mainSeach}
+      tabList={tabList}
+      tabActiveKey={getTabKey()}
+      onTabChange={handleTabChange}
+    >
+      {children}
+    </PageHeaderWrapper>
   );
 };
 
