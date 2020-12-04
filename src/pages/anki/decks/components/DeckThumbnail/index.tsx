@@ -36,7 +36,6 @@ const DeckThumbnail: React.FC<DeckThumbnailProps> = props => {
 
   const handleStickClick = (e: React.MouseEvent) => {
     //e.stopPropagation();
-    console.log('click');
     e.preventDefault();
     const stickTimestamp = Date.now();
     if (dispatch) {
@@ -77,6 +76,7 @@ const DeckThumbnail: React.FC<DeckThumbnailProps> = props => {
         },
       });
     }
+    setDltModalVisible(false);
   };
 
   const footerElement = (

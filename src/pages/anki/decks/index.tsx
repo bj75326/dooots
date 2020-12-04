@@ -12,11 +12,12 @@ interface AnkiDecksProps extends ConnectProps {
   decks: Deck[];
   newDeckCreating: boolean;
   fetchingDecks: boolean;
+  deleting: boolean;
 }
 
 const AnkiDecks: React.FC<AnkiDecksProps> = props => {
   const { formatMessage } = useIntl();
-  const { dispatch, newDeckCreating, fetchingDecks, decks } = props;
+  const { dispatch, newDeckCreating, fetchingDecks, decks, deleting } = props;
 
   const handleSearch = (value: string) => {
     console.log(value);
@@ -32,9 +33,8 @@ const AnkiDecks: React.FC<AnkiDecksProps> = props => {
       });
     }
   }, []);
-
   return (
-    <Spin spinning={fetchingDecks} size="large">
+    <Spin spinning={!!(fetchingDecks || deleting)} size="large">
       <div className={styles.wrapper}>
         <MainSearch
           placeholder={formatMessage({
@@ -72,5 +72,6 @@ export default connect(
 
     newDeckCreating: loading.effects['decks/addDeck'],
     fetchingDecks: loading.effects['decks/fetchDecks'],
+    deleting: loading.effects['decks/deleteDeck'],
   }),
 )(AnkiDecks);

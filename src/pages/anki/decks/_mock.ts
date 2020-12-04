@@ -124,6 +124,6 @@ export default {
         status: 'ok',
         deckId: req.body.deckId,
       });
-    }, 500);
+    }, 2000);
   },
 };

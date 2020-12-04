@@ -34,6 +34,7 @@ export interface ModelType {
   reducers: {
     changeDecks: Reducer<StateType>;
     sortDecks: Reducer<StateType>;
+    removeDeck: Reducer<StateType>;
   };
 }
 
