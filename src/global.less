@@ -34,6 +34,7 @@ ol {
   --slider-rail-background-color: #e1e1e1;
   --slider-dot-border-color: hsv(0, 0, 84%);
 
+  --font-size-base: 14px;
   // 适用于所有theme的变量 start
   // 适用于所有theme的变量 end
 }
@@ -184,6 +185,9 @@ div.ant-notification-notice {
 
 main.ant-pro-basicLayout-content {
   margin: 0;
+  .ant-pro-page-header-wrap {
+    margin: 0;
+  }
 }
 
 div.ant-modal-wrap {
@@ -234,5 +238,41 @@ span.ant-tag {
   margin-bottom: 8px;
 }
 
-div.ant-pro-page-header-wrap {
+div.ant-pro-page-header-wrap-page-header-warp {
+  background-color: transparent;
+}
+
+div.ant-page-header {
+  padding: 0;
+  background-color: transparent;
+}
+
+div.ant-page-header-content {
+  padding-top: 0;
+}
+
+div.ant-page-header-footer {
+  margin-top: 0;
+  .ant-tabs {
+    .ant-tabs-tab {
+      margin: 0;
+      padding: 0 20px;
+      font-size: var(--font-size-base);
+      .ant-tabs-tab-btn {
+        line-height: 46px;
+        font-weight: 700;
+        color: var(--text-light-color);
+      }
+      &.ant-tabs-tab-active {
+        .ant-tabs-tab-btn {
+          color: var(--primary-color);
+          font-size: calc(var(--font-size-base) + 2px);
+        }
+      }
+    }
+  }
+}
+
+div.ant-pro-page-header-wrap-tabs {
+  margin: 0 66px;
 }
