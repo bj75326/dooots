@@ -1,5 +1,5 @@
 import { Deck } from './decks/model';
-import { useCallback, useEffect, useRef, MutableRefObject } from 'React';
+import { useCallback, useEffect, useRef, MutableRefObject } from 'react';
 import { Dispatch } from 'umi';
 
 export const getDeckStatusColor = (status: Deck['status']) => {
