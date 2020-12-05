@@ -1,4 +1,6 @@
 import { Deck } from './decks/model';
+import { useCallback, useEffect, useRef, MutableRefObject } from 'React';
+import { Dispatch } from 'umi';
 
 export const getDeckStatusColor = (status: Deck['status']) => {
   switch (status) {
@@ -13,4 +15,32 @@ export const getDeckStatusColor = (status: Deck['status']) => {
     default:
       return '#17BF63';
   }
+};
+
+// infinite scrolling with intersection observer
+export const useInfiniteScroll = (
+  scrollRef: MutableRefObject<any>,
+  dispatch: Dispatch,
+) => {
+  const scrollObserver = useCallback(
+    node => {
+      new IntersectionObserver(entries => {
+        entries.forEach(en => {
+          if (en.intersectionRatio > 0) {
+            dispatch({
+              type: '',
+              payload: {},
+            });
+          }
+        });
+      }).observe(node);
+    },
+    [dispatch],
+  );
+
+  useEffect(() => {
+    if (scrollRef.current) {
+      scrollObserver(scrollRef.current);
+    }
+  }, [scrollObserver, scrollRef]);
 };

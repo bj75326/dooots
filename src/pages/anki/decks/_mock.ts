@@ -85,6 +85,7 @@ const decks = [
     stick: false,
     stickTimestamp: undefined,
   },
+  //{}, {}, {}, {}
 ];
 
 export default {

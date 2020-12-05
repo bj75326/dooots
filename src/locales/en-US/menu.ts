@@ -1,7 +1,7 @@
 export default {
   'menu.welcome': 'Welcome',
   'menu.anki': 'Anki',
-  //'menu.anki.decks': 'Decks',
+  'menu.anki.decks': 'Decks',
   'menu.anki.decks.all': 'All-Decks',
   'menu.anki.decks.today': 'Today-Decks',
   'menu.anki.decks.overdue': 'Overdue-Decks',

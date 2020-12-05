@@ -100,7 +100,8 @@ const DeckThumbnail: React.FC<DeckThumbnailProps> = props => {
               className={styles.status}
               style={{ background: getStatusBg(deck) }}
             >
-              {formatMessage({ id: `anki.deck&card.status.${deck.status}` })}
+              {deck.status &&
+                formatMessage({ id: `anki.deck&card.status.${deck.status}` })}
             </div>
             <div
               className={classNames(styles.stick, {
@@ -116,7 +117,8 @@ const DeckThumbnail: React.FC<DeckThumbnailProps> = props => {
           </div>
           <h3 className={styles.deckName}>{deck.deckName}</h3>
           <div className={styles.timestamp}>
-            {moment(deck.createTimestamp).format('YYYY-MM-DD hh:mm:ss')}
+            {deck.createTimestamp &&
+              moment(deck.createTimestamp).format('YYYY-MM-DD hh:mm:ss')}
           </div>
           <p className={styles.description} title={deck.description}>
             {deck.description}

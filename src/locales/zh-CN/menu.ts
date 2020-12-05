@@ -1,7 +1,7 @@
 export default {
   'menu.welcome': '欢迎',
   'menu.anki': '记忆卡片',
-  //'menu.anki.decks': '全部卡组',
+  'menu.anki.decks': '卡组',
   'menu.anki.decks.all': '全部卡组',
   'menu.anki.decks.today': '今日卡组',
   'menu.anki.decks.overdue': '逾期卡组',
