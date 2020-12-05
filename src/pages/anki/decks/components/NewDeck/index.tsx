@@ -5,8 +5,8 @@ import { PlusOutlined } from '@ant-design/icons';
 import { useIntl, connect, ConnectProps } from 'umi';
 import classNames from 'classnames';
 import EditableTagGroup from '../../../components/EditableTagGroup';
-import TimePointForm from '../TimePointForm';
-import Ebbinghaus from '../../../components/Charts/Ebbinghaus';
+// import TimePointForm from '../TimePointForm';
+// import Ebbinghaus from '../../../components/Charts/Ebbinghaus';
 
 import styles from './index.less';
 
@@ -29,7 +29,7 @@ const NewDeck: React.FC<NewDeckProps> = props => {
   const [newDeckVisible, setNewDeckVisible]: [boolean, any] = useState(false);
 
   const [tags, setTags]: [string[], any] = useState([]);
-  const [timePoints, setTimePoints]: [number[], any] = useState([1, 2, 6, 31]);
+  // const [timePoints, setTimePoints]: [number[], any] = useState([1, 2, 6, 31]);
 
   const { formatMessage } = useIntl();
   const { dispatch, creating } = props;
@@ -42,9 +42,9 @@ const NewDeck: React.FC<NewDeckProps> = props => {
     setNewDeckVisible(!newDeckVisible);
   };
 
-  const changeTimePoints = (timePoints: number[]) => {
-    setTimePoints(timePoints);
-  };
+  // const changeTimePoints = (timePoints: number[]) => {
+  //   setTimePoints(timePoints);
+  // };
 
   const form = Form.useForm()[0];
 
@@ -86,7 +86,6 @@ const NewDeck: React.FC<NewDeckProps> = props => {
             layout="vertical"
             className={styles.form}
             requiredMark={false}
-            style={{ width: '272px' }}
           >
             <FormItem
               name="deckName"
@@ -115,7 +114,7 @@ const NewDeck: React.FC<NewDeckProps> = props => {
               <EditableTagGroup tags={tags} onTagChange={handleTagsChange} />
             </FormItem>
           </Form>
-          <TimePointForm
+          {/* <TimePointForm
             form={form}
             className={styles.form}
             changeTimePoints={changeTimePoints}
@@ -126,7 +125,7 @@ const NewDeck: React.FC<NewDeckProps> = props => {
               className={styles.form}
               data={timePoints}
             />
-          </div>
+          </div> */}
         </div>
         <div className={styles.footer}>
           <Button
@@ -161,7 +160,7 @@ const NewDeck: React.FC<NewDeckProps> = props => {
           footer={null}
           closable={false}
           onCancel={toggleNewDeckModal}
-          width={900}
+          width={500}
         >
           {addModalContent}
         </Modal>

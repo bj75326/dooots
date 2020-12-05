@@ -1,4 +1,4 @@
-import { Effect, Reducer, history, formatMessage } from 'umi';
+import { Effect, Reducer, history } from 'umi';
 import { message, notification } from 'antd';
 
 import { addNewDeck, getDecks, toggleStick, removeDeck } from './service';
@@ -87,8 +87,8 @@ const Model: ModelType = {
         );
       }
     },
-    *fetchDecks({ payload: { formatMessage } }, { call, put }) {
-      const response = yield call(getDecks);
+    *fetchDecks({ payload: { formatMessage, status } }, { call, put }) {
+      const response = yield call(getDecks, status);
 
       if (response.status === 'ok') {
         yield put({

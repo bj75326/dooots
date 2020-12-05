@@ -35,19 +35,19 @@ const AnkiDecks: React.FC<AnkiDecksProps> = props => {
   const tabList = [
     {
       key: 'all',
-      tab: '所有状态',
+      tab: formatMessage({ id: 'anki.deck&card.status.all' }),
     },
     {
       key: 'today',
-      tab: '今日份',
+      tab: formatMessage({ id: 'anki.deck&card.status.today' }),
     },
     {
       key: 'overdue',
-      tab: '已逾期',
+      tab: formatMessage({ id: 'anki.deck&card.status.overdue' }),
     },
     {
       key: 'unactivated',
-      tab: '未激活',
+      tab: formatMessage({ id: 'anki.deck&card.status.unactivated' }),
     },
   ];
 

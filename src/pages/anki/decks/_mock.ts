@@ -106,6 +106,30 @@ export default {
       });
     }, 1000);
   },
+  'GET /api/decks/today': (req: Request, res: Response) => {
+    setTimeout(() => {
+      res.send({
+        status: 'ok',
+        decks: decks.filter(deck => deck.status === 'today'),
+      });
+    }, 1000);
+  },
+  'GET /api/decks/overdue': (req: Request, res: Response) => {
+    setTimeout(() => {
+      res.send({
+        status: 'ok',
+        decks: decks.filter(deck => deck.numberOfOverdue > 0),
+      });
+    }, 1000);
+  },
+  'GET /api/decks/unactivated': (req: Request, res: Response) => {
+    setTimeout(() => {
+      res.send({
+        status: 'ok',
+        decks: decks.filter(deck => deck.status === 'unactivated'),
+      });
+    }, 1000);
+  },
 
   'POST /api/toggleStick': (req: Request, res: Response) => {
     setTimeout(() => {

@@ -17,6 +17,8 @@ const AllDecks: React.FC<AllDecksProps> = props => {
       dispatch({
         type: 'decks/fetchDecks',
         payload: {
+          status: '',
+
           formatMessage,
         },
       });
