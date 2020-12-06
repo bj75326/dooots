@@ -100,34 +100,24 @@ export default {
   },
 
   'GET /api/decks': (req: Request, res: Response) => {
+    let resDecks = decks;
+    switch (req.query.status) {
+      case 'today':
+        resDecks = decks.filter(deck => deck.status === 'today');
+        break;
+      case 'overdue':
+        resDecks = decks.filter(deck => deck.numberOfOverdue > 0);
+        break;
+      case 'unactivated':
+        resDecks = decks.filter(deck => deck.status === 'unactivated');
+        break;
+      default:
+        break;
+    }
     setTimeout(() => {
       res.send({
         status: 'ok',
-        decks,
-      });
-    }, 1000);
-  },
-  'GET /api/decks/today': (req: Request, res: Response) => {
-    setTimeout(() => {
-      res.send({
-        status: 'ok',
-        decks: decks.filter(deck => deck.status === 'today'),
-      });
-    }, 1000);
-  },
-  'GET /api/decks/overdue': (req: Request, res: Response) => {
-    setTimeout(() => {
-      res.send({
-        status: 'ok',
-        decks: decks.filter(deck => deck.numberOfOverdue > 0),
-      });
-    }, 1000);
-  },
-  'GET /api/decks/unactivated': (req: Request, res: Response) => {
-    setTimeout(() => {
-      res.send({
-        status: 'ok',
-        decks: decks.filter(deck => deck.status === 'unactivated'),
+        decks: resDecks,
       });
     }, 1000);
   },

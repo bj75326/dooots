@@ -5,6 +5,7 @@ import {
   PushpinOutlined,
   PushpinFilled,
   DeleteOutlined,
+  DownloadOutlined,
 } from '@ant-design/icons';
 import classNames from 'classnames';
 import moment from 'moment';
@@ -90,6 +91,10 @@ const DeckThumbnail: React.FC<DeckThumbnailProps> = props => {
     </div>
   );
 
+  const handleDownload = (e: React.MouseEvent) => {
+    e.preventDefault();
+  };
+
   return (
     <Link className={styles.thumbnail} to={`/anki/${deck.deckId}`}>
       <div className={styles.card}></div>
@@ -151,6 +156,9 @@ const DeckThumbnail: React.FC<DeckThumbnailProps> = props => {
                 {formatMessage({ id: 'anki.decks.delete.modal.content' })}
               </div>
             </Modal>
+            <div className={styles.download} onClick={handleDownload}>
+              <DownloadOutlined />
+            </div>
           </div>
         </div>
       </div>

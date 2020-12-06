@@ -76,32 +76,7 @@ export default defineConfig({
                   name: 'decks',
                   path: '/anki/decks',
                   component: './anki/decks',
-                  routes: [
-                    {
-                      path: '/anki/decks',
-                      redirect: '/anki/decks/all',
-                    },
-                    {
-                      name: 'all',
-                      path: '/anki/decks/all',
-                      component: './anki/decks/all',
-                    },
-                    {
-                      name: 'today',
-                      path: '/anki/decks/today',
-                      component: './anki/decks/today',
-                    },
-                    {
-                      name: 'overdue',
-                      path: '/anki/decks/overdue',
-                      component: './anki/decks/overdue',
-                    },
-                    {
-                      name: 'unactivated',
-                      path: '/anki/decks/unactivated',
-                      component: './anki/decks/unactivated',
-                    },
-                  ],
+                  exact: true,
                 },
                 {
                   name: 'deck',
