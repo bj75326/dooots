@@ -87,8 +87,8 @@ const Model: ModelType = {
         );
       }
     },
-    *fetchDecks({ payload: { formatMessage, status } }, { call, put }) {
-      const response = yield call(getDecks, status);
+    *fetchDecks({ payload: { formatMessage, ...data } }, { call, put }) {
+      const response = yield call(getDecks, data);
 
       if (response.status === 'ok') {
         yield put({

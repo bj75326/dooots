@@ -85,7 +85,111 @@ const decks = [
     stick: false,
     stickTimestamp: undefined,
   },
-  //{}, {}, {}, {}
+  {
+    status: 'today',
+  },
+  {
+    status: 'today',
+  },
+  {
+    status: 'today',
+  },
+  {
+    status: 'today',
+  },
+  {
+    status: 'today',
+  },
+  {
+    status: 'today',
+  },
+  {
+    status: 'today',
+  },
+  {
+    status: 'today',
+  },
+  {
+    status: 'today',
+  },
+  {
+    status: 'today',
+  },
+  {
+    status: 'today',
+  },
+  {
+    status: 'today',
+  },
+  {
+    status: 'today',
+  },
+  {
+    status: 'today',
+  },
+  {
+    status: 'today',
+  },
+  {
+    status: 'today',
+  },
+  {
+    status: 'today',
+  },
+  {
+    status: 'today',
+  },
+  {
+    status: 'today',
+  },
+  {
+    status: 'today',
+  },
+  {
+    status: 'today',
+  },
+  {
+    status: 'today',
+  },
+  {
+    status: 'today',
+  },
+  {
+    status: 'today',
+  },
+  {
+    status: 'today',
+  },
+  {
+    status: 'today',
+  },
+  {
+    status: 'today',
+  },
+  {
+    status: 'today',
+  },
+  {
+    status: 'today',
+  },
+  {
+    status: 'today',
+  },
+  {
+    status: 'today',
+  },
+  {
+    status: 'today',
+  },
+  {
+    status: 'today',
+  },
+  {
+    status: 'today',
+  },
+  {
+    status: 'today',
+  },
 ];
 
 export default {
@@ -101,7 +205,8 @@ export default {
 
   'GET /api/decks': (req: Request, res: Response) => {
     let resDecks = decks;
-    switch (req.query.status) {
+    const { status = '', page = 0 } = req.query;
+    switch (status) {
       case 'today':
         resDecks = decks.filter(deck => deck.status === 'today');
         break;
@@ -112,12 +217,14 @@ export default {
         resDecks = decks.filter(deck => deck.status === 'unactivated');
         break;
       default:
+        resDecks = [...decks].splice(0, (+page + 1) * 15);
         break;
     }
     setTimeout(() => {
       res.send({
         status: 'ok',
         decks: resDecks,
+        //eof: ,
       });
     }, 1000);
   },

@@ -14,8 +14,8 @@ export async function addNewDeck(params: AddNewDeckParams) {
   });
 }
 
-export async function getDecks(status: Deck['status']) {
-  return request(`/api/decks?status=${status}`);
+export async function getDecks(params: { status: string; page: number }) {
+  return request(`/api/decks?status=${params.status}&page=${params.page}`);
 }
 
 export async function toggleStick(params: ToggleStickParams) {

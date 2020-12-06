@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useCallback } from 'react';
 import MainSearch from '../components/MainSearch';
 import { useIntl, connect, ConnectProps, history, History } from 'umi';
 import { Spin } from 'antd';
@@ -20,6 +20,7 @@ interface AnkiDecksProps
 const AnkiDecks: React.FC<AnkiDecksProps> = props => {
   const { formatMessage } = useIntl();
   const bottomBoundaryRef = useRef(null);
+  const page = useRef(0);
 
   const handleSearch = (value: string) => {
     console.log(value);
@@ -29,15 +30,26 @@ const AnkiDecks: React.FC<AnkiDecksProps> = props => {
   console.log('match ', match);
   console.log('location ', location);
 
-  // const infiniteScrollLoading = () => {
-  //   if (dispatch) {
-  //     dispatch({
-  //       type: ''
-  //     });
-  //   }
-  // };
+  let status = location.query.status || '';
+  if (['today', 'overdue', 'unactivated'].indexOf(status) < 0) {
+    status = '';
+  }
 
-  // useInfiniteScroll(bottomBoundaryRef, dispatch as Dispatch );
+  const infiniteScrollLoading = () => {
+    page.current = page.current + 1;
+    if (dispatch) {
+      dispatch({
+        type: 'decks/fetchDecks',
+        payload: {
+          status,
+          page: page.current,
+          formatMessage,
+        },
+      });
+    }
+  };
+
+  useInfiniteScroll(bottomBoundaryRef, infiniteScrollLoading);
 
   const mainSeach = (
     <MainSearch
@@ -104,16 +116,18 @@ const AnkiDecks: React.FC<AnkiDecksProps> = props => {
     if (status && ['today', 'overdue', 'unactivated'].indexOf(status) < 0) {
       status = '';
     }
+    page.current = 0;
     if (dispatch) {
       dispatch({
         type: 'decks/fetchDecks',
         payload: {
           status,
+          page: page.current,
           formatMessage,
         },
       });
     }
-  }, [location]);
+  }, [location.query.status]);
 
   return (
     <Spin spinning={!!(fetchingDecks || deleting)} size="large">
