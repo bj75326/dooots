@@ -34,6 +34,12 @@ const AnkiDecks: React.FC<AnkiDecksProps> = props => {
   if (['today', 'overdue', 'unactivated'].indexOf(status) < 0) {
     status = '';
   }
+  const prevStatus = useRef(status);
+
+  if (prevStatus.current !== status) {
+    page.current = 0;
+    prevStatus.current = status;
+  }
 
   const infiniteScrollLoading = () => {
     page.current = page.current + 1;
@@ -111,23 +117,23 @@ const AnkiDecks: React.FC<AnkiDecksProps> = props => {
     }
   };
 
-  useEffect(() => {
-    let status = location.query.status || '';
-    if (status && ['today', 'overdue', 'unactivated'].indexOf(status) < 0) {
-      status = '';
-    }
-    page.current = 0;
-    if (dispatch) {
-      dispatch({
-        type: 'decks/fetchDecks',
-        payload: {
-          status,
-          page: page.current,
-          formatMessage,
-        },
-      });
-    }
-  }, [location.query.status]);
+  // useEffect(() => {
+  //   let status = location.query.status || '';
+  //   if (status && ['today', 'overdue', 'unactivated'].indexOf(status) < 0) {
+  //     status = '';
+  //   }
+  //   page.current = 0;
+  //   if (dispatch) {
+  //     dispatch({
+  //       type: 'decks/fetchDecks',
+  //       payload: {
+  //         status,
+  //         page: page.current,
+  //         formatMessage,
+  //       },
+  //     });
+  //   }
+  // }, [location.query.status]);
 
   return (
     <Spin spinning={!!(fetchingDecks || deleting)} size="large">

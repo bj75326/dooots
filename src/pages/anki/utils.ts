@@ -22,7 +22,7 @@ export const useInfiniteScroll = (
   scrollRef: MutableRefObject<any>,
   infiniteScrollLoading: any,
 ) => {
-  const scrollObserver = useCallback(node => {
+  const scrollObserver = node => {
     new IntersectionObserver(entries => {
       entries.forEach(en => {
         if (en.intersectionRatio > 0) {
@@ -30,7 +30,7 @@ export const useInfiniteScroll = (
         }
       });
     }).observe(node);
-  }, []);
+  };
 
   useEffect(() => {
     console.log('useEffect for scrolllll');

@@ -15,6 +15,8 @@ export async function addNewDeck(params: AddNewDeckParams) {
 }
 
 export async function getDecks(params: { status: string; page: number }) {
+  console.log('status: ', params.status);
+  console.log('page: ', params.page);
   return request(`/api/decks?status=${params.status}&page=${params.page}`);
 }
 

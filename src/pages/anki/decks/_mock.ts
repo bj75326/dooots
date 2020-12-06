@@ -208,16 +208,24 @@ export default {
     const { status = '', page = 0 } = req.query;
     switch (status) {
       case 'today':
-        resDecks = decks.filter(deck => deck.status === 'today');
+        resDecks = [...decks.filter(deck => deck.status === 'today')].splice(
+          0,
+          +page * 15,
+        );
         break;
       case 'overdue':
-        resDecks = decks.filter(deck => deck.numberOfOverdue > 0);
+        resDecks = [...decks.filter(deck => deck.numberOfOverdue > 0)].splice(
+          0,
+          +page * 15,
+        );
         break;
       case 'unactivated':
-        resDecks = decks.filter(deck => deck.status === 'unactivated');
+        resDecks = [
+          ...decks.filter(deck => deck.status === 'unactivated'),
+        ].splice(0, +page * 15);
         break;
       default:
-        resDecks = [...decks].splice(0, (+page + 1) * 15);
+        resDecks = [...decks].splice(0, +page * 15);
         break;
     }
     setTimeout(() => {
