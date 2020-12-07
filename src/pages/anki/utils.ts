@@ -21,13 +21,13 @@ export const getDeckStatusColor = (status: Deck['status']) => {
 export const useInfiniteScroll = (
   scrollRef: MutableRefObject<any>,
   infiniteScrollLoading: any,
-  startInfiniteScroll: { current: boolean },
+  //startInfiniteScroll: { current: boolean },
 ) => {
   const scrollObserver = useCallback(
     (node: Element) => {
       new IntersectionObserver(entries => {
         entries.forEach(en => {
-          if (en.intersectionRatio > 0 && startInfiniteScroll.current) {
+          if (en.intersectionRatio > 0) {
             console.log('run infiniteScrollLoading');
             console.log('en.intersectionRatio: ', en.intersectionRatio);
 
@@ -41,6 +41,7 @@ export const useInfiniteScroll = (
 
   useEffect(() => {
     console.log('useEffect for scrolllll');
+
     if (scrollRef.current) {
       scrollObserver(scrollRef.current);
     }

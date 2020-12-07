@@ -21,7 +21,9 @@ const AnkiDecks: React.FC<AnkiDecksProps> = props => {
   const { formatMessage } = useIntl();
   const bottomBoundaryRef = useRef(null);
   const page = useRef(0);
-  const startInfiniteScroll = useRef(false);
+  //const startInfiniteScroll = useRef(false);
+  //const forceLoading = useRef(false);
+  const contentRef = useRef(null);
 
   const handleSearch = (value: string) => {
     console.log(value);
@@ -35,14 +37,17 @@ const AnkiDecks: React.FC<AnkiDecksProps> = props => {
   if (['today', 'overdue', 'unactivated'].indexOf(status) < 0) {
     status = '';
   }
-  const prevStatus = useRef(status);
 
-  if (prevStatus.current !== status) {
-    console.log('status不一样啦');
-    page.current = 0;
-    prevStatus.current = status;
-    startInfiniteScroll.current = false;
-  }
+  const keepStatus = useRef(status);
+  keepStatus.current = status;
+  // const prevStatus = useRef(status);
+
+  // if (prevStatus.current !== status) {
+  //   console.log('status不一样啦');
+  //   page.current = 0;
+  //   prevStatus.current = status;
+  //   startInfiniteScroll.current = false;
+  // }
 
   const infiniteScrollLoading = useCallback(() => {
     page.current = page.current + 1;
@@ -50,7 +55,7 @@ const AnkiDecks: React.FC<AnkiDecksProps> = props => {
       dispatch({
         type: 'decks/fetchDecks',
         payload: {
-          status: prevStatus.current,
+          status: keepStatus.current,
           page: page.current,
           formatMessage,
         },
@@ -58,16 +63,24 @@ const AnkiDecks: React.FC<AnkiDecksProps> = props => {
     }
   }, [dispatch]);
 
+  useEffect(() => {
+    page.current = 0;
+    infiniteScrollLoading();
+  }, [status]);
+
   useInfiniteScroll(
     bottomBoundaryRef,
     infiniteScrollLoading,
-    startInfiniteScroll,
+    //startInfiniteScroll,
   );
 
-  useEffect(() => {
-    infiniteScrollLoading();
-    startInfiniteScroll.current = true;
-  }, [status]);
+  // useEffect(() => {
+  //   console.log('run state first useEffect');
+  //   page.current = 0;
+  //   //startInfiniteScroll.current = false;
+  //   infiniteScrollLoading();
+
+  // }, [status]);
 
   const mainSeach = (
     <MainSearch
@@ -129,24 +142,6 @@ const AnkiDecks: React.FC<AnkiDecksProps> = props => {
     }
   };
 
-  // useEffect(() => {
-  //   let status = location.query.status || '';
-  //   if (status && ['today', 'overdue', 'unactivated'].indexOf(status) < 0) {
-  //     status = '';
-  //   }
-  //   page.current = 0;
-  //   if (dispatch) {
-  //     dispatch({
-  //       type: 'decks/fetchDecks',
-  //       payload: {
-  //         status,
-  //         page: page.current,
-  //         formatMessage,
-  //       },
-  //     });
-  //   }
-  // }, [location.query.status]);
-
   return (
     <Spin spinning={!!(fetchingDecks || deleting)} size="large">
       <PageHeaderWrapper
@@ -155,7 +150,7 @@ const AnkiDecks: React.FC<AnkiDecksProps> = props => {
         tabActiveKey={getTabKey()}
         onTabChange={handleTabChange}
       >
-        <div className={styles.content}>
+        <div className={styles.content} ref={contentRef}>
           <NewDeck />
           {decks.map(deck => (
             <DeckThumbnail deck={deck} key={deck.deckId} />
