@@ -21,21 +21,28 @@ export const getDeckStatusColor = (status: Deck['status']) => {
 export const useInfiniteScroll = (
   scrollRef: MutableRefObject<any>,
   infiniteScrollLoading: any,
+  startInfiniteScroll: { current: boolean },
 ) => {
-  const scrollObserver = node => {
-    new IntersectionObserver(entries => {
-      entries.forEach(en => {
-        if (en.intersectionRatio > 0) {
-          infiniteScrollLoading();
-        }
-      });
-    }).observe(node);
-  };
+  const scrollObserver = useCallback(
+    (node: Element) => {
+      new IntersectionObserver(entries => {
+        entries.forEach(en => {
+          if (en.intersectionRatio > 0 && startInfiniteScroll.current) {
+            console.log('run infiniteScrollLoading');
+            console.log('en.intersectionRatio: ', en.intersectionRatio);
+
+            infiniteScrollLoading();
+          }
+        });
+      }).observe(node);
+    },
+    [infiniteScrollLoading],
+  );
 
   useEffect(() => {
     console.log('useEffect for scrolllll');
     if (scrollRef.current) {
       scrollObserver(scrollRef.current);
     }
-  }, [scrollRef]);
+  }, [scrollObserver, scrollRef]);
 };

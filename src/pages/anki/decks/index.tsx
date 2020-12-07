@@ -21,6 +21,7 @@ const AnkiDecks: React.FC<AnkiDecksProps> = props => {
   const { formatMessage } = useIntl();
   const bottomBoundaryRef = useRef(null);
   const page = useRef(0);
+  const startInfiniteScroll = useRef(false);
 
   const handleSearch = (value: string) => {
     console.log(value);
@@ -37,25 +38,36 @@ const AnkiDecks: React.FC<AnkiDecksProps> = props => {
   const prevStatus = useRef(status);
 
   if (prevStatus.current !== status) {
+    console.log('status不一样啦');
     page.current = 0;
     prevStatus.current = status;
+    startInfiniteScroll.current = false;
   }
 
-  const infiniteScrollLoading = () => {
+  const infiniteScrollLoading = useCallback(() => {
     page.current = page.current + 1;
     if (dispatch) {
       dispatch({
         type: 'decks/fetchDecks',
         payload: {
-          status,
+          status: prevStatus.current,
           page: page.current,
           formatMessage,
         },
       });
     }
-  };
+  }, [dispatch]);
 
-  useInfiniteScroll(bottomBoundaryRef, infiniteScrollLoading);
+  useInfiniteScroll(
+    bottomBoundaryRef,
+    infiniteScrollLoading,
+    startInfiniteScroll,
+  );
+
+  useEffect(() => {
+    infiniteScrollLoading();
+    startInfiniteScroll.current = true;
+  }, [status]);
 
   const mainSeach = (
     <MainSearch
