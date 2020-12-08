@@ -4,6 +4,7 @@ import {
   ToggleStickParams,
   RemoveDeckParams,
 } from './components/DeckThumbnail';
+import { stringify } from 'qs';
 
 export async function addNewDeck(params: AddNewDeckParams) {
   return request('/api/addNewDeck', {
@@ -12,10 +13,15 @@ export async function addNewDeck(params: AddNewDeckParams) {
   });
 }
 
-export async function getDecks(params: { status: string; page: number }) {
+export async function getDecks(params: {
+  status: string;
+  page: number;
+  search: string;
+}) {
   console.log('status: ', params.status);
   console.log('page: ', params.page);
-  return request(`/api/decks?status=${params.status}&page=${params.page}`);
+  console.log('search: ', params.search);
+  return request(`/api/decks?${stringify(params)}`);
 }
 
 export async function toggleStick(params: ToggleStickParams) {

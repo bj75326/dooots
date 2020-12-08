@@ -25,9 +25,12 @@ const AnkiDecks: React.FC<AnkiDecksProps> = props => {
   //const startInfiniteScroll = useRef(false);
   //const forceLoading = useRef(false);
   const contentRef = useRef(null);
+  const searchRef = useRef('');
 
   const handleSearch = (value: string) => {
     console.log(value);
+    searchRef.current = value;
+    infiniteScrollLoading();
   };
 
   const {
@@ -68,6 +71,7 @@ const AnkiDecks: React.FC<AnkiDecksProps> = props => {
         payload: {
           status: keepStatus.current,
           page: page.current,
+          search: searchRef.current,
           formatMessage,
         },
       });
