@@ -15,6 +15,7 @@ interface AnkiDecksProps
   fetchingDecks: boolean;
   deleting: boolean;
   decks: StateType['decks'];
+  eof: StateType['eof'];
 }
 
 const AnkiDecks: React.FC<AnkiDecksProps> = props => {
@@ -29,7 +30,15 @@ const AnkiDecks: React.FC<AnkiDecksProps> = props => {
     console.log(value);
   };
 
-  const { match, location, fetchingDecks, deleting, dispatch, decks } = props;
+  const {
+    match,
+    location,
+    fetchingDecks,
+    deleting,
+    dispatch,
+    decks,
+    eof,
+  } = props;
   console.log('match ', match);
   console.log('location ', location);
 
@@ -40,6 +49,8 @@ const AnkiDecks: React.FC<AnkiDecksProps> = props => {
 
   const keepStatus = useRef(status);
   keepStatus.current = status;
+  const keepEof = useRef(eof);
+  keepEof.current = eof;
   // const prevStatus = useRef(status);
 
   // if (prevStatus.current !== status) {
@@ -65,6 +76,7 @@ const AnkiDecks: React.FC<AnkiDecksProps> = props => {
 
   useEffect(() => {
     page.current = 0;
+    keepEof.current = true;
     infiniteScrollLoading();
   }, [status]);
 
@@ -72,6 +84,7 @@ const AnkiDecks: React.FC<AnkiDecksProps> = props => {
     bottomBoundaryRef,
     infiniteScrollLoading,
     //startInfiniteScroll,
+    keepEof,
   );
 
   // useEffect(() => {
@@ -178,6 +191,7 @@ export default connect(
     };
   }) => ({
     decks: decks.decks,
+    eof: decks.eof,
     fetchingDecks: loading.effects['decks/fetchDecks'],
     deleting: loading.effects['decks/deleteDeck'],
   }),

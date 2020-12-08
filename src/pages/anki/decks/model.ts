@@ -20,6 +20,7 @@ export interface Deck {
 
 export interface StateType {
   decks: Deck[];
+  eof: boolean;
 }
 
 export interface ModelType {
@@ -58,6 +59,7 @@ const Model: ModelType = {
 
   state: {
     decks: [],
+    eof: true,
   },
 
   effects: {
@@ -140,15 +142,16 @@ const Model: ModelType = {
   reducers: {
     changeDecks(state, { payload }): StateType {
       return {
-        ...state,
+        ...(state as StateType),
         decks: payload.decks,
+        eof: payload.eof,
       };
     },
     sortDecks(state, { payload }): StateType {
       const { decks } = state as StateType;
       const { deckId, stick, stickTimestamp } = payload;
       return {
-        ...state,
+        ...(state as StateType),
         decks: sortDecks(
           decks.map(deck => {
             if (deck.deckId === deckId) {
@@ -167,7 +170,7 @@ const Model: ModelType = {
       const { decks } = state as StateType;
       const { deckId } = payload;
       return {
-        ...state,
+        ...(state as StateType),
         decks: decks.filter(deck => deck.deckId !== deckId),
       };
     },

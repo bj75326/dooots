@@ -5,8 +5,6 @@ import {
   RemoveDeckParams,
 } from './components/DeckThumbnail';
 
-import { Deck } from './model';
-
 export async function addNewDeck(params: AddNewDeckParams) {
   return request('/api/addNewDeck', {
     method: 'POST',

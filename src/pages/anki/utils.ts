@@ -22,12 +22,13 @@ export const useInfiniteScroll = (
   scrollRef: MutableRefObject<any>,
   infiniteScrollLoading: any,
   //startInfiniteScroll: { current: boolean },
+  keepEof: { current: boolean },
 ) => {
   const scrollObserver = useCallback(
     (node: Element) => {
       new IntersectionObserver(entries => {
         entries.forEach(en => {
-          if (en.intersectionRatio > 0) {
+          if (en.intersectionRatio > 0 && !keepEof.current) {
             console.log('run infiniteScrollLoading');
             console.log('en.intersectionRatio: ', en.intersectionRatio);
 

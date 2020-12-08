@@ -205,6 +205,7 @@ export default {
 
   'GET /api/decks': (req: Request, res: Response) => {
     let resDecks = decks;
+    let resEof = true;
     const { status = '', page = 0 } = req.query;
     switch (status) {
       case 'today':
@@ -212,27 +213,39 @@ export default {
           0,
           +page * 15,
         );
+        resEof = [...decks.filter(deck => deck.status === 'today')][+page * 15]
+          ? false
+          : true;
         break;
       case 'overdue':
         resDecks = [...decks.filter(deck => deck.numberOfOverdue > 0)].splice(
           0,
           +page * 15,
         );
+        resEof = [...decks.filter(deck => deck.numberOfOverdue > 0)][+page * 15]
+          ? false
+          : true;
         break;
       case 'unactivated':
         resDecks = [
           ...decks.filter(deck => deck.status === 'unactivated'),
         ].splice(0, +page * 15);
+        resEof = [...decks.filter(deck => deck.status === 'unactivated')][
+          +page * 15
+        ]
+          ? false
+          : true;
         break;
       default:
         resDecks = [...decks].splice(0, +page * 15);
+        resEof = [...decks][+page * 15] ? false : true;
         break;
     }
     setTimeout(() => {
       res.send({
         status: 'ok',
         decks: resDecks,
-        //eof: ,
+        eof: resEof,
       });
     }, 1000);
   },
