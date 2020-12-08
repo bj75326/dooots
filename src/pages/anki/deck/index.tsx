@@ -144,5 +144,6 @@ const AnkiDeck: React.FC<AnkiDeckProps> = props => {
 };
 
 export default connect(({ deck }: { deck: StateType }) => ({
-  cards: deck.cards,
+  cards: deck.deck ? deck.deck.cards : [],
+  eof: deck.eof,
 }))(AnkiDeck);

@@ -14,8 +14,10 @@ export interface Deck {
   numberOfUnactivated: number;
   status: 'overdue' | 'today' | 'underway' | 'unactivated';
   createTimestamp: number;
+  updateTimestamp?: number;
   stick: boolean;
   stickTimestamp?: number;
+  author?: string;
 }
 
 export interface StateType {
