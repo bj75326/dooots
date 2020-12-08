@@ -27,12 +27,6 @@ const AnkiDecks: React.FC<AnkiDecksProps> = props => {
   const contentRef = useRef(null);
   const searchRef = useRef('');
 
-  const handleSearch = (value: string) => {
-    console.log(value);
-    searchRef.current = value;
-    infiniteScrollLoading();
-  };
-
   const {
     match,
     location,
@@ -77,6 +71,15 @@ const AnkiDecks: React.FC<AnkiDecksProps> = props => {
       });
     }
   }, [dispatch]);
+
+  const handleSearch = useCallback(
+    (value: string) => {
+      console.log(value);
+      searchRef.current = value;
+      infiniteScrollLoading();
+    },
+    [infiniteScrollLoading],
+  );
 
   useLayoutEffect(() => {
     if (contentRef.current) {

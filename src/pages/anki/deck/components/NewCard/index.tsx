@@ -3,9 +3,9 @@ import { Upload, Modal } from 'antd';
 import { UploadProps } from 'antd/es/upload';
 import classNames from 'classnames';
 import { FileAddOutlined } from '@ant-design/icons';
+import { useIntl } from 'umi';
 
 import styles from './index.less';
-import { formatMessage } from 'umi';
 
 interface NewCardProps extends UploadProps {
   className?: string;
@@ -16,6 +16,8 @@ const NewCard: React.FC<NewCardProps> = props => {
     boolean,
     any,
   ] = useState(false);
+
+  const { formatMessage } = useIntl();
 
   const handleAddClick = () => {
     setTplListModalVisible(true);

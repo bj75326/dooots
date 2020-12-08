@@ -1,18 +1,19 @@
 import React, { useState } from 'react';
 import MainSearch from '../components/MainSearch';
-import { useIntl } from 'umi';
+import { useIntl, connect, ConnectProps } from 'umi';
 import NewCard from './components/NewCard';
 import { Form, Select, Row, Col, Space, Button } from 'antd';
 import { FilterOutlined } from '@ant-design/icons';
 import Animate from 'rc-animate';
-
-//import
+import { StateType, Card } from './model';
 
 import styles from './style.less';
 
 const { Option } = Select;
 
-interface AnkiDeckProps {}
+interface AnkiDeckProps extends ConnectProps {
+  cards: Card[];
+}
 
 interface FilterProps {
   visible: boolean;
@@ -38,16 +39,16 @@ const Filter: React.FC<FilterProps> = props => {
             >
               <Select>
                 <Option value="all">
-                  {formatMessage({ id: 'anki.deck.filter.status.all' })}
+                  {formatMessage({ id: 'anki.deck&card.status.all' })}
                 </Option>
-                <Option value="wip">
-                  {formatMessage({ id: 'anki.deck.filter.status.wip' })}
+                <Option value="underway">
+                  {formatMessage({ id: 'anki.deck&card.status.underway' })}
                 </Option>
                 <Option value="overdue">
-                  {formatMessage({ id: 'anki.deck.filter.status.overdue' })}
+                  {formatMessage({ id: 'anki.deck&card.status.overdue' })}
                 </Option>
-                <Option value="done">
-                  {formatMessage({ id: 'anki.deck.filter.status.done' })}
+                <Option value="unactivated">
+                  {formatMessage({ id: 'anki.deck&card.status.unactivated' })}
                 </Option>
               </Select>
             </Form.Item>
@@ -142,4 +143,6 @@ const AnkiDeck: React.FC<AnkiDeckProps> = props => {
   );
 };
 
-export default AnkiDeck;
+export default connect(({ deck }: { deck: StateType }) => ({
+  cards: deck.cards,
+}))(AnkiDeck);
