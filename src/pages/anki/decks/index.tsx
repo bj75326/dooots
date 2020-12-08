@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useCallback } from 'react';
+import React, { useEffect, useRef, useCallback, useLayoutEffect } from 'react';
 import MainSearch from '../components/MainSearch';
 import { useIntl, connect, ConnectProps, history, History } from 'umi';
 import { Spin } from 'antd';
@@ -73,6 +73,12 @@ const AnkiDecks: React.FC<AnkiDecksProps> = props => {
       });
     }
   }, [dispatch]);
+
+  useLayoutEffect(() => {
+    if (contentRef.current) {
+      ((contentRef.current as unknown) as HTMLDivElement).parentElement!.scrollTop = 0;
+    }
+  }, [status]);
 
   useEffect(() => {
     page.current = 0;
