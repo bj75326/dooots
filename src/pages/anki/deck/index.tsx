@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import MainSearch from '../components/MainSearch';
 import { useIntl, connect, ConnectProps } from 'umi';
 import NewCard from './components/NewCard';
@@ -6,13 +6,17 @@ import { Form, Select, Row, Col, Space, Button } from 'antd';
 import { FilterOutlined } from '@ant-design/icons';
 import Animate from 'rc-animate';
 import { StateType, Card } from './model';
+import CardThumbnail from './components/CardThumbnail';
 
 import styles from './style.less';
+import { getCardStatusColor } from '../utils';
 
 const { Option } = Select;
 
 interface AnkiDeckProps extends ConnectProps {
+  deck: StateType['deck'];
   cards: Card[];
+  eof: boolean;
 }
 
 interface FilterProps {
@@ -107,6 +111,8 @@ const AnkiDeck: React.FC<AnkiDeckProps> = props => {
 
   const [filterCollapsed, setFilterCollapsed]: [boolean, any] = useState(false);
 
+  const { dispatch, cards, deck, eof, location, match } = props;
+
   const handleSearch = (value: string) => {
     console.log(value);
   };
@@ -126,6 +132,20 @@ const AnkiDeck: React.FC<AnkiDeckProps> = props => {
     </Button>
   );
 
+  console.log('location: ', location);
+  console.log('match: ', match);
+
+  useEffect(() => {
+    if (dispatch && match) {
+      dispatch({
+        type: 'deck/fetchDeck',
+        payload: {
+          deckId: (match.params as { deck: string }).deck,
+        },
+      });
+    }
+  }, [dispatch, match]);
+
   return (
     <div className={styles.wrapper}>
       <MainSearch
@@ -138,12 +158,22 @@ const AnkiDeck: React.FC<AnkiDeckProps> = props => {
       </Animate>
       <div className={styles.content}>
         <NewCard />
+        {}
       </div>
     </div>
   );
 };
 
-export default connect(({ deck }: { deck: StateType }) => ({
-  cards: deck.deck ? deck.deck.cards : [],
-  eof: deck.eof,
-}))(AnkiDeck);
+export default connect(
+  ({
+    deck,
+    loading,
+  }: {
+    deck: StateType;
+    loading: { [key: string]: boolean };
+  }) => ({
+    deck: deck.deck,
+    cards: deck.cards,
+    eof: deck.eof,
+  }),
+)(AnkiDeck);
