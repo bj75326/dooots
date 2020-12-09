@@ -1,6 +1,6 @@
 import { Request, Response } from 'express';
 
-const decks = {
+const deck = {
   deckId: '000000001191',
   deckName: '经济法2021',
   description: '',
@@ -106,5 +106,14 @@ const cards = [
 ];
 
 export default {
-  'GET /api/deck': (req: Request, res: Response) => {},
+  'GET /api/deck': (req: Request, res: Response) => {
+    setTimeout(() => {
+      res.send({
+        status: 'ok',
+        deck,
+        cards,
+        eof: true,
+      });
+    }, 3000);
+  },
 };

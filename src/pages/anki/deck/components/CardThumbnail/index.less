@@ -1,0 +1,105 @@
+@import '~antd/es/style/themes/default.less';
+
+.thumbnail {
+  position: relative;
+  margin: 0 16px 28px;
+  box-sizing: border-box;
+}
+
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 188px;
+  height: 210px;
+  padding: 25px 20px;
+  border-radius: 8px;
+  background-color: @popover-background;
+  box-shadow: @box-shadow-base;
+  position: relative;
+}
+
+.body {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  position: relative;
+}
+.top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.status {
+  font-size: 12px;
+  padding: 0 6px;
+  height: 18px;
+  line-height: 18px;
+  text-align: center;
+  color: #fff;
+  border-radius: 6px;
+}
+
+.stick {
+  height: 18px;
+  font-size: 18px;
+  color: #faa725;
+  line-height: 18px;
+  display: none;
+  outline: none;
+  transition: transform 0.3s;
+  &:hover {
+    transform: rotate(-10deg) scale(1.3);
+  }
+}
+
+.stuck {
+  display: block;
+  &:hover {
+    transform: rotate(10deg) scale(1.3);
+  }
+}
+
+.cardName {
+  color: var(--text-light-color-75);
+  font-size: @font-size-lg;
+  margin: 15px 0 9px;
+  font-weight: 600;
+}
+
+.timestamp {
+  font-size: @font-size-base - 2px;
+  color: @text-color-secondary;
+  font-weight: 400;
+}
+
+.actions {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  z-index: 200;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  height: 46px;
+  padding: 0 15px;
+  background-color: @component-background;
+  border-top: 1px solid @border-color-split;
+  border-bottom-right-radius: 8px;
+  border-bottom-left-radius: 8px;
+  color: var(--text-light-color);
+}
+
+.normalBtns,
+.hoverBtns {
+  font-size: 18px;
+  & > div {
+    padding: 0 5px;
+  }
+}
+
+.hoverBtns {
+  display: none;
+  flex-direction: row-reverse;
+}

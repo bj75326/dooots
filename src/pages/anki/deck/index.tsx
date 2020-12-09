@@ -158,7 +158,12 @@ const AnkiDeck: React.FC<AnkiDeckProps> = props => {
       </Animate>
       <div className={styles.content}>
         <NewCard />
-        {}
+        {cards.map((card: Card) => (
+          <CardThumbnail card={card} key={card.cardId} />
+        ))}
+        {new Array(9).fill(undefined).map((_, key) => (
+          <div className={styles.fill} key={`fill_${key}`}></div>
+        ))}
       </div>
     </div>
   );
