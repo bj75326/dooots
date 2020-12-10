@@ -2,8 +2,7 @@ import { Effect, Reducer } from 'umi';
 import { message, notification } from 'antd';
 import { Deck as DeckForDecksPage } from '../decks/model';
 
-import { getDeck } from './service';
-import { Effects } from 'bizcharts';
+import { getDeck, getTags } from './service';
 
 export interface Score {
   cardId: string;
@@ -41,6 +40,7 @@ export interface ModelType {
   effects: {
     fetchDeck: Effect;
     fetchCards: Effect;
+    fetchTags: Effect;
   };
   reducers: {
     changeDeck: Reducer<StateType>;
@@ -71,7 +71,19 @@ const Model: ModelType = {
         );
       }
     },
-    *fetchCards({ payload: { formatMessage, ...data } }, { call, put }) {},
+    *fetchCards({ payload: { formatMessage, ...data } }, { call, put }) {
+      //todo
+      yield put({
+        type: 'changeCards',
+        payload: {
+          cards: [],
+          eof: true,
+        },
+      });
+    },
+    *fetchTags({ payload: { formatMessage, ...data } }, { call, put }) {
+      const response = yield call(getTags, data);
+    },
   },
   reducers: {
     changeDeck(state, { payload }) {

@@ -121,6 +121,12 @@ export default {
         cards,
         eof: true,
       });
-    }, 3000);
+    }, 1000);
+  },
+
+  'GET /api/deck/tags': (req: Request, res: Response) => {
+    setTimeout(() => {
+      res.send();
+    }, 1000);
   },
 };

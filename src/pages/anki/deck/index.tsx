@@ -21,7 +21,7 @@ interface AnkiDeckProps extends ConnectProps {
 
 interface FilterProps {
   visible: boolean;
-  search: string;
+  search: { current: string };
   dispatch: Dispatch;
 }
 
@@ -30,10 +30,30 @@ const Filter: React.FC<FilterProps> = props => {
   const { visible, dispatch, search } = props;
   const { formatMessage } = useIntl();
 
-  const handleReset = () => {
+  console.log('search in filter: ', search);
+
+  const filterCards = useCallback(() => {
+    dispatch({
+      type: 'deck/fetchCards',
+      payload: {
+        search: search.current,
+        status: form.getFieldValue('status'),
+        rate: form.getFieldValue('rate'),
+        tags: form.getFieldValue('tags'),
+      },
+    });
+  }, [dispatch, form]);
+
+  const handleReset = useCallback(() => {
     form.resetFields();
-  };
-  const handleSubmit = () => {};
+    search.current = '';
+    filterCards();
+  }, [form, filterCards]);
+
+  const handleSubmit = useCallback(() => {
+    filterCards();
+  }, [filterCards]);
+
   return (
     <div
       className={styles.filter}
@@ -134,11 +154,23 @@ const AnkiDeck: React.FC<AnkiDeckProps> = props => {
     (value: string) => {
       console.log(value);
       searchRef.current = value;
-
+      searchCards();
       // todo search
     },
     [dispatch],
   );
+
+  const searchCards = useCallback(() => {
+    console.log('search: ', searchRef.current);
+    if (dispatch) {
+      dispatch({
+        type: 'deck/fetchCards',
+        payload: {
+          search: searchRef.current,
+        },
+      });
+    }
+  }, [dispatch]);
 
   const toggleFilter = () => {
     setFilterCollapsed((filterCollapsed: boolean) => !filterCollapsed);
@@ -180,8 +212,8 @@ const AnkiDeck: React.FC<AnkiDeckProps> = props => {
         <Animate showProp={'visible'} transitionName="collapsed" component="">
           <Filter
             visible={filterCollapsed}
-            dispatch={dispatch}
-            search={searchRef.current}
+            dispatch={dispatch as Dispatch}
+            search={searchRef}
           />
         </Animate>
         <div className={styles.content}>
