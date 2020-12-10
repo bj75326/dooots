@@ -4,6 +4,23 @@
   position: relative;
   margin: 0 16px 28px;
   box-sizing: border-box;
+  &:hover {
+    .stick {
+      display: block;
+    }
+
+    .hoverBtns {
+      display: flex;
+    }
+  }
+
+  &:hover,
+  &:active,
+  &:focus {
+    .wrapper {
+      box-shadow: @box-shadow-base, 0 5px 10px fade(@primary-color, 20);
+    }
+  }
 }
 
 .wrapper {

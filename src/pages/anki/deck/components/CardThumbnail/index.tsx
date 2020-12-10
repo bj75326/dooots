@@ -34,7 +34,8 @@ const CardThumbnail: React.FC<CardThumbnailProps> = props => {
               className={styles.status}
               style={{ background: getCardStatusColor(card.status) }}
             >
-              {formatMessage({ id: `anki.deck&card.status.${card.status}` })}
+              {card.status &&
+                formatMessage({ id: `anki.deck&card.status.${card.status}` })}
             </div>
             <div
               className={classNames(styles.stick, {
@@ -48,7 +49,8 @@ const CardThumbnail: React.FC<CardThumbnailProps> = props => {
           </div>
           <h3 className={styles.cardName}>{card.cardName}</h3>
           <div className={styles.timestamp}>
-            {moment(card.updateTimestamp).format('YYYY-MM-DD hh:mm:ss')}
+            {card.updateTimestamp &&
+              moment(card.updateTimestamp).format('YYYY-MM-DD hh:mm:ss')}
           </div>
         </div>
         <div className={styles.actions}>

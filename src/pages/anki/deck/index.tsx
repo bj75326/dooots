@@ -1,15 +1,14 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef, useCallback } from 'react';
 import MainSearch from '../components/MainSearch';
-import { useIntl, connect, ConnectProps } from 'umi';
+import { useIntl, connect, ConnectProps, Dispatch } from 'umi';
 import NewCard from './components/NewCard';
-import { Form, Select, Row, Col, Space, Button } from 'antd';
+import { Form, Select, Row, Col, Space, Button, Spin } from 'antd';
 import { FilterOutlined } from '@ant-design/icons';
 import Animate from 'rc-animate';
 import { StateType, Card } from './model';
 import CardThumbnail from './components/CardThumbnail';
 
 import styles from './style.less';
-import { getCardStatusColor } from '../utils';
 
 const { Option } = Select;
 
@@ -17,23 +16,39 @@ interface AnkiDeckProps extends ConnectProps {
   deck: StateType['deck'];
   cards: Card[];
   eof: boolean;
+  fetchingDeck: boolean;
 }
 
 interface FilterProps {
   visible: boolean;
+  search: string;
+  dispatch: Dispatch;
 }
 
 const Filter: React.FC<FilterProps> = props => {
   const form = Form.useForm()[0];
-  const { visible } = props;
+  const { visible, dispatch, search } = props;
   const { formatMessage } = useIntl();
 
+  const handleReset = () => {
+    form.resetFields();
+  };
+  const handleSubmit = () => {};
   return (
     <div
       className={styles.filter}
       style={{ display: visible ? 'flex' : 'none' }}
     >
-      <Form form={form} name="deckFilter" className={styles.form}>
+      <Form
+        form={form}
+        name="deckFilter"
+        className={styles.form}
+        initialValues={{
+          status: 'all',
+          rate: 'all',
+          tags: [],
+        }}
+      >
         <Row gutter={16}>
           <Col span={6}>
             <Form.Item
@@ -91,10 +106,10 @@ const Filter: React.FC<FilterProps> = props => {
           <Col span={4} style={{ textAlign: 'right' }}>
             <Form.Item>
               <Space>
-                <Button shape="round">
+                <Button shape="round" onClick={handleReset}>
                   {formatMessage({ id: 'anki.deck.filter.reset' })}
                 </Button>
-                <Button type="primary" shape="round">
+                <Button type="primary" shape="round" onClick={handleSubmit}>
                   {formatMessage({ id: 'anki.deck.filter.filter' })}
                 </Button>
               </Space>
@@ -111,11 +126,19 @@ const AnkiDeck: React.FC<AnkiDeckProps> = props => {
 
   const [filterCollapsed, setFilterCollapsed]: [boolean, any] = useState(false);
 
-  const { dispatch, cards, deck, eof, location, match } = props;
+  const { dispatch, cards, deck, eof, location, match, fetchingDeck } = props;
 
-  const handleSearch = (value: string) => {
-    console.log(value);
-  };
+  const searchRef = useRef('');
+
+  const handleSearch = useCallback(
+    (value: string) => {
+      console.log(value);
+      searchRef.current = value;
+
+      // todo search
+    },
+    [dispatch],
+  );
 
   const toggleFilter = () => {
     setFilterCollapsed((filterCollapsed: boolean) => !filterCollapsed);
@@ -147,25 +170,31 @@ const AnkiDeck: React.FC<AnkiDeckProps> = props => {
   }, [dispatch, match]);
 
   return (
-    <div className={styles.wrapper}>
-      <MainSearch
-        placeholder={formatMessage({ id: 'anki.search.card.placeholder' })}
-        onSearch={handleSearch}
-        extra={extra}
-      />
-      <Animate showProp={'visible'} transitionName="collapsed" component="">
-        <Filter visible={filterCollapsed} />
-      </Animate>
-      <div className={styles.content}>
-        <NewCard />
-        {cards.map((card: Card) => (
-          <CardThumbnail card={card} key={card.cardId} />
-        ))}
-        {new Array(9).fill(undefined).map((_, key) => (
-          <div className={styles.fill} key={`fill_${key}`}></div>
-        ))}
+    <Spin spinning={fetchingDeck} size="large">
+      <div className={styles.wrapper}>
+        <MainSearch
+          placeholder={formatMessage({ id: 'anki.search.card.placeholder' })}
+          onSearch={handleSearch}
+          extra={extra}
+        />
+        <Animate showProp={'visible'} transitionName="collapsed" component="">
+          <Filter
+            visible={filterCollapsed}
+            dispatch={dispatch}
+            search={searchRef.current}
+          />
+        </Animate>
+        <div className={styles.content}>
+          <NewCard />
+          {cards.map((card: Card) => (
+            <CardThumbnail card={card} key={card.cardId} />
+          ))}
+          {new Array(9).fill(undefined).map((_, key) => (
+            <div className={styles.fill} key={`fill_${key}`}></div>
+          ))}
+        </div>
       </div>
-    </div>
+    </Spin>
   );
 };
 
@@ -175,10 +204,11 @@ export default connect(
     loading,
   }: {
     deck: StateType;
-    loading: { [key: string]: boolean };
+    loading: { effects: { [key: string]: boolean } };
   }) => ({
     deck: deck.deck,
     cards: deck.cards,
     eof: deck.eof,
+    fetchingDeck: loading.effects['deck/fetchDeck'],
   }),
 )(AnkiDeck);

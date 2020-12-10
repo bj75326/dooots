@@ -1,6 +1,9 @@
 @import '~antd/es/style/themes/default.less';
 
 .wrapper {
+  display: flex;
+  flex-direction: column;
+  height: calc(100vh - 60px);
 }
 
 .searchExtra {
@@ -18,10 +21,13 @@
 // }
 
 .content {
-  padding: 20px 50px 0;
+  margin-top: 5px;
+  padding: 15px 50px 0;
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
+  flex: 1 1 auto;
+  overflow: auto;
 }
 
 .filter {
@@ -30,6 +36,7 @@
   margin: 0 66px;
   padding: 0 24px;
   height: 56px;
+  flex-shrink: 0;
   display: flex;
   align-items: center;
   justify-content: center;
