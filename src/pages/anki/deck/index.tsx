@@ -199,8 +199,27 @@ const AnkiDeck: React.FC<AnkiDeckProps> = props => {
   const handleSelect = useCallback(
     (card: { deckId: string; cardId: string }) => {
       //todo
+      const selected: { deckId: string; cardId: string }[] = [];
+      const unselected: { deckId: string; cardId: string }[] = [];
+      selectedCards.forEach((c: { deckId: string; cardId: string }) => {
+        if (c.deckId === card.deckId && c.cardId === card.cardId) {
+          selected.push(c);
+        } else {
+          unselected.push(c);
+        }
+      });
+      if (selected.length <= 0) {
+        setSelectedCards(
+          (selectedCards: { deckId: string; cardId: string }[]) => [
+            ...selectedCards,
+            card,
+          ],
+        );
+      } else {
+        setSelectedCards(unselected);
+      }
     },
-    [],
+    [selectedCards],
   );
 
   const extra = (
@@ -261,7 +280,12 @@ const AnkiDeck: React.FC<AnkiDeckProps> = props => {
                 card={card}
                 key={card.cardId}
                 selectable={batchMode}
-                selected={selectedCards}
+                selected={
+                  !!selectedCards.find(
+                    (c: { deckId: string; cardId: string }) =>
+                      c.deckId === card.deckId && c.cardId === card.cardId,
+                  )
+                }
                 onSelect={handleSelect}
               />
             ))}

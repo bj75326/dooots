@@ -19,10 +19,7 @@ export interface CardThumbnailProps {
   card: Card;
   selectable: boolean;
   onSelect?: any;
-  selected?: {
-    deckId: string;
-    cardId: string;
-  }[];
+  selected?: boolean;
 }
 
 const CardThumbnail: React.FC<CardThumbnailProps> = props => {
@@ -32,8 +29,11 @@ const CardThumbnail: React.FC<CardThumbnailProps> = props => {
   const handleStickClick = useCallback(() => {}, []);
 
   const handleSelectClick = useCallback(() => {
-    onSelect({});
-  }, []);
+    onSelect({
+      deckId: card.deckId,
+      cardId: card.cardId,
+    });
+  }, [onSelect, card]);
 
   const content = (
     <div className={styles.wrapper}>
@@ -84,7 +84,12 @@ const CardThumbnail: React.FC<CardThumbnailProps> = props => {
 
   if (selectable) {
     return (
-      <div className={styles.selectable} onClick={handleSelectClick}>
+      <div
+        className={classNames(styles.selectable, {
+          [styles.selected]: selected,
+        })}
+        onClick={handleSelectClick}
+      >
         {content}
         <div className={styles.checkbox}></div>
       </div>
