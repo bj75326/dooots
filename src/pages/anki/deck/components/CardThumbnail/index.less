@@ -1,24 +1,32 @@
 @import '~antd/es/style/themes/default.less';
 
+.selectable,
 .thumbnail {
   position: relative;
   margin: 0 16px 28px;
   box-sizing: border-box;
-  &:hover {
-    .stick {
-      display: block;
-    }
-
-    .hoverBtns {
-      display: flex;
-    }
-  }
-
   &:hover,
   &:active,
   &:focus {
     .wrapper {
       box-shadow: @box-shadow-base, 0 5px 10px fade(@primary-color, 20);
+    }
+  }
+}
+
+.thumbnail {
+  &:hover {
+    .stick {
+      display: block;
+    }
+    .hoverBtns {
+      display: flex;
+    }
+  }
+
+  .stuck {
+    &:hover {
+      transform: rotate(10deg) scale(1.3);
     }
   }
 }
@@ -34,6 +42,12 @@
   background-color: @popover-background;
   box-shadow: @box-shadow-base;
   position: relative;
+}
+
+.selectable {
+  .wrapper {
+    //border: 2px solid @primary-color;
+  }
 }
 
 .body {
@@ -72,9 +86,6 @@
 
 .stuck {
   display: block;
-  &:hover {
-    transform: rotate(10deg) scale(1.3);
-  }
 }
 
 .cardName {

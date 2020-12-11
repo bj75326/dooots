@@ -17,60 +17,69 @@ import styles from './index.less';
 
 export interface CardThumbnailProps {
   card: Card;
+  selectable: boolean;
 }
 
 const CardThumbnail: React.FC<CardThumbnailProps> = props => {
-  const { card } = props;
+  const { card, selectable } = props;
   const { formatMessage } = useIntl();
 
   const handleStickClick = useCallback(() => {}, []);
 
-  return (
-    <Link className={styles.thumbnail} to={`/${card.deckId}/${card.cardId}`}>
-      <div className={styles.wrapper}>
-        <div className={styles.body}>
-          <div className={styles.top}>
-            <div
-              className={styles.status}
-              style={{ background: getCardStatusColor(card.status) }}
-            >
-              {card.status &&
-                formatMessage({ id: `anki.deck&card.status.${card.status}` })}
-            </div>
-            <div
-              className={classNames(styles.stick, {
-                [styles.stuck]: card.stick,
-              })}
-              role="button"
-              onClick={handleStickClick}
-            >
-              {card.stick ? <PushpinFilled /> : <PushpinOutlined />}
-            </div>
+  const content = (
+    <div className={styles.wrapper}>
+      <div className={styles.body}>
+        <div className={styles.top}>
+          <div
+            className={styles.status}
+            style={{ background: getCardStatusColor(card.status) }}
+          >
+            {card.status &&
+              formatMessage({ id: `anki.deck&card.status.${card.status}` })}
           </div>
-          <h3 className={styles.cardName}>{card.cardName}</h3>
-          <div className={styles.timestamp}>
-            {card.updateTimestamp &&
-              moment(card.updateTimestamp).format('YYYY-MM-DD hh:mm:ss')}
+          <div
+            className={classNames(styles.stick, {
+              [styles.stuck]: card.stick,
+            })}
+            role="button"
+            onClick={handleStickClick}
+          >
+            {card.stick ? <PushpinFilled /> : <PushpinOutlined />}
           </div>
         </div>
-        <div className={styles.actions}>
-          <div className={styles.normalBtns}>
-            <div className={classNames(styles.scoreChart, styles.actionBtn)}>
-              <LineChartOutlined />
-            </div>
-            <Modal></Modal>
+        <h3 className={styles.cardName}>{card.cardName}</h3>
+        <div className={styles.timestamp}>
+          {card.updateTimestamp &&
+            moment(card.updateTimestamp).format('YYYY-MM-DD hh:mm:ss')}
+        </div>
+      </div>
+      <div className={styles.actions}>
+        <div className={styles.normalBtns}>
+          <div className={classNames(styles.scoreChart, styles.actionBtn)}>
+            <LineChartOutlined />
           </div>
-          <div className={styles.hoverBtns}>
-            <div className={classNames(styles.delete, styles.actionBtn)}>
-              <DeleteOutlined />
-            </div>
-            <Modal></Modal>
-            <div className={classNames(styles.download, styles.actionBtn)}>
-              <DownloadOutlined />
-            </div>
+          <Modal></Modal>
+        </div>
+        <div className={styles.hoverBtns}>
+          <div className={classNames(styles.delete, styles.actionBtn)}>
+            <DeleteOutlined />
+          </div>
+          <Modal></Modal>
+          <div className={classNames(styles.download, styles.actionBtn)}>
+            <DownloadOutlined />
           </div>
         </div>
       </div>
+    </div>
+  );
+
+  if (selectable) {
+    return <div className={styles.selectable}>{content}</div>;
+  }
+
+  return (
+    <Link className={styles.thumbnail} to={`/${card.deckId}/${card.cardId}`}>
+      {content}
     </Link>
   );
 };

@@ -3,7 +3,7 @@ import MainSearch from '../components/MainSearch';
 import { useIntl, connect, ConnectProps, Dispatch } from 'umi';
 import NewCard from './components/NewCard';
 import { Form, Select, Row, Col, Space, Button, Spin } from 'antd';
-import { FilterOutlined } from '@ant-design/icons';
+import { FilterOutlined, AimOutlined } from '@ant-design/icons';
 import Animate from 'rc-animate';
 import { StateType, Card } from './model';
 import CardThumbnail from './components/CardThumbnail';
@@ -120,7 +120,13 @@ const Filter: React.FC<FilterProps> = props => {
               label={formatMessage({ id: 'anki.deck.filter.tags' })}
               labelCol={{ flex: '0 0 90px' }}
             >
-              <Select mode="tags"></Select>
+              <Select mode="tags">
+                <Spin spinning={true}>
+                  <Option value="test1">test1</Option>
+                  <Option value="test2">test2</Option>
+                  <Option value="test3">test3</Option>
+                </Spin>
+              </Select>
             </Form.Item>
           </Col>
           <Col span={4} style={{ textAlign: 'right' }}>
@@ -145,6 +151,8 @@ const AnkiDeck: React.FC<AnkiDeckProps> = props => {
   const { formatMessage } = useIntl();
 
   const [filterCollapsed, setFilterCollapsed]: [boolean, any] = useState(false);
+
+  const [batchMode, setBatchMode] = useState(false);
 
   const { dispatch, cards, deck, eof, location, match, fetchingDeck } = props;
 
@@ -176,15 +184,29 @@ const AnkiDeck: React.FC<AnkiDeckProps> = props => {
     setFilterCollapsed((filterCollapsed: boolean) => !filterCollapsed);
   };
 
+  const toggleBatchMode = () => {
+    setBatchMode((batchMode: boolean) => !batchMode);
+  };
+
   const extra = (
-    <Button
-      type="primary"
-      shape="circle"
-      className={styles.searchExtra}
-      onClick={toggleFilter}
-    >
-      <FilterOutlined />
-    </Button>
+    <>
+      <Button
+        type="primary"
+        shape="circle"
+        className={styles.searchExtra}
+        onClick={toggleBatchMode}
+      >
+        <AimOutlined />
+      </Button>
+      <Button
+        type="primary"
+        shape="circle"
+        className={styles.searchExtra}
+        onClick={toggleFilter}
+      >
+        <FilterOutlined />
+      </Button>
+    </>
   );
 
   console.log('location: ', location);
@@ -217,13 +239,19 @@ const AnkiDeck: React.FC<AnkiDeckProps> = props => {
           />
         </Animate>
         <div className={styles.content}>
-          <NewCard />
-          {cards.map((card: Card) => (
-            <CardThumbnail card={card} key={card.cardId} />
-          ))}
-          {new Array(9).fill(undefined).map((_, key) => (
-            <div className={styles.fill} key={`fill_${key}`}></div>
-          ))}
+          <div className={styles.cards}>
+            <NewCard />
+            {cards.map((card: Card) => (
+              <CardThumbnail
+                card={card}
+                key={card.cardId}
+                selectable={batchMode}
+              />
+            ))}
+            {new Array(9).fill(undefined).map((_, key) => (
+              <div className={styles.fill} key={`fill_${key}`}></div>
+            ))}
+          </div>
         </div>
       </div>
     </Spin>
