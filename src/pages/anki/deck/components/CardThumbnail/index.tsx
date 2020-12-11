@@ -18,13 +18,22 @@ import styles from './index.less';
 export interface CardThumbnailProps {
   card: Card;
   selectable: boolean;
+  onSelect?: any;
+  selected?: {
+    deckId: string;
+    cardId: string;
+  }[];
 }
 
 const CardThumbnail: React.FC<CardThumbnailProps> = props => {
-  const { card, selectable } = props;
+  const { card, selectable, onSelect, selected } = props;
   const { formatMessage } = useIntl();
 
   const handleStickClick = useCallback(() => {}, []);
+
+  const handleSelectClick = useCallback(() => {
+    onSelect({});
+  }, []);
 
   const content = (
     <div className={styles.wrapper}>
@@ -74,7 +83,12 @@ const CardThumbnail: React.FC<CardThumbnailProps> = props => {
   );
 
   if (selectable) {
-    return <div className={styles.selectable}>{content}</div>;
+    return (
+      <div className={styles.selectable} onClick={handleSelectClick}>
+        {content}
+        <div className={styles.checkbox}></div>
+      </div>
+    );
   }
 
   return (

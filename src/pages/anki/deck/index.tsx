@@ -154,6 +154,14 @@ const AnkiDeck: React.FC<AnkiDeckProps> = props => {
 
   const [batchMode, setBatchMode] = useState(false);
 
+  const [selectedCards, setSelectedCards]: [
+    {
+      deckId: string;
+      cardId: string;
+    }[],
+    any,
+  ] = useState([]);
+
   const { dispatch, cards, deck, eof, location, match, fetchingDeck } = props;
 
   const searchRef = useRef('');
@@ -187,6 +195,13 @@ const AnkiDeck: React.FC<AnkiDeckProps> = props => {
   const toggleBatchMode = () => {
     setBatchMode((batchMode: boolean) => !batchMode);
   };
+
+  const handleSelect = useCallback(
+    (card: { deckId: string; cardId: string }) => {
+      //todo
+    },
+    [],
+  );
 
   const extra = (
     <>
@@ -246,6 +261,8 @@ const AnkiDeck: React.FC<AnkiDeckProps> = props => {
                 card={card}
                 key={card.cardId}
                 selectable={batchMode}
+                selected={selectedCards}
+                onSelect={handleSelect}
               />
             ))}
             {new Array(9).fill(undefined).map((_, key) => (
