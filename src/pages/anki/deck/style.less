@@ -6,6 +6,10 @@
   height: calc(100vh - 60px);
 }
 
+.header {
+  position: relative;
+}
+
 .searchExtra {
   &:global(.ant-btn) {
     height: 34px;
@@ -16,10 +20,6 @@
   }
   margin-left: 12px;
 }
-
-// .search {
-//   margin-bottom: 20px;
-// }
 
 .content {
   margin-top: 5px;
@@ -83,4 +83,22 @@
 
 .fill {
   width: 220px;
+}
+
+.batchBtns {
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+  width: 64px;
+  height: 210px;
+  right: -50px;
+  bottom: -230px;
+  :global {
+    .ant-btn {
+      height: 44px;
+      width: 44px;
+      margin: 10px;
+      font-size: 22px;
+    }
+  }
 }

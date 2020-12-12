@@ -3,7 +3,13 @@ import MainSearch from '../components/MainSearch';
 import { useIntl, connect, ConnectProps, Dispatch } from 'umi';
 import NewCard from './components/NewCard';
 import { Form, Select, Row, Col, Space, Button, Spin } from 'antd';
-import { FilterOutlined, AimOutlined } from '@ant-design/icons';
+import {
+  FilterOutlined,
+  AimOutlined,
+  RedoOutlined,
+  DeleteOutlined,
+  DownloadOutlined,
+} from '@ant-design/icons';
 import Animate from 'rc-animate';
 import { StateType, Card } from './model';
 import CardThumbnail from './components/CardThumbnail';
@@ -150,7 +156,7 @@ const Filter: React.FC<FilterProps> = props => {
 const AnkiDeck: React.FC<AnkiDeckProps> = props => {
   const { formatMessage } = useIntl();
 
-  const [filterCollapsed, setFilterCollapsed]: [boolean, any] = useState(false);
+  const [filterCollapsed, setFilterCollapsed]: [boolean, any] = useState(true);
 
   const [batchMode, setBatchMode] = useState(false);
 
@@ -260,18 +266,34 @@ const AnkiDeck: React.FC<AnkiDeckProps> = props => {
   return (
     <Spin spinning={fetchingDeck} size="large">
       <div className={styles.wrapper}>
-        <MainSearch
-          placeholder={formatMessage({ id: 'anki.search.card.placeholder' })}
-          onSearch={handleSearch}
-          extra={extra}
-        />
-        <Animate showProp={'visible'} transitionName="collapsed" component="">
-          <Filter
-            visible={filterCollapsed}
-            dispatch={dispatch as Dispatch}
-            search={searchRef}
+        <div className={styles.header}>
+          <MainSearch
+            placeholder={formatMessage({ id: 'anki.search.card.placeholder' })}
+            onSearch={handleSearch}
+            extra={extra}
           />
-        </Animate>
+          <Animate showProp={'visible'} transitionName="collapsed" component="">
+            <Filter
+              visible={!filterCollapsed}
+              dispatch={dispatch as Dispatch}
+              search={searchRef}
+            />
+          </Animate>
+          {batchMode && (
+            <div className={styles.batchBtns}>
+              <Button shape="circle" type="primary">
+                <RedoOutlined />
+              </Button>
+              <Button shape="circle" type="primary">
+                <DownloadOutlined />
+              </Button>
+              <Button shape="circle" danger type="primary">
+                <DeleteOutlined />
+              </Button>
+            </div>
+          )}
+        </div>
+
         <div className={styles.content}>
           <div className={styles.cards}>
             <NewCard />

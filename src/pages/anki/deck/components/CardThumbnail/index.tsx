@@ -9,6 +9,7 @@ import {
   LineChartOutlined,
   DownloadOutlined,
   DeleteOutlined,
+  CheckOutlined,
 } from '@ant-design/icons';
 import moment from 'moment';
 import { Modal } from 'antd';
@@ -91,7 +92,11 @@ const CardThumbnail: React.FC<CardThumbnailProps> = props => {
         onClick={handleSelectClick}
       >
         {content}
-        <div className={styles.checkbox}></div>
+        {selected && (
+          <div className={styles.checkout}>
+            <CheckOutlined />
+          </div>
+        )}
       </div>
     );
   }
