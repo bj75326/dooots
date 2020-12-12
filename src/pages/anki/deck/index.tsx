@@ -2,7 +2,7 @@ import React, { useEffect, useState, useRef, useCallback } from 'react';
 import MainSearch from '../components/MainSearch';
 import { useIntl, connect, ConnectProps, Dispatch } from 'umi';
 import NewCard from './components/NewCard';
-import { Form, Select, Row, Col, Space, Button, Spin } from 'antd';
+import { Form, Select, Row, Col, Space, Button, Spin, Modal } from 'antd';
 import {
   FilterOutlined,
   AimOutlined,
@@ -168,6 +168,11 @@ const AnkiDeck: React.FC<AnkiDeckProps> = props => {
     any,
   ] = useState([]);
 
+  const [bRModalVisible, setBRModalVisible]: [boolean, any] = useState(false);
+  const [bDltModalVisible, setBDltModalVisible]: [boolean, any] = useState(
+    false,
+  );
+
   const { dispatch, cards, deck, eof, location, match, fetchingDeck } = props;
 
   const searchRef = useRef('');
@@ -200,6 +205,7 @@ const AnkiDeck: React.FC<AnkiDeckProps> = props => {
 
   const toggleBatchMode = () => {
     setBatchMode((batchMode: boolean) => !batchMode);
+    setSelectedCards([]);
   };
 
   const handleSelect = useCallback(
@@ -249,8 +255,28 @@ const AnkiDeck: React.FC<AnkiDeckProps> = props => {
     </>
   );
 
-  console.log('location: ', location);
-  console.log('match: ', match);
+  const getFooterElement = (onCancel: any, onConfirm: any) => (
+    <div>
+      <Button shape="round" onClick={onCancel}>
+        {formatMessage({ id: 'app.common.cancel' })}
+      </Button>
+      <Button shape="round" type="primary" onClick={onConfirm}>
+        {formatMessage({ id: 'app.common.confirm' })}
+      </Button>
+    </div>
+  );
+
+  const handleBRBtnClick = () => {
+    setBRModalVisible((bRModalVisible: boolean) => !bRModalVisible);
+  };
+
+  const handleBDltBtnClick = () => {
+    setBDltModalVisible((bDltModalVisible: boolean) => !bDltModalVisible);
+  };
+
+  const handleBatchReset = () => {};
+  const handleBatchDownload = () => {};
+  const handleBatchDelete = () => {};
 
   useEffect(() => {
     if (dispatch && match) {
@@ -281,15 +307,50 @@ const AnkiDeck: React.FC<AnkiDeckProps> = props => {
           </Animate>
           {batchMode && (
             <div className={styles.batchBtns}>
-              <Button shape="circle" type="primary">
+              <Button shape="circle" onClick={handleBRBtnClick}>
                 <RedoOutlined />
               </Button>
-              <Button shape="circle" type="primary">
+              <Modal
+                visible={bRModalVisible}
+                width={280}
+                closable={false}
+                title={formatMessage({
+                  id: 'anki.deck.batch.reset.modal.title',
+                })}
+                onCancel={handleBRBtnClick}
+                footer={getFooterElement(handleBRBtnClick, handleBatchReset)}
+              >
+                <div className={styles.modalContent}>
+                  {formatMessage({ id: 'anki.deck.batch.reset.modal.content' })}
+                </div>
+              </Modal>
+              <Button shape="circle" onClick={handleBatchDownload}>
                 <DownloadOutlined />
               </Button>
-              <Button shape="circle" danger type="primary">
+              <Button
+                shape="circle"
+                danger
+                type="primary"
+                onClick={handleBDltBtnClick}
+              >
                 <DeleteOutlined />
               </Button>
+              <Modal
+                visible={bDltModalVisible}
+                width={280}
+                closable={false}
+                title={formatMessage({
+                  id: 'anki.deck.batch.delete.modal.title',
+                })}
+                onCancel={handleBDltBtnClick}
+                footer={getFooterElement(handleBDltBtnClick, handleBatchDelete)}
+              >
+                <div className={styles.modalContent}>
+                  {formatMessage({
+                    id: 'anki.deck.batch.delete.modal.content',
+                  })}
+                </div>
+              </Modal>
             </div>
           )}
         </div>

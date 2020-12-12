@@ -22,8 +22,8 @@
 }
 
 .content {
-  margin-top: 5px;
-  padding: 15px 50px 0;
+  margin: 5px 30px 0;
+  padding: 15px 20px 0;
   flex: 1 1 auto;
   overflow: auto;
 }
@@ -91,7 +91,7 @@
   position: absolute;
   width: 64px;
   height: 210px;
-  right: -50px;
+  right: -30px;
   bottom: -230px;
   :global {
     .ant-btn {
@@ -101,4 +101,11 @@
       font-size: 22px;
     }
   }
+  :global {
+    animation: 120ms ease-out popleft;
+  }
+}
+
+.modalContent {
+  padding: 0 12px;
 }
