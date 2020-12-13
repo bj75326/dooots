@@ -24,9 +24,21 @@
     }
   }
 
+  .stick {
+    &:hover {
+      transform: rotate(-10deg) scale(1.3);
+    }
+  }
+
   .stuck {
     &:hover {
       transform: rotate(10deg) scale(1.3);
+    }
+  }
+
+  .actionBtn {
+    &:hover {
+      background-color: @item-hover-bg;
     }
   }
 }
@@ -108,9 +120,6 @@
   display: none;
   outline: none;
   transition: transform 0.3s;
-  &:hover {
-    transform: rotate(-10deg) scale(1.3);
-  }
 }
 
 .stuck {
@@ -148,15 +157,17 @@
   color: var(--text-light-color);
 }
 
-.normalBtns,
-.hoverBtns {
+.actionBtn {
   font-size: 18px;
-  & > div {
-    padding: 0 5px;
-  }
+  padding: 0 5px;
+  border-radius: @border-radius-base;
 }
 
 .hoverBtns {
   display: none;
   flex-direction: row-reverse;
+}
+
+.delete {
+  color: @red-5;
 }

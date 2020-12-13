@@ -4,10 +4,10 @@ import { Deck as DeckForDecksPage } from '../decks/model';
 
 import { getDeck, getTags } from './service';
 
-export interface Score {
+export interface Rate {
   cardId: string;
-  scoreTimestamp: number;
-  score: number;
+  rateTimestamp: number;
+  rate: number;
 }
 
 export interface Card {
@@ -21,7 +21,7 @@ export interface Card {
   stick: boolean;
   stickTimestamp?: number;
   author?: string;
-  scores: Score[];
+  rates: Rate[];
 }
 
 export interface Deck extends DeckForDecksPage {

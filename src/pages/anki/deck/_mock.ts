@@ -27,21 +27,21 @@ const cards = [
     stick: true,
     stickTimestamp: 1609752082770,
     author: 'bier',
-    scores: [
+    rates: [
       {
         cardId: '000000000234',
-        scoreTimestamp: 1606752082770,
-        score: 4.5,
+        rateTimestamp: 1606752082770,
+        rate: 4.5,
       },
       {
         cardId: '000000000234',
-        scoreTimestamp: 1606757082770,
-        score: 4,
+        rateTimestamp: 1606757082770,
+        rate: 4,
       },
       {
         cardId: '000000000234',
-        scoreTimestamp: 1606852082770,
-        score: 4.5,
+        rateTimestamp: 1606852082770,
+        rate: 4.5,
       },
     ],
   },
@@ -56,21 +56,21 @@ const cards = [
     stick: true,
     stickTimestamp: 1609752086372,
     author: 'bier',
-    scores: [
+    rates: [
       {
         cardId: '000000017621',
-        scoreTimestamp: 1606752092770,
-        score: 4.5,
+        rateTimestamp: 1606752092770,
+        rate: 4.5,
       },
       {
         cardId: '000000017621',
-        scoreTimestamp: 1606752192770,
-        score: 5,
+        rateTimestamp: 1606752192770,
+        rate: 5,
       },
       {
         cardId: '000000017621',
-        scoreTimestamp: 1606792192770,
-        score: 4.5,
+        rateTimestamp: 1606792192770,
+        rate: 4.5,
       },
     ],
   },
@@ -85,21 +85,21 @@ const cards = [
     stick: false,
     stickTimestamp: undefined,
     author: 'bier',
-    scores: [
+    rates: [
       {
         cardId: '000000074343',
-        scoreTimestamp: 1604752082770,
-        score: 4.5,
+        rateTimestamp: 1604752082770,
+        rate: 4.5,
       },
       {
         cardId: '000000074343',
-        scoreTimestamp: 1605152082880,
-        score: 4,
+        rateTimestamp: 1605152082880,
+        rate: 4,
       },
       {
         cardId: '000000074343',
-        scoreTimestamp: 1609952082880,
-        score: 2,
+        rateTimestamp: 1609952082880,
+        rate: 2,
       },
     ],
   },

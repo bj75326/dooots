@@ -1,5 +1,6 @@
-import React, { useCallback } from 'react';
+import React, { useCallback, useState, useMemo } from 'react';
 import { Card } from '../../model';
+import { Button } from 'antd';
 import { Link, connect, ConnectProps, useIntl } from 'umi';
 import { getCardStatusColor } from '../../../utils';
 import classNames from 'classnames';
@@ -23,9 +24,15 @@ export interface CardThumbnailProps {
   selected?: boolean;
 }
 
+const noop = () => {};
+
 const CardThumbnail: React.FC<CardThumbnailProps> = props => {
   const { card, selectable, onSelect, selected } = props;
   const { formatMessage } = useIntl();
+
+  const [chartModalVisible, setChartModalVisible]: [boolean, any] = useState(
+    false,
+  );
 
   const handleStickClick = useCallback(() => {}, []);
 
@@ -35,6 +42,25 @@ const CardThumbnail: React.FC<CardThumbnailProps> = props => {
       cardId: card.cardId,
     });
   }, [onSelect, card]);
+
+  const handleChartBtnClick = useCallback(
+    (e: React.MouseEvent) => {
+      e.preventDefault();
+      setChartModalVisible((chartModalVisible: boolean) => !chartModalVisible);
+    },
+    [setChartModalVisible],
+  );
+
+  const footerElement = useMemo(
+    () => (
+      <div>
+        <Button shape="round" type="primary" onClick={handleChartBtnClick}>
+          {formatMessage({ id: 'app.common.confirm' })}
+        </Button>
+      </div>
+    ),
+    [handleChartBtnClick],
+  );
 
   const content = (
     <div className={styles.wrapper}>
@@ -52,7 +78,7 @@ const CardThumbnail: React.FC<CardThumbnailProps> = props => {
               [styles.stuck]: card.stick,
             })}
             role="button"
-            onClick={handleStickClick}
+            onClick={selectable ? noop : handleStickClick}
           >
             {card.stick ? <PushpinFilled /> : <PushpinOutlined />}
           </div>
@@ -65,10 +91,21 @@ const CardThumbnail: React.FC<CardThumbnailProps> = props => {
       </div>
       <div className={styles.actions}>
         <div className={styles.normalBtns}>
-          <div className={classNames(styles.scoreChart, styles.actionBtn)}>
+          <div
+            className={classNames(styles.rateChart, styles.actionBtn)}
+            role="button"
+            onClick={selectable ? noop : handleChartBtnClick}
+          >
             <LineChartOutlined />
           </div>
-          <Modal></Modal>
+          <Modal
+            visible={chartModalVisible}
+            width={360}
+            closable={false}
+            title={formatMessage({ id: 'anki.deck.chart.modal.title' })}
+            onCancel={handleChartBtnClick}
+            footer={footerElement}
+          ></Modal>
         </div>
         <div className={styles.hoverBtns}>
           <div className={classNames(styles.delete, styles.actionBtn)}>
