@@ -4,6 +4,7 @@ import { Button } from 'antd';
 import { Link, connect, ConnectProps, useIntl } from 'umi';
 import { getCardStatusColor } from '../../../utils';
 import classNames from 'classnames';
+import RatingRecords from '@/pages/anki/components/Charts/RatingRecords';
 import {
   PushpinOutlined,
   PushpinFilled,
@@ -100,12 +101,14 @@ const CardThumbnail: React.FC<CardThumbnailProps> = props => {
           </div>
           <Modal
             visible={chartModalVisible}
-            width={360}
+            width={520}
             closable={false}
             title={formatMessage({ id: 'anki.deck.chart.modal.title' })}
             onCancel={handleChartBtnClick}
             footer={footerElement}
-          ></Modal>
+          >
+            <RatingRecords data={card.rates} />
+          </Modal>
         </div>
         <div className={styles.hoverBtns}>
           <div className={classNames(styles.delete, styles.actionBtn)}>

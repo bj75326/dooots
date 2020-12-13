@@ -5,6 +5,7 @@ import { Deck as DeckForDecksPage } from '../decks/model';
 import { getDeck, getTags } from './service';
 
 export interface Rate {
+  deckId: string;
   cardId: string;
   rateTimestamp: number;
   rate: number;

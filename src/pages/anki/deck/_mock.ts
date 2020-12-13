@@ -29,16 +29,19 @@ const cards = [
     author: 'bier',
     rates: [
       {
+        deckId: '000000001191',
         cardId: '000000000234',
         rateTimestamp: 1606752082770,
         rate: 4.5,
       },
       {
+        deckId: '000000001191',
         cardId: '000000000234',
         rateTimestamp: 1606757082770,
         rate: 4,
       },
       {
+        deckId: '000000001191',
         cardId: '000000000234',
         rateTimestamp: 1606852082770,
         rate: 4.5,
