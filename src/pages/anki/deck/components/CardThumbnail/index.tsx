@@ -35,6 +35,8 @@ const CardThumbnail: React.FC<CardThumbnailProps> = props => {
     false,
   );
 
+  const rates = useMemo(() => card.rates, [card]);
+
   const handleStickClick = useCallback(() => {}, []);
 
   const handleSelectClick = useCallback(() => {
@@ -107,7 +109,7 @@ const CardThumbnail: React.FC<CardThumbnailProps> = props => {
             onCancel={handleChartBtnClick}
             footer={footerElement}
           >
-            <RatingRecords data={card.rates} />
+            <RatingRecords data={rates} />
           </Modal>
         </div>
         <div className={styles.hoverBtns}>

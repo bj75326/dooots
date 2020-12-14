@@ -1,4 +1,4 @@
-import React, { memo, useMemo, useCallback } from 'react';
+import React, { memo, useMemo } from 'react';
 import { Chart, Line, Point, Tooltip, Axis } from 'bizcharts';
 import moment from 'moment';
 
@@ -34,7 +34,7 @@ const RatingRecords: React.FC<RatingRecordsProps> = props => {
 
   return (
     <Chart
-      padding={[10, 20, 20, 20]}
+      padding={[10, 20, 10, 20]}
       autoFit
       height={220}
       data={data}
@@ -44,9 +44,9 @@ const RatingRecords: React.FC<RatingRecordsProps> = props => {
       <Point position="rateTimestamp*rate" />
       <Tooltip />
       <Axis name="rate" />
-      <Axis name="rateTimestamp" />
+      <Axis name="rateTimestamp" visible={false} />
     </Chart>
   );
 };
 
-export default RatingRecords;
+export default memo(RatingRecords);

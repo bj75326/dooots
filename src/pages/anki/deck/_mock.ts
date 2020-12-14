@@ -31,14 +31,32 @@ const cards = [
       {
         deckId: '000000001191',
         cardId: '000000000234',
-        rateTimestamp: 1606752082770,
+        rateTimestamp: 1606152082770,
+        rate: 2.5,
+      },
+      {
+        deckId: '000000001191',
+        cardId: '000000000234',
+        rateTimestamp: 1606257082770,
+        rate: 3,
+      },
+      {
+        deckId: '000000001191',
+        cardId: '000000000234',
+        rateTimestamp: 1606352082770,
         rate: 4.5,
       },
       {
         deckId: '000000001191',
         cardId: '000000000234',
-        rateTimestamp: 1606757082770,
-        rate: 4,
+        rateTimestamp: 1606452082770,
+        rate: 2,
+      },
+      {
+        deckId: '000000001191',
+        cardId: '000000000234',
+        rateTimestamp: 1606557082770,
+        rate: 5,
       },
       {
         deckId: '000000001191',
