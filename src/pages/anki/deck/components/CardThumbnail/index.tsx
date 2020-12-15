@@ -12,13 +12,14 @@ import {
   DownloadOutlined,
   DeleteOutlined,
   CheckOutlined,
+  RedoOutlined,
 } from '@ant-design/icons';
 import moment from 'moment';
 import { Modal } from 'antd';
 
 import styles from './index.less';
 
-export interface CardThumbnailProps {
+export interface CardThumbnailProps extends ConnectProps {
   card: Card;
   selectable: boolean;
   onSelect?: any;
@@ -28,10 +29,13 @@ export interface CardThumbnailProps {
 const noop = () => {};
 
 const CardThumbnail: React.FC<CardThumbnailProps> = props => {
-  const { card, selectable, onSelect, selected } = props;
+  const { card, selectable, onSelect, selected, dispatch } = props;
   const { formatMessage } = useIntl();
 
   const [chartModalVisible, setChartModalVisible]: [boolean, any] = useState(
+    false,
+  );
+  const [resetModalVisible, setResetModalVisible]: [boolean, any] = useState(
     false,
   );
 
@@ -53,6 +57,31 @@ const CardThumbnail: React.FC<CardThumbnailProps> = props => {
     },
     [setChartModalVisible],
   );
+  const handleResetBtnClick = useCallback(
+    (e: React.MouseEvent) => {
+      e.preventDefault();
+      setResetModalVisible((resetModalVisible: boolean) => !resetModalVisible);
+    },
+    [setResetModalVisible],
+  );
+
+  const handleReset =
+    (() => {
+      if (dispatch) {
+        dispatch({
+          type: 'deck/resetCards',
+          payload: {
+            cards: [
+              {
+                deckId: card.deckId,
+                cardId: card.cardId,
+              },
+            ],
+          },
+        });
+      }
+    },
+    [dispatch]);
 
   const footerElement = useMemo(
     () => (
@@ -64,6 +93,16 @@ const CardThumbnail: React.FC<CardThumbnailProps> = props => {
     ),
     [handleChartBtnClick],
   );
+  const getFooterElement = useCallback((onConfirm: any, onCancel: any) => {
+    <div>
+      <Button shape="round" onClick={onCancel}>
+        {formatMessage({ id: 'app.common.cancel' })}
+      </Button>
+      <Button shape="round" type="primary" onClick={onConfirm}>
+        {formatMessage({ id: 'app.common.confirm' })}
+      </Button>
+    </div>;
+  }, []);
 
   const content = (
     <div className={styles.wrapper}>
@@ -120,6 +159,20 @@ const CardThumbnail: React.FC<CardThumbnailProps> = props => {
           <div className={classNames(styles.download, styles.actionBtn)}>
             <DownloadOutlined />
           </div>
+          <div
+            className={classNames(styles.reset, styles.actionBtn)}
+            onClick={selectable ? noop : handleResetBtnClick}
+          >
+            <RedoOutlined />
+          </div>
+          <Modal
+            visible={resetModalVisible}
+            width={280}
+            closable={false}
+            title={formatMessage({ id: 'anki.deck.reset.modal.title' })}
+            onCancel={handleResetBtnClick}
+            footer={getFooterElement(handleReset, handleResetBtnClick)}
+          ></Modal>
         </div>
       </div>
     </div>
@@ -150,4 +203,12 @@ const CardThumbnail: React.FC<CardThumbnailProps> = props => {
   );
 };
 
-export default CardThumbnail;
+export default connect(
+  ({
+    loading,
+  }: {
+    loading: {
+      effects: { [key: string]: boolean };
+    };
+  }) => ({}),
+)(CardThumbnail);

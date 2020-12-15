@@ -12,3 +12,12 @@ export async function getCards(params: {}) {
 export async function getTags(params: { deckId: string }) {
   return request(`/api/deck/tags?${stringify(params)}`);
 }
+
+export async function initCards(params: {
+  cards: { deckId: string; cardId: string }[];
+}) {
+  return request('/api/deck/reset', {
+    method: 'POST',
+    params,
+  });
+}

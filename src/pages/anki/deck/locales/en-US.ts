@@ -18,4 +18,6 @@ export default {
   'anki.deck.batch.delete.modal.content':
     'The currently selected card will not be recovered after deletion! Does it continue?',
   'anki.deck.chart.modal.title': 'Rating records',
+  'anki.deck.reset.modal.title': 'Tips',
+  'anki.deck.delete.modal.title': 'Tips',
 };

@@ -2,7 +2,7 @@ import { Effect, Reducer } from 'umi';
 import { message, notification } from 'antd';
 import { Deck as DeckForDecksPage } from '../decks/model';
 
-import { getDeck, getTags } from './service';
+import { getDeck, getTags, initCards } from './service';
 
 export interface Rate {
   deckId: string;
@@ -42,6 +42,7 @@ export interface ModelType {
     fetchDeck: Effect;
     fetchCards: Effect;
     fetchTags: Effect;
+    resetCards: Effect;
   };
   reducers: {
     changeDeck: Reducer<StateType>;
@@ -83,7 +84,16 @@ const Model: ModelType = {
       });
     },
     *fetchTags({ payload: { formatMessage, ...data } }, { call, put }) {
+      //todo
       const response = yield call(getTags, data);
+    },
+    *resetCards({ payload: { formatMessage, ...data } }, { call, put }) {
+      const response = yield call(initCards, data);
+      if (response.status === 'ok') {
+        yield put({
+          type: 'changeCards',
+        });
+      }
     },
   },
   reducers: {

@@ -18,4 +18,6 @@ export default {
   'anki.deck.batch.delete.modal.content':
     '当前选中的卡片删除后将无法恢复！是否继续？',
   'anki.deck.chart.modal.title': '评分记录',
+  'anki.deck.reset.modal.title': '重置提示',
+  'anki.deck.delete.modal.title': '删除提示',
 };
