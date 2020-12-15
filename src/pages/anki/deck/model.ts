@@ -47,6 +47,7 @@ export interface ModelType {
   reducers: {
     changeDeck: Reducer<StateType>;
     changeCards: Reducer<StateType>;
+    initCards: Reducer<StateType>;
   };
 }
 
@@ -91,8 +92,13 @@ const Model: ModelType = {
       const response = yield call(initCards, data);
       if (response.status === 'ok') {
         yield put({
-          type: 'changeCards',
+          type: 'initCards',
+          payload: response,
         });
+      } else if (response.status === 'error') {
+        message.error(
+          response.message || formatMessage({ id: 'anki.deck.reset.failed' }),
+        );
       }
     },
   },
@@ -110,6 +116,29 @@ const Model: ModelType = {
         ...state,
         cards: payload.cards,
         eof: payload.eof,
+      };
+    },
+    initCards(state, { payload }) {
+      const { cards } = state as StateType;
+      const { cards: resCards } = payload;
+      return {
+        ...(state as StateType),
+        cards: cards.map((card: Card) => {
+          if (
+            !!resCards.find(
+              (resCard: { deckId: string; cardId: string }) =>
+                resCard.deckId === card.deckId &&
+                resCard.cardId === card.cardId,
+            )
+          ) {
+            return {
+              ...card,
+              status: 'unactivated',
+              rates: [],
+            };
+          }
+          return card;
+        }),
       };
     },
   },

@@ -6,7 +6,7 @@ export async function getDeck(params: { deckId: string }) {
 }
 
 export async function getCards(params: {}) {
-  return request(`/api/cards?${stringify(params)}`);
+  return request(`/api/deck/cards?${stringify(params)}`);
 }
 
 export async function getTags(params: { deckId: string }) {

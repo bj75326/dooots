@@ -150,4 +150,13 @@ export default {
       res.send();
     }, 1000);
   },
+
+  'POST /api/deck/reset': (req: Request, res: Response) => {
+    setTimeout(() => {
+      res.send({
+        status: 'ok',
+        cards: req.body.cards,
+      });
+    }, 1000);
+  },
 };

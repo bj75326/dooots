@@ -19,7 +19,7 @@ import { Modal } from 'antd';
 
 import styles from './index.less';
 
-export interface CardThumbnailProps extends ConnectProps {
+export interface CardThumbnailProps extends Partial<ConnectProps> {
   card: Card;
   selectable: boolean;
   onSelect?: any;
@@ -65,8 +65,9 @@ const CardThumbnail: React.FC<CardThumbnailProps> = props => {
     [setResetModalVisible],
   );
 
-  const handleReset =
-    (() => {
+  const handleReset = useCallback(
+    (e: React.MouseEvent) => {
+      e.preventDefault();
       if (dispatch) {
         dispatch({
           type: 'deck/resetCards',
@@ -81,7 +82,8 @@ const CardThumbnail: React.FC<CardThumbnailProps> = props => {
         });
       }
     },
-    [dispatch]);
+    [dispatch, card],
+  );
 
   const footerElement = useMemo(
     () => (
@@ -93,16 +95,19 @@ const CardThumbnail: React.FC<CardThumbnailProps> = props => {
     ),
     [handleChartBtnClick],
   );
-  const getFooterElement = useCallback((onConfirm: any, onCancel: any) => {
-    <div>
-      <Button shape="round" onClick={onCancel}>
-        {formatMessage({ id: 'app.common.cancel' })}
-      </Button>
-      <Button shape="round" type="primary" onClick={onConfirm}>
-        {formatMessage({ id: 'app.common.confirm' })}
-      </Button>
-    </div>;
-  }, []);
+  const getFooterElement = useCallback(
+    (onConfirm: any, onCancel: any) => (
+      <div>
+        <Button shape="round" onClick={onCancel}>
+          {formatMessage({ id: 'app.common.cancel' })}
+        </Button>
+        <Button shape="round" type="primary" onClick={onConfirm}>
+          {formatMessage({ id: 'app.common.confirm' })}
+        </Button>
+      </div>
+    ),
+    [formatMessage],
+  );
 
   const content = (
     <div className={styles.wrapper}>
@@ -172,7 +177,9 @@ const CardThumbnail: React.FC<CardThumbnailProps> = props => {
             title={formatMessage({ id: 'anki.deck.reset.modal.title' })}
             onCancel={handleResetBtnClick}
             footer={getFooterElement(handleReset, handleResetBtnClick)}
-          ></Modal>
+          >
+            {formatMessage({ id: 'anki.deck.reset.modal.content' })}
+          </Modal>
         </div>
       </div>
     </div>

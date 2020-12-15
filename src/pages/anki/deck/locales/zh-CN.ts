@@ -11,13 +11,10 @@ export default {
   'anki.deck.filter.tags': '卡片标签',
   'anki.deck.filter.reset': '重置',
   'anki.deck.filter.filter': '筛选',
-  'anki.deck.batch.reset.modal.title': '重置提示',
-  'anki.deck.batch.delete.modal.title': '删除提示',
-  'anki.deck.batch.reset.modal.content':
-    '卡片重置将导致所有评分记录清空，是否继续？',
-  'anki.deck.batch.delete.modal.content':
-    '当前选中的卡片删除后将无法恢复！是否继续？',
   'anki.deck.chart.modal.title': '评分记录',
   'anki.deck.reset.modal.title': '重置提示',
   'anki.deck.delete.modal.title': '删除提示',
+  'anki.deck.reset.modal.content': '卡片重置将导致所有评分记录清空，是否继续？',
+  'anki.deck.delete.modal.content':
+    '当前选中的卡片删除后将无法恢复！是否继续？',
 };

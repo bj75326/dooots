@@ -315,13 +315,13 @@ const AnkiDeck: React.FC<AnkiDeckProps> = props => {
                 width={280}
                 closable={false}
                 title={formatMessage({
-                  id: 'anki.deck.batch.reset.modal.title',
+                  id: 'anki.deck.reset.modal.title',
                 })}
                 onCancel={handleBRBtnClick}
                 footer={getFooterElement(handleBRBtnClick, handleBatchReset)}
               >
                 <div className={styles.modalContent}>
-                  {formatMessage({ id: 'anki.deck.batch.reset.modal.content' })}
+                  {formatMessage({ id: 'anki.deck.reset.modal.content' })}
                 </div>
               </Modal>
               <Button shape="circle" onClick={handleBatchDownload}>
@@ -340,14 +340,14 @@ const AnkiDeck: React.FC<AnkiDeckProps> = props => {
                 width={280}
                 closable={false}
                 title={formatMessage({
-                  id: 'anki.deck.batch.delete.modal.title',
+                  id: 'anki.deck.delete.modal.title',
                 })}
                 onCancel={handleBDltBtnClick}
                 footer={getFooterElement(handleBDltBtnClick, handleBatchDelete)}
               >
                 <div className={styles.modalContent}>
                   {formatMessage({
-                    id: 'anki.deck.batch.delete.modal.content',
+                    id: 'anki.deck.delete.modal.content',
                   })}
                 </div>
               </Modal>
