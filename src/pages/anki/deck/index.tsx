@@ -23,6 +23,7 @@ interface AnkiDeckProps extends ConnectProps {
   cards: Card[];
   eof: boolean;
   fetchingDeck: boolean;
+  resetingCards: boolean;
 }
 
 interface FilterProps {
@@ -173,7 +174,16 @@ const AnkiDeck: React.FC<AnkiDeckProps> = props => {
     false,
   );
 
-  const { dispatch, cards, deck, eof, location, match, fetchingDeck } = props;
+  const {
+    dispatch,
+    cards,
+    deck,
+    eof,
+    location,
+    match,
+    fetchingDeck,
+    resetingCards,
+  } = props;
 
   const searchRef = useRef('');
 
@@ -274,9 +284,28 @@ const AnkiDeck: React.FC<AnkiDeckProps> = props => {
     setBDltModalVisible((bDltModalVisible: boolean) => !bDltModalVisible);
   };
 
-  const handleBatchReset = () => {};
+  const handleBatchReset = useCallback(
+    (e: React.MouseEvent) => {
+      e.preventDefault();
+      if (dispatch) {
+        dispatch({
+          type: 'deck/resetCards',
+          payload: {
+            cards: selectedCards,
+            formatMessage,
+          },
+        });
+      }
+      setBRModalVisible(false);
+      setBatchMode(false);
+    },
+    [dispatch, selectedCards, formatMessage, setBRModalVisible, setBatchMode],
+  );
+
   const handleBatchDownload = () => {};
   const handleBatchDelete = () => {};
+
+  const batchBtnsDisabled = selectedCards.length === 0;
 
   useEffect(() => {
     if (dispatch && match) {
@@ -290,7 +319,7 @@ const AnkiDeck: React.FC<AnkiDeckProps> = props => {
   }, [dispatch, match]);
 
   return (
-    <Spin spinning={fetchingDeck} size="large">
+    <Spin spinning={fetchingDeck || resetingCards} size="large">
       <div className={styles.wrapper}>
         <div className={styles.header}>
           <MainSearch
@@ -307,7 +336,12 @@ const AnkiDeck: React.FC<AnkiDeckProps> = props => {
           </Animate>
           {batchMode && (
             <div className={styles.batchBtns}>
-              <Button shape="circle" onClick={handleBRBtnClick}>
+              <Button
+                shape="circle"
+                onClick={handleBRBtnClick}
+                type="primary"
+                disabled={batchBtnsDisabled}
+              >
                 <RedoOutlined />
               </Button>
               <Modal
@@ -324,7 +358,12 @@ const AnkiDeck: React.FC<AnkiDeckProps> = props => {
                   {formatMessage({ id: 'anki.deck.reset.modal.content' })}
                 </div>
               </Modal>
-              <Button shape="circle" onClick={handleBatchDownload}>
+              <Button
+                shape="circle"
+                onClick={handleBatchDownload}
+                type="primary"
+                disabled={batchBtnsDisabled}
+              >
                 <DownloadOutlined />
               </Button>
               <Button
@@ -332,6 +371,7 @@ const AnkiDeck: React.FC<AnkiDeckProps> = props => {
                 danger
                 type="primary"
                 onClick={handleBDltBtnClick}
+                disabled={batchBtnsDisabled}
               >
                 <DeleteOutlined />
               </Button>
@@ -393,6 +433,7 @@ export default connect(
     deck: deck.deck,
     cards: deck.cards,
     eof: deck.eof,
-    fetchingDeck: loading.effects['deck/fetchDeck'],
+    fetchingDeck: !!loading.effects['deck/fetchDeck'],
+    resetingCards: !!loading.effects['deck/resetCards'],
   }),
 )(AnkiDeck);

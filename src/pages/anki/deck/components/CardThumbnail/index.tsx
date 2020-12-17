@@ -38,6 +38,9 @@ const CardThumbnail: React.FC<CardThumbnailProps> = props => {
   const [resetModalVisible, setResetModalVisible]: [boolean, any] = useState(
     false,
   );
+  const [deleteModalVisible, setDeleteModalVisible]: [boolean, any] = useState(
+    false,
+  );
 
   const rates = useMemo(() => card.rates, [card]);
 
@@ -64,6 +67,15 @@ const CardThumbnail: React.FC<CardThumbnailProps> = props => {
     },
     [setResetModalVisible],
   );
+  const handleDeleteBtnClick = useCallback(
+    (e: React.MouseEvent) => {
+      e.preventDefault();
+      setDeleteModalVisible(
+        (deleteModalVisible: boolean) => !deleteModalVisible,
+      );
+    },
+    [setDeleteModalVisible],
+  );
 
   const handleReset = useCallback(
     (e: React.MouseEvent) => {
@@ -78,11 +90,34 @@ const CardThumbnail: React.FC<CardThumbnailProps> = props => {
                 cardId: card.cardId,
               },
             ],
+            formatMessage,
           },
         });
       }
+      setResetModalVisible(false);
     },
-    [dispatch, card],
+    [dispatch, card, formatMessage, setResetModalVisible],
+  );
+  const handleDelete = useCallback(
+    (e: React.MouseEvent) => {
+      e.preventDefault();
+      if (dispatch) {
+        dispatch({
+          type: 'deck/deleteCards',
+          payload: {
+            cards: [
+              {
+                deckId: card.deckId,
+                cardId: card.cardId,
+              },
+            ],
+            formatMessage,
+          },
+        });
+      }
+      setDeleteModalVisible(false);
+    },
+    [dispatch, card, formatMessage, setDeleteModalVisible],
   );
 
   const footerElement = useMemo(
@@ -160,7 +195,16 @@ const CardThumbnail: React.FC<CardThumbnailProps> = props => {
           <div className={classNames(styles.delete, styles.actionBtn)}>
             <DeleteOutlined />
           </div>
-          <Modal></Modal>
+          <Modal
+            visible={deleteModalVisible}
+            width={280}
+            closable={false}
+            title={formatMessage({ id: 'anki.deck.delete.modal.title' })}
+            onCancel={handleDeleteBtnClick}
+            footer={getFooterElement(handleDelete, handleDeleteBtnClick)}
+          >
+            {formatMessage({ id: 'anki.deck.delete.modal.content' })}
+          </Modal>
           <div className={classNames(styles.download, styles.actionBtn)}>
             <DownloadOutlined />
           </div>

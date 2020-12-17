@@ -43,6 +43,7 @@ export interface ModelType {
     fetchCards: Effect;
     fetchTags: Effect;
     resetCards: Effect;
+    deleteCards: Effect;
   };
   reducers: {
     changeDeck: Reducer<StateType>;
@@ -89,6 +90,7 @@ const Model: ModelType = {
       const response = yield call(getTags, data);
     },
     *resetCards({ payload: { formatMessage, ...data } }, { call, put }) {
+      console.log('data: ', data);
       const response = yield call(initCards, data);
       if (response.status === 'ok') {
         yield put({
@@ -101,6 +103,7 @@ const Model: ModelType = {
         );
       }
     },
+    *deleteCards({ payload: { formatMessage, ...data } }, { call, put }) {},
   },
   reducers: {
     changeDeck(state, { payload }) {
@@ -121,6 +124,7 @@ const Model: ModelType = {
     initCards(state, { payload }) {
       const { cards } = state as StateType;
       const { cards: resCards } = payload;
+      console.log('resCards: ', resCards);
       return {
         ...(state as StateType),
         cards: cards.map((card: Card) => {

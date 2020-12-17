@@ -16,8 +16,9 @@ export async function getTags(params: { deckId: string }) {
 export async function initCards(params: {
   cards: { deckId: string; cardId: string }[];
 }) {
+  console.log('initCards: ', params);
   return request('/api/deck/reset', {
     method: 'POST',
-    params,
+    data: params,
   });
 }
