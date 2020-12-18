@@ -17,5 +17,6 @@ export default {
   'anki.deck.reset.modal.content': '卡片重置将导致所有评分记录清空，是否继续？',
   'anki.deck.delete.modal.content':
     '当前选中的卡片删除后将无法恢复！是否继续？',
-  'anki.deck.reset.failed': '卡片重置异常',
+  'anki.deck.reset.failed': '重置卡片异常',
+  'anki.deck.delete.failed': '删除卡片异常',
 };

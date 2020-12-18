@@ -159,4 +159,13 @@ export default {
       });
     }, 1000);
   },
+
+  'POST /api/deck/delete': (req: Request, res: Response) => {
+    setTimeout(() => {
+      res.send({
+        status: 'ok',
+        cards: req.body.cards,
+      });
+    }, 1000);
+  },
 };

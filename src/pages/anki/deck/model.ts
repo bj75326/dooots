@@ -2,7 +2,8 @@ import { Effect, Reducer } from 'umi';
 import { message, notification } from 'antd';
 import { Deck as DeckForDecksPage } from '../decks/model';
 
-import { getDeck, getTags, initCards } from './service';
+import { getDeck, getTags, initCards, removeCards } from './service';
+import anki from '..';
 
 export interface Rate {
   deckId: string;
@@ -107,10 +108,13 @@ const Model: ModelType = {
       const response = yield call(removeCards, data);
       if (response.status === 'ok') {
         yield put({
-          type: 'removerCards',
+          type: 'removeCards',
           payload: response,
         });
       } else if (response.status === 'error') {
+        message.error(
+          response.message || formatMessage({ id: 'anki.deck.delete.failed' }),
+        );
       }
     },
   },
@@ -158,7 +162,13 @@ const Model: ModelType = {
       const { cards: resCards } = payload;
       return {
         ...(state as StateType),
-        //cards: cards.filter(() => );
+        cards: cards.filter(
+          (card: Card) =>
+            !resCards.find(
+              (c: { deckId: string; cardId: string }) =>
+                c.deckId === card.deckId && c.cardId === card.cardId,
+            ),
+        ),
       };
     },
   },

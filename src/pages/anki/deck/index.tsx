@@ -24,6 +24,7 @@ interface AnkiDeckProps extends ConnectProps {
   eof: boolean;
   fetchingDeck: boolean;
   resetingCards: boolean;
+  deletingCards: boolean;
 }
 
 interface FilterProps {
@@ -183,6 +184,7 @@ const AnkiDeck: React.FC<AnkiDeckProps> = props => {
     match,
     fetchingDeck,
     resetingCards,
+    deletingCards,
   } = props;
 
   const searchRef = useRef('');
@@ -303,7 +305,24 @@ const AnkiDeck: React.FC<AnkiDeckProps> = props => {
   );
 
   const handleBatchDownload = () => {};
-  const handleBatchDelete = () => {};
+
+  const handleBatchDelete = useCallback(
+    (e: React.MouseEvent) => {
+      e.preventDefault();
+      if (dispatch) {
+        dispatch({
+          type: 'deck/deleteCards',
+          payload: {
+            cards: selectedCards,
+            formatMessage,
+          },
+        });
+        setBDltModalVisible(false);
+        setBatchMode(false);
+      }
+    },
+    [dispatch, selectedCards, formatMessage, setBDltModalVisible, setBatchMode],
+  );
 
   const batchBtnsDisabled = selectedCards.length === 0;
 
@@ -319,7 +338,10 @@ const AnkiDeck: React.FC<AnkiDeckProps> = props => {
   }, [dispatch, match]);
 
   return (
-    <Spin spinning={fetchingDeck || resetingCards} size="large">
+    <Spin
+      spinning={fetchingDeck || resetingCards || deletingCards}
+      size="large"
+    >
       <div className={styles.wrapper}>
         <div className={styles.header}>
           <MainSearch
@@ -435,5 +457,6 @@ export default connect(
     eof: deck.eof,
     fetchingDeck: !!loading.effects['deck/fetchDeck'],
     resetingCards: !!loading.effects['deck/resetCards'],
+    deletingCards: !!loading.effects['deck/deleteCards'],
   }),
 )(AnkiDeck);

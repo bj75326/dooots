@@ -192,7 +192,10 @@ const CardThumbnail: React.FC<CardThumbnailProps> = props => {
           </Modal>
         </div>
         <div className={styles.hoverBtns}>
-          <div className={classNames(styles.delete, styles.actionBtn)}>
+          <div
+            className={classNames(styles.delete, styles.actionBtn)}
+            onClick={selectable ? noop : handleDeleteBtnClick}
+          >
             <DeleteOutlined />
           </div>
           <Modal
