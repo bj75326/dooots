@@ -18,4 +18,5 @@ export default {
     'Card reset will cause all rating records to be cleared, do you continue?',
   'anki.deck.delete.modal.content':
     'The currently selected card will not be recovered after deletion! Does it continue?',
+  'anki.deck.reset.failed': 'Card reset failed',
 };

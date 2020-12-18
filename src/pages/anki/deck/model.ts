@@ -49,6 +49,7 @@ export interface ModelType {
     changeDeck: Reducer<StateType>;
     changeCards: Reducer<StateType>;
     initCards: Reducer<StateType>;
+    removeCards: Reducer<StateType>;
   };
 }
 
@@ -90,7 +91,6 @@ const Model: ModelType = {
       const response = yield call(getTags, data);
     },
     *resetCards({ payload: { formatMessage, ...data } }, { call, put }) {
-      console.log('data: ', data);
       const response = yield call(initCards, data);
       if (response.status === 'ok') {
         yield put({
@@ -103,7 +103,16 @@ const Model: ModelType = {
         );
       }
     },
-    *deleteCards({ payload: { formatMessage, ...data } }, { call, put }) {},
+    *deleteCards({ payload: { formatMessage, ...data } }, { call, put }) {
+      const response = yield call(removeCards, data);
+      if (response.status === 'ok') {
+        yield put({
+          type: 'removerCards',
+          payload: response,
+        });
+      } else if (response.status === 'error') {
+      }
+    },
   },
   reducers: {
     changeDeck(state, { payload }) {
@@ -124,7 +133,6 @@ const Model: ModelType = {
     initCards(state, { payload }) {
       const { cards } = state as StateType;
       const { cards: resCards } = payload;
-      console.log('resCards: ', resCards);
       return {
         ...(state as StateType),
         cards: cards.map((card: Card) => {
@@ -143,6 +151,14 @@ const Model: ModelType = {
           }
           return card;
         }),
+      };
+    },
+    removeCards(state, { payload }) {
+      const { cards } = state as StateType;
+      const { cards: resCards } = payload;
+      return {
+        ...(state as StateType),
+        //cards: cards.filter(() => );
       };
     },
   },
