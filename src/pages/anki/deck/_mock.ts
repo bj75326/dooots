@@ -168,4 +168,16 @@ export default {
       });
     }, 1000);
   },
+
+  'POST /api/deck/toggleStick': (req: Request, res: Response) => {
+    setTimeout(() => {
+      res.send({
+        status: 'ok',
+        deckId: req.body.deckId,
+        cardId: req.body.cardId,
+        stick: req.body.stick,
+        stickTimestamp: req.body.stickTimestamp,
+      });
+    }, 1000);
+  },
 };

@@ -1,6 +1,6 @@
 import React, { useCallback, useState, useMemo } from 'react';
 import { Card } from '../../model';
-import { Button } from 'antd';
+import { Button, Modal } from 'antd';
 import { Link, connect, ConnectProps, useIntl } from 'umi';
 import { getCardStatusColor } from '../../../utils';
 import classNames from 'classnames';
@@ -15,9 +15,15 @@ import {
   RedoOutlined,
 } from '@ant-design/icons';
 import moment from 'moment';
-import { Modal } from 'antd';
 
 import styles from './index.less';
+
+export interface ToggleCardStickParams {
+  deckId: Card['deckId'];
+  cardId: Card['cardId'];
+  stick: Card['stick'];
+  stickTimestamp: Card['stickTimestamp'];
+}
 
 export interface CardThumbnailProps extends Partial<ConnectProps> {
   card: Card;
@@ -44,7 +50,26 @@ const CardThumbnail: React.FC<CardThumbnailProps> = props => {
 
   const rates = useMemo(() => card.rates, [card]);
 
-  const handleStickClick = useCallback(() => {}, []);
+  const handleStickClick = useCallback(
+    (e: React.MouseEvent) => {
+      e.preventDefault();
+      const stickTimestamp = Date.now();
+      if (dispatch) {
+        dispatch({
+          type: 'deck/stickOrUnstickCard',
+          payload: {
+            deckId: card.deckId,
+            cardId: card.cardId,
+            stick: !card.stick,
+            stickTimestamp,
+
+            formatMessage,
+          },
+        });
+      }
+    },
+    [dispatch, card],
+  );
 
   const handleSelectClick = useCallback(() => {
     onSelect({

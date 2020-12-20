@@ -20,4 +20,6 @@ export default {
     'The currently selected card will not be recovered after deletion! Does it continue?',
   'anki.deck.reset.failed': 'Reset failed',
   'anki.deck.delete.failed': 'Delete failed',
+  'anki.deck.stick.card.failed': 'Card topping failed',
+  'anki.deck.unstick.card.failed': 'Card cancel topping failed',
 };

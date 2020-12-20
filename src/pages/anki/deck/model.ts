@@ -2,8 +2,13 @@ import { Effect, Reducer } from 'umi';
 import { message, notification } from 'antd';
 import { Deck as DeckForDecksPage } from '../decks/model';
 
-import { getDeck, getTags, initCards, removeCards } from './service';
-import anki from '..';
+import {
+  getDeck,
+  getTags,
+  initCards,
+  removeCards,
+  toggleStick,
+} from './service';
 
 export interface Rate {
   deckId: string;
@@ -45,14 +50,38 @@ export interface ModelType {
     fetchTags: Effect;
     resetCards: Effect;
     deleteCards: Effect;
+    stickOrUnstickCard: Effect;
   };
   reducers: {
     changeDeck: Reducer<StateType>;
     changeCards: Reducer<StateType>;
     initCards: Reducer<StateType>;
     removeCards: Reducer<StateType>;
+    sortCards: Reducer<StateType>;
   };
 }
+
+export const sortCards = (cards: Card[]) => {
+  const sticks: Card[] = [];
+  const unsticks: Card[] = [];
+  cards.forEach(card => {
+    if (card.stick) {
+      sticks.push(card);
+    } else {
+      unsticks.push(card);
+    }
+  });
+  return sticks
+    .sort(
+      (cardA, cardB) =>
+        (cardB.stickTimestamp as number) - (cardA.stickTimestamp as number),
+    )
+    .concat(
+      unsticks.sort(
+        (cardA, cardB) => cardB.createTimestamp - cardA.createTimestamp,
+      ),
+    );
+};
 
 const Model: ModelType = {
   namespace: 'deck',
@@ -117,6 +146,23 @@ const Model: ModelType = {
         );
       }
     },
+    *stickOrUnstickCard({ payload }, { call, put }) {
+      const { formatMessage, ...data } = payload;
+      const response = yield call(toggleStick, data);
+      if (response.status === 'ok') {
+        yield put({
+          type: 'sortCards',
+          payload: response,
+        });
+      } else if (response.status === 'error') {
+        message.error(
+          response.message ||
+            (data.stick
+              ? formatMessage({ id: 'anki.deck.stick.card.failed' })
+              : formatMessage({ id: 'anki.deck.unstick.card.failed' })),
+        );
+      }
+    },
   },
   reducers: {
     changeDeck(state, { payload }) {
@@ -168,6 +214,25 @@ const Model: ModelType = {
               (c: { deckId: string; cardId: string }) =>
                 c.deckId === card.deckId && c.cardId === card.cardId,
             ),
+        ),
+      };
+    },
+    sortCards(state, { payload }): StateType {
+      const { cards } = state as StateType;
+      const { deckId, cardId, stick, stickTimestamp } = payload;
+      return {
+        ...(state as StateType),
+        cards: sortCards(
+          cards.map((card: Card) => {
+            if (deckId === card.deckId && cardId === card.cardId) {
+              return {
+                ...card,
+                stick,
+                stickTimestamp,
+              };
+            }
+            return card;
+          }),
         ),
       };
     },
