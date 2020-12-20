@@ -38,6 +38,7 @@ export interface Deck extends DeckForDecksPage {
 export interface StateType {
   deck?: Deck;
   cards: Card[];
+  tags: string[];
   eof: boolean;
 }
 
@@ -88,6 +89,7 @@ const Model: ModelType = {
   state: {
     deck: undefined,
     cards: [],
+    tags: [],
     eof: true,
   },
   effects: {
@@ -117,8 +119,10 @@ const Model: ModelType = {
       });
     },
     *fetchTags({ payload: { formatMessage, ...data } }, { call, put }) {
-      //todo
       const response = yield call(getTags, data);
+      if (response.status === 'ok') {
+      } else if (response.status === 'error') {
+      }
     },
     *resetCards({ payload: { formatMessage, ...data } }, { call, put }) {
       const response = yield call(initCards, data);
@@ -170,12 +174,13 @@ const Model: ModelType = {
         ...state,
         deck: payload.deck,
         cards: payload.cards,
+        tags: payload.tags,
         eof: payload.eof,
       };
     },
     changeCards(state, { payload }) {
       return {
-        ...state,
+        ...(state as StateType),
         cards: payload.cards,
         eof: payload.eof,
       };
