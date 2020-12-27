@@ -22,4 +22,6 @@ export default {
   'anki.deck.delete.failed': 'Delete failed',
   'anki.deck.stick.card.failed': 'Card topping failed',
   'anki.deck.unstick.card.failed': 'Card cancel topping failed',
+  'anki.deck.fetch.tags.failed': 'Fetch tags failed',
+  'anki.deck.fetch.deck.failed': 'Fetch deck failed',
 };

@@ -21,4 +21,6 @@ export default {
   'anki.deck.delete.failed': '卡片删除异常',
   'anki.deck.stick.card.failed': '卡片置顶异常',
   'anki.deck.unstick.card.failed': '卡片取消置顶异常',
+  'anki.deck.fetch.tags.failed': '标签获取异常',
+  'anki.deck.fetch.deck.failed': '卡组获取异常',
 };

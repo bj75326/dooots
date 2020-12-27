@@ -133,7 +133,21 @@ const cards = [
   {},
 ];
 
-//const tags: string[] = ['经济法', '第二章', '第一节', '重要', '第四节', '第三章'];
+const tags: string[] = [
+  '经济法',
+  '第二章',
+  '第一节',
+  '重要',
+  '第四节',
+  '第三章',
+  '占位符1',
+  '占位符2',
+  '占位符3',
+  '占位符4',
+  '占位符5',
+  '占位符6',
+  '占位符7',
+];
 
 export default {
   'GET /api/deck': (req: Request, res: Response) => {
@@ -142,7 +156,7 @@ export default {
         status: 'ok',
         deck,
         cards,
-        tags: [],
+        tags,
         eof: true,
       });
     }, 1000);
@@ -150,7 +164,10 @@ export default {
 
   'GET /api/deck/tags': (req: Request, res: Response) => {
     setTimeout(() => {
-      res.send();
+      res.send({
+        status: 'ok',
+        tags,
+      });
     }, 1000);
   },
 

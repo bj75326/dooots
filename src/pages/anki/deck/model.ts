@@ -59,6 +59,7 @@ export interface ModelType {
     initCards: Reducer<StateType>;
     removeCards: Reducer<StateType>;
     sortCards: Reducer<StateType>;
+    changeTags: Reducer<StateType>;
   };
 }
 
@@ -121,7 +122,15 @@ const Model: ModelType = {
     *fetchTags({ payload: { formatMessage, ...data } }, { call, put }) {
       const response = yield call(getTags, data);
       if (response.status === 'ok') {
+        yield put({
+          type: 'changeTags',
+          payload: response,
+        });
       } else if (response.status === 'error') {
+        message.error(
+          response.message ||
+            formatMessage({ id: 'anki.deck.fetch.tags.failed' }),
+        );
       }
     },
     *resetCards({ payload: { formatMessage, ...data } }, { call, put }) {
@@ -239,6 +248,13 @@ const Model: ModelType = {
             return card;
           }),
         ),
+      };
+    },
+    changeTags(state, { payload }): StateType {
+      const { tags } = payload;
+      return {
+        ...(state as StateType),
+        tags,
       };
     },
   },

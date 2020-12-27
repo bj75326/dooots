@@ -12,7 +12,7 @@ interface FilterProps extends Partial<ConnectProps> {
   search: { current: string };
   tags: string[];
   loadingTags: boolean;
-  deckId: string;
+  deckId?: string;
 }
 
 const Filter: React.FC<FilterProps> = props => {
@@ -23,6 +23,11 @@ const Filter: React.FC<FilterProps> = props => {
   console.log('search in filter: ', search);
 
   const filterCards = useCallback(() => {
+    console.log('开始了哦');
+    console.log('search.current ', search.current);
+    console.log('status ', form.getFieldValue('status'));
+    console.log('rate ', form.getFieldValue('rate'));
+    console.log('tags ', form.getFieldValue('tags'));
     if (dispatch) {
       dispatch({
         type: 'deck/fetchCards',
@@ -34,13 +39,13 @@ const Filter: React.FC<FilterProps> = props => {
         },
       });
     }
-  }, [dispatch, form]);
+  }, [dispatch, form, search]);
 
   const handleReset = useCallback(() => {
     form.resetFields();
     search.current = '';
     filterCards();
-  }, [form, filterCards]);
+  }, [form, filterCards, search]);
 
   const handleSubmit = useCallback(() => {
     filterCards();
@@ -129,8 +134,19 @@ const Filter: React.FC<FilterProps> = props => {
                 mode="tags"
                 notFoundContent={notFoundContent}
                 onDropdownVisibleChange={handleLoadTags}
+                dropdownClassName="dooots-tags-select-dropdown"
               >
-                <Option value="test">test</Option>
+                {loadingTags
+                  ? null
+                  : tags.map((tag: string, key) => (
+                      <Option
+                        value={tag}
+                        key={`${tag}_${key}`}
+                        className="dooots-tags-option"
+                      >
+                        {tag}
+                      </Option>
+                    ))}
               </Select>
             </Form.Item>
           </Col>
@@ -165,7 +181,7 @@ export default connect(
     };
   }) => ({
     tags: deck.tags,
-    deckId: deck.deck!.deckId,
+    deckId: deck.deck ? deck.deck.deckId : undefined,
     loadingTags: loading.effects['deck/fetchTags'],
   }),
 )(Filter);
